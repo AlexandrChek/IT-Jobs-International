@@ -5,6 +5,5 @@ import { baseUrl } from './src/constants'
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [react()],
-  base: '/'
-  //base: baseUrl
+  base: baseUrl
 })

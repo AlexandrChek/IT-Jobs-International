@@ -26,31 +26,29 @@ const Privacy = lazy(() => import('./pages/Privacy'));
 const AppRoutes = () => {
     return (
       <Routes>
-        {/*<Route path={baseUrl} element={<Home />} />
-        <Route path={`${baseUrl}login`} element={<LogIn />} />*/}
-        <Route path="/" element={<Home />} />
-        <Route path="/login" element={<LogIn />} />
-        <Route path="/sign_up" element={<SignUp />} />
-        <Route path="/sign_up/job-seeker" element={<SignUpSeeker />} />
-        <Route path="/sign_up/company" element={<SignUpCompany />} />
-        <Route path="/job_seeker_profile/:seekerid" element={<SeekerProfile />} />
-        <Route path="/job_seeker_profile/:seekerid/chat_list" element={<SeekerChatList />} />
-        <Route path="/job_seeker_profile/:seekerid/chat/:chatid" element={<SeekerChat />} />
-        <Route path="/job_seeker_profile/:seekerid/edit_reg_data" element={<SignUpSeeker />} />
-        <Route path="/public_cv/:seekerid" element={<PublicCv />} />
-        <Route path="/full_cv/:seekerid" element={<FullCv />} />
-        <Route path="/company_profile/:companyid" element={<CompanyProfile />} />
-        <Route path="/company_profile/:companyid/chat_list" element={<CompanyChatList />} />
-        <Route path="/company_profile/:companyid/chat/:chatid" element={<CompanyChat />} />
-        <Route path="/company_profile/:companyid/edit_reg_data" element={<SignUpCompany />} />
-        <Route path="/company_profile/:companyid/save_job" element={<SaveJob />} />
-        <Route path="/company_profile/:companyid/public" element={<CompanyProfilePublic />} />
-        <Route path="/job_preview" element={<JobPreview />} />
-        <Route path="/:companyid/job/:jobid" element={<Job />} />
-        <Route path="/search_res" element={<SearchResults />} />
-        <Route path="/about_us" element={<AboutUs />} />
-        <Route path="/contacts" element={<Contacts />} />
-        <Route path="/privacy" element={<Privacy />} />
+        <Route path={baseUrl} element={<Home />} />
+        <Route path={`${baseUrl}login`} element={<LogIn />} />
+        <Route path={`${baseUrl}sign_up`} element={<SignUp />} />
+        <Route path={`${baseUrl}sign_up/job-seeker`} element={<SignUpSeeker />} />
+        <Route path={`${baseUrl}sign_up/company`} element={<SignUpCompany />} />
+        <Route path={`${baseUrl}job_seeker_profile/:seekerid`} element={<SeekerProfile />} />
+        <Route path={`${baseUrl}job_seeker_profile/:seekerid/chat_list`} element={<SeekerChatList />} />
+        <Route path={`${baseUrl}job_seeker_profile/:seekerid/chat/:chatid`} element={<SeekerChat />} />
+        <Route path={`${baseUrl}job_seeker_profile/:seekerid/edit_reg_data`} element={<SignUpSeeker />} />
+        <Route path={`${baseUrl}public_cv/:seekerid`} element={<PublicCv />} />
+        <Route path={`${baseUrl}full_cv/:seekerid`} element={<FullCv />} />
+        <Route path={`${baseUrl}company_profile/:companyid`} element={<CompanyProfile />} />
+        <Route path={`${baseUrl}company_profile/:companyid/chat_list`} element={<CompanyChatList />} />
+        <Route path={`${baseUrl}company_profile/:companyid/chat/:chatid`} element={<CompanyChat />} />
+        <Route path={`${baseUrl}company_profile/:companyid/edit_reg_data`} element={<SignUpCompany />} />
+        <Route path={`${baseUrl}company_profile/:companyid/save_job`} element={<SaveJob />} />
+        <Route path={`${baseUrl}company_profile/:companyid/public`} element={<CompanyProfilePublic />} />
+        <Route path={`${baseUrl}job_preview`} element={<JobPreview />} />
+        <Route path={`${baseUrl}:companyid/job/:jobid`} element={<Job />} />
+        <Route path={`${baseUrl}search_res`} element={<SearchResults />} />
+        <Route path={`${baseUrl}about_us`} element={<AboutUs />} />
+        <Route path={`${baseUrl}contacts`} element={<Contacts />} />
+        <Route path={`${baseUrl}privacy`} element={<Privacy />} />
       </Routes>
     );
 };
