@@ -1,0 +1,1 @@
+import{u as s,j as l}from"./index-BZicRcdf.js";import{J as p}from"./JobPublicView-4EXV1CEm.js";const m=()=>{const t=s(o=>o.formData),{userId:r,userName:a}=s(o=>o.auth);let e={...t,companyId:r,companyName:a};return typeof e.levels=="string"&&(e.levels=[e.levels]),typeof e.workplaces=="string"&&(e.workplaces=[e.workplaces]),l.jsx(p,{job:e})};export{m as default};
