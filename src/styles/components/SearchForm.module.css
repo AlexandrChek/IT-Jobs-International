@@ -1,0 +1,38 @@
+.searchForm {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+  
+.searchForm input[type="text"], .searchForm input[type="number"] {
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+  
+.searchForm button {
+    padding: 0.5rem 1rem;
+    background-color: #333;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+  
+.searchForm button:hover {
+    background-color: #555;
+}
+  
+.workplace, .salary, .level, .experience {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+}
+  
+.salary input, .experience input {
+    width: 5rem;
+}
+  
+.salary span, .experience select {
+    font-size: 1rem;
+}
