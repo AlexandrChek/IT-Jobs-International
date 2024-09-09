@@ -1,0 +1,1 @@
+import{c as n,f as t}from"./index-D5C2-dZt.js";const c=n("companyChat/fetchCompanyChat",async a=>t(a)),e=n("companyChat/fetchCompanyChats",async a=>t(a)),o=n("companyChat/sendCompanyMessage",async a=>t(a));export{c as a,e as f,o as s};

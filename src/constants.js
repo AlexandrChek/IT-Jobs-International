@@ -1,6 +1,8 @@
 // Common things:
 export const serverUrl = 'url'
 
+export const baseUrl = '/IT-Jobs-International/'
+
 export const savingMessage = 'Changes saved successfully'
 
 // Company profile:

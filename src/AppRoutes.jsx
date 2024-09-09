@@ -1,5 +1,6 @@
 import { Routes, Route } from 'react-router-dom'
 import { lazy } from 'react'
+import { baseUrl } from './constants'
 import Home from './pages/Home';
 const LogIn = lazy(() => import('./pages/LogIn'));
 const SignUp = lazy(() => import('./pages/SignUp'));
@@ -25,6 +26,8 @@ const Privacy = lazy(() => import('./pages/Privacy'));
 const AppRoutes = () => {
     return (
       <Routes>
+        {/*<Route path={baseUrl} element={<Home />} />
+        <Route path={`${baseUrl}login`} element={<LogIn />} />*/}
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<LogIn />} />
         <Route path="/sign_up" element={<SignUp />} />
