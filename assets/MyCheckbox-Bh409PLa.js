@@ -1,0 +1,1 @@
+import{r,j as a}from"./index-7gvRnxOA.js";const n=({initialState:e,...t})=>{const[s,c]=r.useState(e||!1);return a.jsx("input",{type:"checkbox",...t,checked:s,onChange:o=>c(o.target.checked)})};export{n as M};
