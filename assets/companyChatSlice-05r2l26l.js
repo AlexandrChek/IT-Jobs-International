@@ -1,0 +1,1 @@
+import{e as n,f as t}from"./index-BKb1bccC.js";const e=n("companyChat/fetchCompanyChat",async a=>t(a)),c=n("companyChat/fetchCompanyChats",async a=>t(a)),o=n("companyChat/sendCompanyMessage",async a=>t(a));export{e as a,c as f,o as s};
