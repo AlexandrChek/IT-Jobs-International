@@ -48,7 +48,7 @@ const CompanyProfile = () => {
   };
 
   return (
-    <div className={styles.profile}>
+    <div className="routesWrapper">
       <Link to="/" className={styles.button}>
         Find CVs
       </Link>

@@ -5,7 +5,7 @@ const SignUp = () => {
   const logInLink = (<Link to="/login">log in</Link>);
 
   return (
-    <div className={styles.signup}>
+    <div className="routesWrapper">
       <h2>Sign Up</h2>
       <div className={styles.options}>
         <Link to="/sign_up/job-seeker" className={styles.signupButton}>Job Seeker</Link>

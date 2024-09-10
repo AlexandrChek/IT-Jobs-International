@@ -18,7 +18,7 @@ const FullCv = () => {
   }
 
   return (
-    <div className={styles.cv}>
+    <div className="routesWrapper">
       <h2>{fullCv.firstName} {fullCv.lastName}'s Full CV</h2>
       <p>Summary: {fullCv.summary}</p>
       <p>Skills: {fullCv.skills.join(', ')}</p>

@@ -5,6 +5,8 @@ export const baseUrl = '/IT-Jobs-International/'
 
 export const savingMessage = 'Changes saved successfully'
 
+export const userMenu = ['Profile', 'Log Out']
+
 // Company profile:
 export const companyPublicFields = {
     employeesNumberLabel: 'Number of employees:',

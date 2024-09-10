@@ -54,7 +54,7 @@ const SignUpSeeker = () => {
   };
 
   return (
-    <div className={styles.editProfile}>
+    <div className="routesWrapper">
       <h2>Edit Registration Data</h2>
       <form onSubmit={handleSubmit}>
         <input 

@@ -43,7 +43,7 @@ const LogIn = () => {
   const close = () => setIsModalOpen(false);
 
   return (
-    <div className={styles.login}>
+    <div className="routesWrapper">
       <h2>Log In</h2>
       {authError && <h3>{authError}</h3>}
       <form ref={form} onSubmit={handleSubmit}>

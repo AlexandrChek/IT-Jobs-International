@@ -18,7 +18,7 @@ const SeekerProfile = () => {
   }
 
   return (
-    <div className={styles.profile}>
+    <div className="routesWrapper">
       <h2>{seekerProfile.firstName} {seekerProfile.lastName}'s Profile</h2>
       <p>Email: {seekerProfile.email}</p>
       <p>Country: {seekerProfile.country}</p>

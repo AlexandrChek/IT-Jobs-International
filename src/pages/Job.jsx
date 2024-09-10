@@ -73,7 +73,7 @@ const Job = () => {
   };
 
   return (
-    <div className={styles.job}>
+    <div className="routesWrapper">
       {pending && <h3>Loading...</h3>}
       {jobData && (
         <>

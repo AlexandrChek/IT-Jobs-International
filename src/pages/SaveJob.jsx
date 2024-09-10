@@ -64,7 +64,7 @@ const SaveJob = () => {
   };
 
   return (
-    <div className={styles.saveJob}>
+    <div className="routesWrapper">
       <h3>Job Properties</h3>
 
       <form ref={form} onSubmit={handleSubmit}>

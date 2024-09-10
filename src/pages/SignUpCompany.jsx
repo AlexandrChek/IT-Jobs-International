@@ -71,7 +71,7 @@ const SignUpCompany = () => {
   };
 
   return (
-    <>
+    <div className="routesWrapper">
       <h2>Registration data</h2>
       <p>All fields are required</p>
       {pending && <h3>Loading...</h3>}
@@ -103,7 +103,7 @@ const SignUpCompany = () => {
           {isEditing ? 'Save' : 'Sign Up'}
         </button>
       </form>
-    </>
+    </div>
   );
 };
 

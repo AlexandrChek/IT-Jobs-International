@@ -14,7 +14,7 @@ const CompanyChatList = () => {
   }, [dispatch, companyid]);
 
   return (
-    <div className={styles.chatList}>
+    <div className="routesWrapper">
       <h2>Correspondence</h2>
       {chats.length === 0 ? (
         <p>No correspondences yet.</p>

@@ -13,7 +13,7 @@ const JobPreview = () => {
         job.workplaces = [job.workplaces];
     };
 
-    return <JobPublicView job={job} />;
+    return <JobPublicView className="routesWrapper" job={job} />;
 };
 
 export default JobPreview;

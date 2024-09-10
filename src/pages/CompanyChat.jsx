@@ -26,7 +26,7 @@ const CompanyChat = () => {
   }
 
   return (
-    <div className={styles.chat}>
+    <div className="routesWrapper">
       <h2>Conversation with {chat.seekerName}</h2>
       <div className={styles.messages}>
         {chat.messages.map((msg, index) => (

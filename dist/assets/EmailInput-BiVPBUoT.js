@@ -1,1 +1,0 @@
-import{j as e,M as a}from"./index-BZicRcdf.js";const r=({initialEmail:i=""})=>e.jsxs("div",{children:[e.jsx("label",{htmlFor:"email",children:"E-mail"}),e.jsx(a,{type:"email",id:"email",name:"email",required:!0,initialValue:i})]});export{r as E};

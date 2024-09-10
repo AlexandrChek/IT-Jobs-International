@@ -19,7 +19,7 @@ const CompanyProfilePublic = () => {
   }, [dispatch, options]);
 
   return (
-    <div className={styles.profile}>
+    <div className="routesWrapper">
       {pending && <h3>Loading...</h3>}
       {profile && (
         <>

@@ -7,8 +7,8 @@ const Home = () => {
   const [searchType, setSearchType] = useState('job');
 
   return (
-    <div className={styles.home}>
-      <h1>Job search for IT specialists</h1>
+    <div className="routesWrapper">
+      <h2>Job search for IT specialists</h2>
       <div className={styles.animatedText}>
         Convenient way to find a job or employees
       </div>

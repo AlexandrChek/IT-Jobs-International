@@ -16,7 +16,7 @@ const SearchResults = () => {
   }, [searchRes]);
 
   return (
-    <div className={styles.searchResults}>
+    <div className="routesWrapper">
       <h2>Search Results</h2>
       {pending && <h3>Loading...</h3>}
       {notFound && <h3>{searchRes}</h3>}
