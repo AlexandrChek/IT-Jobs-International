@@ -1,28 +1,30 @@
-import {useRef, useEffect} from 'react'
-import classes from '../styles/components/Modal.module.css'
+import { useRef, useEffect } from 'react';
+import classes from '../styles/components/Modal.module.css';
 
-const Modal = ({children, isOpen, close}) => {
-    const dialog = useRef()
-    
-    useEffect(() => {
-        if (isOpen) {
-            dialog.current.showModal()
-        } else {
-            dialog.current.close()
-        }
-    }, [isOpen])
+const Modal = ({ children, isOpen, close }) => {
+  const dialog = useRef();
 
-    const checkWhereClicked = ({target, currentTarget}) => {
-        if (target === currentTarget) { close() }
+  useEffect(() => {
+    if (isOpen) {
+      dialog.current.showModal();
+    } else {
+      dialog.current.close();
     }
+  }, [isOpen]);
 
-    return (
-        <>
-            <dialog ref={dialog} onClick={checkWhereClicked}>
-                <div className={classes.modalWrapper}>{children}</div>
-            </dialog>
-        </>
-    )
-}
+  const checkWhereClicked = ({ target, currentTarget }) => {
+    if (target === currentTarget) {
+      close();
+    }
+  };
 
-export default Modal
+  return (
+    <>
+      <dialog ref={dialog} onClick={checkWhereClicked}>
+        <div className={classes.modalWrapper}>{children}</div>
+      </dialog>
+    </>
+  );
+};
+
+export default Modal;

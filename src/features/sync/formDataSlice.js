@@ -1,13 +1,13 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const formDataSlice = createSlice({
-    name: 'formData',
-    initialState: null,
-    reducers: {
-        saveFormData: (state, action) => {
-            state.formData = action.payload;
-        }
-    }
+  name: 'formData',
+  initialState: null,
+  reducers: {
+    saveFormData: (state, action) => {
+      state.formData = action.payload;
+    },
+  },
 });
 
 export const { saveFormData } = formDataSlice.actions;

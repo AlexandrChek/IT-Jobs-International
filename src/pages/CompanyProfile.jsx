@@ -6,41 +6,36 @@ import MySelect from '../components/MySelect';
 import MyInput from '../components/MyInput';
 import MyTextarea from '../components/MyTextarea';
 import LinksList from '../components/LinksList';
-import { getFetchingOptions } from '../methods';
+import { getFetchingSettings, getSendingSettings } from '../methods';
 import { companyPublicFields, employeesNumbers, savingMessage } from '../constants';
 import styles from '../styles/pages/CompanyProfile.module.css';
 
 const CompanyProfile = () => {
   const { companyid } = useParams();
   const dispatch = useDispatch();
-  const { profile, pending, error } = useSelector(state => state.companyProfile);
+  const { profile, pending, error } = useSelector((state) => state.companyProfile);
   const { employeesNumberLabel, websiteLabel, descriptionLabel } = companyPublicFields;
   const form = useRef();
-  const options = getFetchingOptions('fetchCompanyProfile', companyid);
+  const settings = getFetchingSettings('/api/companyProfile', companyid);
 
   useEffect(() => {
-    dispatch(fetchCompanyProfile(options));
-  }, [dispatch, options]);
+    dispatch(fetchCompanyProfile(settings));
+  }, [dispatch, settings]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     let formData = new FormData(form.current);
-    formData.append('action', 'saveCompanyPublicInfo');
     formData.append('id', companyid);
-    const savingOptions = {
-      method: 'POST',
-      body: formData
-    };
+    const savingSettings = getSendingSettings('/api/saveCompanyPublicInfo', formData);
 
     try {
-      await dispatch(saveCompanyProfile(savingOptions)).unwrap();
+      await dispatch(saveCompanyProfile(savingSettings)).unwrap();
 
       alert(savingMessage);
-
     } catch (error) {
       alert(error.message);
-    };
+    }
   };
 
   const showProfilePreview = () => {
@@ -62,7 +57,7 @@ const CompanyProfile = () => {
       {error && <h3>{error}</h3>}
       <form ref={form} onSubmit={handleSubmit}>
         <div>
-          <label htmlFor="employeesNumber">{ employeesNumberLabel }</label>
+          <label htmlFor="employeesNumber">{employeesNumberLabel}</label>
           <MySelect
             id="employeesNumber"
             name="employeesNumber"
@@ -71,7 +66,7 @@ const CompanyProfile = () => {
           />
         </div>
         <div>
-          <label htmlFor="website">{ websiteLabel }</label>
+          <label htmlFor="website">{websiteLabel}</label>
           <MyInput
             type="url"
             id="website"
@@ -80,16 +75,16 @@ const CompanyProfile = () => {
           />
         </div>
         <div>
-          <label htmlFor="description">{ descriptionLabel }</label>
+          <label htmlFor="description">{descriptionLabel}</label>
           <MyTextarea
             id="description"
             name="description"
             initialValue={profile && profile.description}
           />
         </div>
-          <button type="submit">Save</button>
+        <button type="submit">Save</button>
       </form>
-      {profile.jobs && <LinksList cvsOrJobs={profile.jobs} type="job"/>}
+      {profile.jobs && <LinksList cvsOrJobs={profile.jobs} type="job" />}
       <Link to={`/company_profile/${companyid}/save_job`} className={styles.button}>
         Add job
       </Link>

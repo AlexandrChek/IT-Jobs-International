@@ -3,14 +3,16 @@ import { fetchData } from '../../methods';
 
 export const fetchSearchResults = createAsyncThunk(
   'searchResults/fetchSearchResults',
-  async (options) => {return fetchData(options)}
+  async (settings) => {
+    return fetchData(settings);
+  },
 );
 
 const searchSlice = createSlice({
   name: 'searchResults',
   initialState: {
     searchRes: null,
-    pending: false
+    pending: false,
   },
   extraReducers: (builder) => {
     builder
@@ -24,7 +26,7 @@ const searchSlice = createSlice({
       .addCase(fetchSearchResults.rejected, (state) => {
         state.pending = false;
       });
-  }
+  },
 });
 
 export default searchSlice.reducer;

@@ -7,7 +7,7 @@ import styles from '../styles/pages/CompanyChat.module.css';
 const CompanyChat = () => {
   const { companyid, corresp_id } = useParams();
   const dispatch = useDispatch();
-  const chat = [] //useSelector
+  const chat = []; //useSelector
   const [message, setMessage] = useState('');
 
   useEffect(() => {
@@ -36,10 +36,10 @@ const CompanyChat = () => {
         ))}
       </div>
       <div className={styles.input}>
-        <input 
-          type="text" 
-          value={message} 
-          onChange={(e) => setMessage(e.target.value)} 
+        <input
+          type="text"
+          value={message}
+          onChange={(e) => setMessage(e.target.value)}
           placeholder="Type your message..."
         />
         <button onClick={handleSend}>Send</button>

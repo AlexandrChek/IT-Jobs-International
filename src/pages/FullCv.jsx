@@ -7,7 +7,7 @@ import styles from '../styles/pages/FullCv.module.css';
 const FullCv = () => {
   const { seekerid } = useParams();
   const dispatch = useDispatch();
-  const fullCv = {} //useSelector
+  const fullCv = {}; //useSelector
 
   useEffect(() => {
     dispatch(fetchCv(seekerid));
@@ -19,7 +19,9 @@ const FullCv = () => {
 
   return (
     <div className="routesWrapper">
-      <h2>{fullCv.firstName} {fullCv.lastName}'s Full CV</h2>
+      <h2>
+        {fullCv.firstName} {fullCv.lastName}'s Full CV
+      </h2>
       <p>Summary: {fullCv.summary}</p>
       <p>Skills: {fullCv.skills.join(', ')}</p>
       <p>Experience: {fullCv.experience}</p>

@@ -1,15 +1,12 @@
-import MyInput from "./MyInput"
+import MyInput from './MyInput';
 
-const SalaryInput = ({initialSalary = ''}) => {
-    return (
-        <label>Salary
-          <MyInput
-            type="number"
-            name="salary"
-            initialValue={initialSalary}
-          /> $
-        </label>
-    )
-}
+const SalaryInput = ({ initialSalary = '' }) => {
+  return (
+    <label>
+      Salary
+      <MyInput type="number" name="salary" initialValue={initialSalary} /> $
+    </label>
+  );
+};
 
-export default SalaryInput
+export default SalaryInput;

@@ -6,13 +6,13 @@ import styles from '../styles/pages/SearchRes.module.css';
 
 const SearchResults = () => {
   const { state } = useLocation();
-  const { searchRes, pending } = useSelector(state => state.searchResults);
+  const { searchRes, pending } = useSelector((state) => state.searchResults);
   const [notFound, setNotFound] = useState(false);
 
   useEffect(() => {
-    if (typeof(searchRes) === 'string') {
+    if (typeof searchRes === 'string') {
       setNotFound(true);
-    };
+    }
   }, [searchRes]);
 
   return (
@@ -20,7 +20,7 @@ const SearchResults = () => {
       <h2>Search Results</h2>
       {pending && <h3>Loading...</h3>}
       {notFound && <h3>{searchRes}</h3>}
-      {searchRes && !notFound && <LinksList cvsOrJobs={searchRes} type={state.searchType}/>}
+      {searchRes && !notFound && <LinksList cvsOrJobs={searchRes} type={state.searchType} />}
     </div>
   );
 };

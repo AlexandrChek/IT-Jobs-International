@@ -7,7 +7,7 @@ import styles from '../styles/pages/CompanyChatList.module.css';
 const CompanyChatList = () => {
   const { companyid } = useParams();
   const dispatch = useDispatch();
-  const chats = [] //useSelector
+  const chats = []; //useSelector
 
   useEffect(() => {
     dispatch(fetchCompanyChats(companyid));

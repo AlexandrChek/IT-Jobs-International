@@ -1,20 +1,18 @@
-import Header from './components/Header'
-import Footer from './components/Footer'
-import { Provider } from 'react-redux'
-import store from './store.js'
-import AppRoutes from './AppRoutes.jsx'
-import { BrowserRouter as Router } from 'react-router-dom'
+import Header from './components/Header';
+import Footer from './components/Footer';
+import AppRoutes from './AppRoutes.jsx';
+import { saveWindowHeight } from './methods.js';
 
 function App() {
+  saveWindowHeight();
+
   return (
-    <Provider store={store}>
-      <Router>
-        <Header/>
-        <AppRoutes/>
-        <Footer/>
-      </Router>
-    </Provider>
-  )
+    <>
+      <Header />
+      <AppRoutes />
+      <Footer />
+    </>
+  );
 }
 
-export default App
+export default App;

@@ -1,36 +1,31 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { fetchData } from '../../methods';
 
-export const fetchJob = createAsyncThunk(
-    'job/fetchJob',
-    async (options) => {return fetchData(options)}
-);
+export const fetchJob = createAsyncThunk('job/fetchJob', async (settings) => {
+  return fetchData(settings);
+});
 
-export const saveJobData = createAsyncThunk(
-  'job/saveJobData',
-  async (options) => {return fetchData(options)}
-);
+export const saveJobData = createAsyncThunk('job/saveJobData', async (settings) => {
+  return fetchData(settings);
+});
 
-export const disableJob = createAsyncThunk(
-  'job/disableJob',
-  async (options) => {return fetchData(options)}
-);
+export const disableJob = createAsyncThunk('job/disableJob', async (settings) => {
+  return fetchData(settings);
+});
 
-export const anableJob = createAsyncThunk(
-  'job/anableJob',
-  async (options) => {return fetchData(options)}
-);
+export const anableJob = createAsyncThunk('job/anableJob', async (settings) => {
+  return fetchData(settings);
+});
 
-export const removeJob = createAsyncThunk(
-  'job/removeJob',
-  async (options) => {return fetchData(options)}
-);
+export const removeJob = createAsyncThunk('job/removeJob', async (settings) => {
+  return fetchData(settings);
+});
 
 const jobSlice = createSlice({
   name: 'job',
   initialState: {
     jobData: null,
-    pending: false
+    pending: false,
   },
   extraReducers: (builder) => {
     builder
@@ -49,8 +44,8 @@ const jobSlice = createSlice({
       })
       .addCase(anableJob.fulfilled, (state) => {
         state.jobData.status = 'anabled';
-      })
-  }
+      });
+  },
 });
 
 export default jobSlice.reducer;

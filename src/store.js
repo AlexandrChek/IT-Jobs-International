@@ -7,15 +7,14 @@ import jobReducer from './features/async/jobSlice';
 import searchReducer from './features/async/searchSlice';
 
 const store = configureStore({
-    reducer: {
-        formData: formDataReducer,
-        auth: authReducer,
-        companyprofile: companyprofileReducer,
-        companyRegData: companyRegDataReducer,
-        job: jobReducer,
-        search: searchReducer,
-        
-    }
+  reducer: {
+    formData: formDataReducer,
+    auth: authReducer,
+    companyprofile: companyprofileReducer,
+    companyRegData: companyRegDataReducer,
+    job: jobReducer,
+    search: searchReducer,
+  },
 });
 
 export default store;

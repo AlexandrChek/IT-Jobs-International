@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import SearchForm from '../components/SearchForm';
+import MyRadio from '../components/MyRadio';
 import { searchTypes } from '../constants';
 import styles from '../styles/pages/Home.module.css';
 
@@ -9,14 +10,11 @@ const Home = () => {
   return (
     <div className="routesWrapper">
       <h2>Job search for IT specialists</h2>
-      <div className={styles.animatedText}>
-        Convenient way to find a job or employees
-      </div>
+      <div className={styles.animatedText}>Convenient way to find a job or employees</div>
       <div className={styles.searchType}>
-        {searchTypes.map(item => (
+        {searchTypes.map((item) => (
           <label key={item.type}>
-            <input
-              type="radio"
+            <MyRadio
               name="searchType"
               value={item.type}
               checked={searchType === item.type}

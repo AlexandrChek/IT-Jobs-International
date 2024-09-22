@@ -7,7 +7,7 @@ import styles from '../styles/pages/PublicCv.module.css';
 const PublicCv = () => {
   const { seekerid } = useParams();
   const dispatch = useDispatch();
-  const publicCv = {} //useSelector
+  const publicCv = {}; //useSelector
 
   useEffect(() => {
     dispatch(fetchCv(seekerid));
@@ -19,7 +19,9 @@ const PublicCv = () => {
 
   return (
     <div className="routesWrapper">
-      <h2>{publicCv.firstName} {publicCv.lastName}'s Public CV</h2>
+      <h2>
+        {publicCv.firstName} {publicCv.lastName}'s Public CV
+      </h2>
       <p>Summary: {publicCv.summary}</p>
       <p>Skills: {publicCv.skills.join(', ')}</p>
       <p>Experience: {publicCv.experience}</p>

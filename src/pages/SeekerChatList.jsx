@@ -7,7 +7,7 @@ import styles from '../styles/pages/SeekerChatList.module.css';
 const SeekerChatList = () => {
   const { seekerid } = useParams();
   const dispatch = useDispatch();
-  const chats = []  //useSelector
+  const chats = []; //useSelector
 
   useEffect(() => {
     dispatch(fetchSeekerChats(seekerid));

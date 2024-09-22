@@ -4,12 +4,16 @@ import BasicInitialState from './BasicInitialState';
 
 export const fetchCompanyProfile = createAsyncThunk(
   'companyProfile/fetchCompanyProfile',
-  async (options) => {return fetchData(options)}
+  async (settings) => {
+    return fetchData(settings);
+  },
 );
 
 export const saveCompanyProfile = createAsyncThunk(
   'companyProfile/saveCompanyProfile',
-  async (options) => {return fetchData(options)}
+  async (settings) => {
+    return fetchData(settings);
+  },
 );
 
 const initialState = new BasicInitialState('profile');
@@ -29,8 +33,8 @@ const companyProfileSlice = createSlice({
       .addCase(fetchCompanyProfile.rejected, (state, action) => {
         state.pending = false;
         state.error = action.error.message;
-      })
-  }
+      });
+  },
 });
 
 export default companyProfileSlice.reducer;

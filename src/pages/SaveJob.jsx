@@ -1,10 +1,9 @@
-
 import { useRef } from 'react';
 import { useDispatch } from 'react-redux';
 import { useParams, useNavigate, useLocation } from 'react-router-dom';
 import { saveJobData } from '../features/async/jobSlice';
 import { saveFormData } from '../features/sync/formDataSlice';
-import { convertFormDataToObj } from '../methods';
+import { convertFormDataToObj, getSendingSettings } from '../methods';
 import PositionInput from '../components/PositionInput';
 import LevelsField from '../components/LevelsField';
 import SalaryInput from '../components/SalaryInput';
@@ -35,32 +34,27 @@ const SaveJob = () => {
     e.preventDefault();
 
     let formData = new FormData(form.current);
-    let action = 'createJob';
+    let url = '/api/';
 
     if (state) {
-      action = 'editJob';
+      url += 'editJob';
       formData.append('id', state.id);
     } else {
-      action = 'createJob';
-    };
+      url += 'createJob';
+    }
 
-    formData.append('action', action);
     formData.append('companyId', companyid);
     formData.append('status', 'active');
 
-    const options = {
-      method: 'POST',
-      body: formData
-    };
+    const settings = getSendingSettings(url, formData);
 
     try {
-      await dispatch(saveJobData(options)).unwrap();
+      await dispatch(saveJobData(settings)).unwrap();
       alert(savingMessage);
       navigate(`/company_profile/${companyid}`);
     } catch (error) {
       alert(error.message);
-    };
-
+    }
   };
 
   return (
@@ -79,7 +73,8 @@ const SaveJob = () => {
         <MyCheckbox
           name="isRelocationPossible"
           initialState={state && state.isRelocationPossible}
-        /> {relocationFrom}
+        />{' '}
+        {relocationFrom}
         <ExperienceFromField
           initialExperience={state && state.experienceFrom}
           initialUnit={state && state.experienceUnit}
@@ -87,20 +82,19 @@ const SaveJob = () => {
         <MyCheckbox
           name="isExperienceRequired"
           initialState={state && state.isExperienceRequired}
-        /> {experienceIsNotRequired}
+        />{' '}
+        {experienceIsNotRequired}
         <EnglishLevelSelect initialLevel={state && state.englishLevel} />
-        {jobTextareas.map(area => (
+        {jobTextareas.map((area) => (
           <div key={area.name}>
             <label htmlFor={area.name}>{area.label}</label>
-            <MyTextarea
-              id={area.name}
-              name={area.name}
-              initialValue={state && state[area.name]}
-            />
+            <MyTextarea id={area.name} name={area.name} initialValue={state && state[area.name]} />
           </div>
         ))}
         <div>
-          <button type="button" onClick={showPreview}>Preview</button>
+          <button type="button" onClick={showPreview}>
+            Preview
+          </button>
           <button type="submit">Save Job</button>
         </div>
       </form>

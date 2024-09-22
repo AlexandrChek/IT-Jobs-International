@@ -57,53 +57,53 @@ const SignUpSeeker = () => {
     <div className="routesWrapper">
       <h2>Edit Registration Data</h2>
       <form onSubmit={handleSubmit}>
-        <input 
-          type="text" 
-          name="firstName" 
-          value={formData.firstName} 
-          onChange={handleChange} 
-          placeholder="First Name" 
-          required 
+        <input
+          type="text"
+          name="firstName"
+          value={formData.firstName}
+          onChange={handleChange}
+          placeholder="First Name"
+          required
         />
-        <input 
-          type="text" 
-          name="lastName" 
-          value={formData.lastName} 
-          onChange={handleChange} 
-          placeholder="Last Name" 
-          required 
+        <input
+          type="text"
+          name="lastName"
+          value={formData.lastName}
+          onChange={handleChange}
+          placeholder="Last Name"
+          required
         />
-        <input 
-          type="email" 
-          name="email" 
-          value={formData.email} 
-          onChange={handleChange} 
-          placeholder="Email" 
-          required 
+        <input
+          type="email"
+          name="email"
+          value={formData.email}
+          onChange={handleChange}
+          placeholder="Email"
+          required
         />
-        <input 
-          type="text" 
-          name="country" 
-          value={formData.country} 
-          onChange={handleChange} 
-          placeholder="Country" 
-          required 
+        <input
+          type="text"
+          name="country"
+          value={formData.country}
+          onChange={handleChange}
+          placeholder="Country"
+          required
         />
-        <input 
-          type="text" 
-          name="city" 
-          value={formData.city} 
-          onChange={handleChange} 
-          placeholder="City" 
-          required 
+        <input
+          type="text"
+          name="city"
+          value={formData.city}
+          onChange={handleChange}
+          placeholder="City"
+          required
         />
-        <input 
-          type="text" 
-          name="skills" 
-          value={formData.skills} 
-          onChange={handleChange} 
-          placeholder="Skills (comma separated)" 
-          required 
+        <input
+          type="text"
+          name="skills"
+          value={formData.skills}
+          onChange={handleChange}
+          placeholder="Skills (comma separated)"
+          required
         />
         <button type="submit">Save Changes</button>
       </form>

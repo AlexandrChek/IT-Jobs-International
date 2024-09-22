@@ -2,33 +2,31 @@ import { useState, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, Link } from 'react-router-dom';
 import { logIn } from '../features/async/authSlice';
-import { userTypes} from '../constants';
+import { userTypes } from '../constants';
+import { getSendingSettings } from '../methods';
 import EmailInput from '../components/EmailInput';
 import MyInput from '../components/MyInput';
+import MyRadio from '../components/MyRadio';
 import Modal from '../components/Modal';
 import styles from '../styles/pages/LogIn.module.css';
 
 const LogIn = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { authFailureMessage } = useSelector(state => state.auth);
+  const { authFailureMessage } = useSelector((state) => state.auth);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [authError, setAuthError] = useState(null);
   const form = useRef();
-  const regLink = (<Link to="/sign_up">register</Link>);
+  const regLink = <Link to="/sign_up">register</Link>;
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
-    let formData = new FormData(form.current);
-    formData.append('action', 'logIn');
-    const options = {
-      method: 'POST',
-      body: formData
-    };
+
+    const formData = new FormData(form.current);
+    const settings = getSendingSettings('/api/login', formData);
 
     try {
-      await dispatch(logIn(options)).unwrap();
+      await dispatch(logIn(settings)).unwrap();
 
       if (authFailureMessage) {
         setIsModalOpen(true);
@@ -49,14 +47,9 @@ const LogIn = () => {
       <form ref={form} onSubmit={handleSubmit}>
         <fieldset>
           <legend>Who are uoy?</legend>
-          {userTypes.map(item => (
+          {userTypes.map((item) => (
             <label key={item}>
-              <input
-                type="radio"
-                name="userType"
-                value={item}
-                required
-              /> {item}
+              <MyRadio name="userType" value={item} required /> {item}
             </label>
           ))}
         </fieldset>
@@ -65,18 +58,13 @@ const LogIn = () => {
 
         <div>
           <label htmlFor="password">Password</label>
-          <MyInput
-            type="password"
-            id="password"
-            name="password"
-            required
-          />
+          <MyInput type="password" id="password" name="password" required />
         </div>
 
         <button type="submit">Log In</button>
       </form>
       <p>If you don't have an account yet, please {regLink}.</p>
-      
+
       <Modal isOpen={isModalOpen} close={close}>
         <p>{authFailureMessage}</p>
         <button onClick={close}>Ok</button>

@@ -7,7 +7,7 @@ import styles from '../styles/pages/SeekerProfile.module.css';
 const SeekerProfile = () => {
   const { seekerid } = useParams();
   const dispatch = useDispatch();
-  const seekerProfile = {} //useSelector
+  const seekerProfile = {}; //useSelector
 
   useEffect(() => {
     dispatch(fetchSeekerProfile(seekerid));
@@ -19,15 +19,25 @@ const SeekerProfile = () => {
 
   return (
     <div className="routesWrapper">
-      <h2>{seekerProfile.firstName} {seekerProfile.lastName}'s Profile</h2>
+      <h2>
+        {seekerProfile.firstName} {seekerProfile.lastName}'s Profile
+      </h2>
       <p>Email: {seekerProfile.email}</p>
       <p>Country: {seekerProfile.country}</p>
       <p>City: {seekerProfile.city}</p>
       <p>Skills: {seekerProfile.skills.join(', ')}</p>
-      <Link to={`/job_seeker_profile/${seekerid}/edit_reg_data`} className={styles.button}>Edit Profile</Link>
-      <Link to={`/job_seeker_profile/${seekerid}/chat_list`} className={styles.button}>Correspondence</Link>
-      <Link to={`/public_cv/${seekerid}`} className={styles.button}>Public CV</Link>
-      <Link to={`/full_cv/${seekerid}`} className={styles.button}>Full CV</Link>
+      <Link to={`/job_seeker_profile/${seekerid}/edit_reg_data`} className={styles.button}>
+        Edit Profile
+      </Link>
+      <Link to={`/job_seeker_profile/${seekerid}/chat_list`} className={styles.button}>
+        Correspondence
+      </Link>
+      <Link to={`/public_cv/${seekerid}`} className={styles.button}>
+        Public CV
+      </Link>
+      <Link to={`/full_cv/${seekerid}`} className={styles.button}>
+        Full CV
+      </Link>
     </div>
   );
 };

@@ -1,1 +1,0 @@
-import{e as s,f as t}from"./index-BKb1bccC.js";const r=s("seekerChat/fetchSeekerChat",async e=>t(e)),c=s("seekerChat/fetchSeekerChats",async e=>t(e)),h=s("seekerChat/sendMessage",async e=>t(e));export{r as a,c as f,h as s};
