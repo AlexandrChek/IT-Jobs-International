@@ -5,8 +5,6 @@ export const baseUrl = '/IT-Jobs-International/';
 
 export const savingMessage = 'Changes saved successfully';
 
-export const userMenu = ['Profile', 'Log Out'];
-
 // Company profile:
 export const companyPublicFields = {
   employeesNumberLabel: 'Number of employees:',
@@ -31,7 +29,6 @@ export const employeesNumbers = [
 ];
 
 // Job/CV options:
-export const levels = ['trainee', 'junior', 'middle', 'senior'];
 export const workplaces = ['office', 'remote', 'mixed'];
 export const experienceUnits = ['years', 'months'];
 

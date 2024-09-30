@@ -6,15 +6,15 @@ const WorkplacesField = ({ initialWorkplaces = [] }) => {
     <fieldset>
       <legend>Workplace</legend>
       {workplaces.map((place) => (
-        <>
+        <label>
           <MyCheckbox
             key={place}
             name="workplaces"
             value={place}
             initialState={initialWorkplaces.includes(place)}
-          />{' '}
+          />
           {place}
-        </>
+        </label>
       ))}
     </fieldset>
   );

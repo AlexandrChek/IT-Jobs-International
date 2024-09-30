@@ -2,6 +2,7 @@ import { useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchCompanyProfile, saveCompanyProfile } from '../features/async/companyProfileSlice';
 import { useParams, Link } from 'react-router-dom';
+import Loading from '../components/Loading';
 import MySelect from '../components/MySelect';
 import MyInput from '../components/MyInput';
 import MyTextarea from '../components/MyTextarea';
@@ -16,11 +17,11 @@ const CompanyProfile = () => {
   const { profile, pending, error } = useSelector((state) => state.companyProfile);
   const { employeesNumberLabel, websiteLabel, descriptionLabel } = companyPublicFields;
   const form = useRef();
-  const settings = getFetchingSettings('/api/companyProfile', companyid);
 
   useEffect(() => {
+    const settings = getFetchingSettings('/api/companyProfile', companyid);
     dispatch(fetchCompanyProfile(settings));
-  }, [dispatch, settings]);
+  }, [dispatch, companyid]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -53,7 +54,7 @@ const CompanyProfile = () => {
       <Link to={`/company_profile/${companyid}/edit_reg_data`} className={styles.button}>
         Edit registration data
       </Link>
-      {pending && <h3>Loading...</h3>}
+      {pending && <Loading />}
       {error && <h3>{error}</h3>}
       <form ref={form} onSubmit={handleSubmit}>
         <div>

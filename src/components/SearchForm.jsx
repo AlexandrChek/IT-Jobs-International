@@ -3,8 +3,16 @@ import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { fetchSearchResults } from '../features/async/searchSlice';
 import { getSendingSettings } from '../methods';
+import MyCheckbox from './MyCheckbox';
 import PositionInput from './PositionInput';
 import CountryCityInputs from './CountryCityInputs';
+import SalaryInput from './SalaryInput';
+import WorkplacesField from './WorkplacesField';
+import RelocationPossibilityCheckbox from './RelocationPossibilityCheckbox';
+import ExperienceIsNotRequiredCheckbox from './ExperienceIsNotRequiredCheckbox';
+import ExperienceFromField from './ExperienceFromField';
+import SkillsTextarea from './SkillsTextarea';
+import EnglishLevelSelect from './EnglishLevelSelect';
 import styles from '../styles/components/SearchForm.module.css';
 
 const SearchForm = ({ searchType }) => {
@@ -32,106 +40,32 @@ const SearchForm = ({ searchType }) => {
     <form ref={searchForm} className={styles.searchForm} onSubmit={search}>
       <PositionInput />
       <CountryCityInputs />
-      {!advancedSearch && <button type="submit">Search</button>}
-      <button type="button" onClick={() => setAdvancedSearch(!advancedSearch)}>
-        {advancedSearch ? 'Normal search' : 'Advanced search'}
-      </button>
-      {advancedSearch &&
-        (searchType === 'job' ? (
-          <>
-            <label>
-              <input type="checkbox" />
-              Search for any of the words in the “position”
-            </label>
-            <label>
-              <input type="checkbox" />
-              Relocation from another country is possible
-            </label>
-            <div className={styles.workplace}>
-              <p>Workplace</p>
-              <label>
-                <input type="checkbox" />
-                office
-              </label>
-              <label>
-                <input type="checkbox" />
-                remote
-              </label>
-              <label>
-                <input type="checkbox" />
-                mixed
-              </label>
-            </div>
-            <div className={styles.salary}>
-              <p>Salary: from</p>
-              <input type="number" />
-              <span>$</span>
-            </div>
-            <div className={styles.level}>
-              <p>Level</p>
-              <label>
-                <input type="checkbox" />
-                trainee
-              </label>
-              <label>
-                <input type="checkbox" />
-                junior
-              </label>
-              <label>
-                <input type="checkbox" />
-                middle
-              </label>
-              <label>
-                <input type="checkbox" />
-                senior
-              </label>
-            </div>
-            <label>
-              <input type="checkbox" />
-              Suitable for candidates without work experience
-            </label>
-            <button type="submit">Search</button>
-          </>
-        ) : (
-          <>
-            <label>
-              <input type="checkbox" />
-              Search for any of the words in the “position”
-            </label>
-            <label>
-              <input type="checkbox" />
-              Consider relocation to another country
-            </label>
-            <div className={styles.workplace}>
-              <p>Workplace</p>
-              <label>
-                <input type="checkbox" />
-                office
-              </label>
-              <label>
-                <input type="checkbox" />
-                remote
-              </label>
-              <label>
-                <input type="checkbox" />
-                mixed
-              </label>
-            </div>
-            <label>
-              Skills
-              <input type="text" placeholder="Enter skills separated by commas" />
-            </label>
-            <div className={styles.experience}>
-              <p>Work experience: from</p>
-              <input type="number" />
-              <select>
-                <option value="years">years</option>
-                <option value="months">months</option>
-              </select>
-            </div>
-            <button type="submit">Search</button>
-          </>
-        ))}
+      {advancedSearch && (
+        <>
+          <label>
+            <MyCheckbox name="searchOfAnyWord" />
+            Search for any of the words in the “position”
+          </label>
+          <SalaryInput />
+          <WorkplacesField />
+          <RelocationPossibilityCheckbox docType={searchType} />
+          {searchType === 'job' ? (
+            <ExperienceIsNotRequiredCheckbox />
+          ) : (
+            <>
+              <ExperienceFromField />
+              <SkillsTextarea />
+              <EnglishLevelSelect />
+            </>
+          )}
+        </>
+      )}
+      <div>
+        <button type="submit">Search</button>
+        <button type="button" onClick={() => setAdvancedSearch(!advancedSearch)}>
+          {advancedSearch ? 'Normal search' : 'Advanced search'}
+        </button>
+      </div>
     </form>
   );
 };

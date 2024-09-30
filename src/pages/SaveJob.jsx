@@ -5,15 +5,15 @@ import { saveJobData } from '../features/async/jobSlice';
 import { saveFormData } from '../features/sync/formDataSlice';
 import { convertFormDataToObj, getSendingSettings } from '../methods';
 import PositionInput from '../components/PositionInput';
-import LevelsField from '../components/LevelsField';
 import SalaryInput from '../components/SalaryInput';
 import CountryCityInputs from '../components/CountryCityInputs';
 import WorkplacesField from '../components/WorkplacesField';
+import RelocationPossibilityCheckbox from '../components/RelocationPossibilityCheckbox';
 import ExperienceFromField from '../components/ExperienceFromField';
+import ExperienceIsNotRequiredCheckbox from '../components/ExperienceIsNotRequiredCheckbox';
 import EnglishLevelSelect from '../components/EnglishLevelSelect';
-import MyCheckbox from '../components/MyCheckbox';
 import MyTextarea from '../components/MyTextarea';
-import { relocationFrom, experienceIsNotRequired, jobTextareas, savingMessage } from '../constants';
+import { jobTextareas, savingMessage } from '../constants';
 import styles from '../styles/pages/SaveJob.module.css';
 
 const SaveJob = () => {
@@ -63,27 +63,21 @@ const SaveJob = () => {
 
       <form ref={form} onSubmit={handleSubmit}>
         <PositionInput initialPosition={state && state.position} isRequired={true} />
-        <LevelsField initialLevels={state && state.levels} />
         <SalaryInput initialSalary={state && state.salary} />
         <CountryCityInputs
           initialCountry={state && state.country}
           initialCity={state && state.city}
         />
         <WorkplacesField initialWorkplaces={state && state.workplaces} />
-        <MyCheckbox
-          name="isRelocationPossible"
+        <RelocationPossibilityCheckbox
+          docType="job"
           initialState={state && state.isRelocationPossible}
-        />{' '}
-        {relocationFrom}
+        />
         <ExperienceFromField
           initialExperience={state && state.experienceFrom}
           initialUnit={state && state.experienceUnit}
         />
-        <MyCheckbox
-          name="isExperienceRequired"
-          initialState={state && state.isExperienceRequired}
-        />{' '}
-        {experienceIsNotRequired}
+        <ExperienceIsNotRequiredCheckbox initialState={state && state.experienceIsNotRequired} />
         <EnglishLevelSelect initialLevel={state && state.englishLevel} />
         {jobTextareas.map((area) => (
           <div key={area.name}>

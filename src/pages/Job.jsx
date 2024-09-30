@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { fetchJob, disableJob, anableJob, removeJob } from '../features/async/jobSlice';
 import { useParams, useNavigate } from 'react-router-dom';
 import { getFetchingSettings } from '../methods';
+import Loading from '../components/Loading';
 import JobPublicView from '../components/JobPublicView';
 import Modal from '../components/Modal';
 import styles from '../styles/pages/Job.module.css';
@@ -16,9 +17,10 @@ const Job = () => {
   const { jobData, pending } = useSelector((state) => state.job);
   const userId = useSelector((state) => state.auth.userId);
   const [fetchError, setFetchError] = useState(null);
-  const settings = getFetchingSettings('/api/job', companyid, jobid);
 
   useEffect(() => {
+    const settings = getFetchingSettings('/api/job', companyid, jobid);
+
     const fetchJobData = async () => {
       try {
         const result = await dispatch(fetchJob(settings)).unwrap();
@@ -32,7 +34,7 @@ const Job = () => {
     };
 
     fetchJobData();
-  }, [dispatch, settings]);
+  }, [dispatch, companyid, jobid]);
 
   const toggleJobStatus = async () => {
     if (!isDisabled) {
@@ -71,7 +73,8 @@ const Job = () => {
 
   return (
     <div className="routesWrapper">
-      {pending && <h3>Loading...</h3>}
+      {pending && <Loading />}
+      {fetchError && <h3>{fetchError}</h3>}
       {jobData && (
         <>
           {isDisabled && <h3>Disabled</h3>}
@@ -96,7 +99,6 @@ const Job = () => {
           )}
         </>
       )}
-      {fetchError && <h3>{fetchError}</h3>}
     </div>
   );
 };

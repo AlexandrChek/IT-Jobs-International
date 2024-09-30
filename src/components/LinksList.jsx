@@ -1,4 +1,4 @@
-import { useMatch } from 'react-router-dom';
+import { Link, useMatch } from 'react-router-dom';
 
 const LinksList = ({ cvsOrJobs, type }) => {
   const matchCompanyProfile = useMatch('/company_profile/:companyid');

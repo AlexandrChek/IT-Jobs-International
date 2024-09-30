@@ -44,13 +44,13 @@ export const fetchData = async ({ url, options }) => {
 };
 
 // Fn to get settings for common fetching data from server:
-export const getFetchingSettings = (url, userId, jobId = null) => {
+export const getFetchingSettings = (url, userId, jobId = null, userName = null) => {
   const settings = {
     url,
     options: {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ userId, jobId }),
+      body: JSON.stringify({ userId, jobId, userName }),
     },
   };
 

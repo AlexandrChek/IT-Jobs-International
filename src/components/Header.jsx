@@ -1,18 +1,31 @@
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
-import { logOut } from '../features/async/authSlice';
+import { useSelector } from 'react-redux';
 import logo from '../assets/logo.svg';
+import UserMenu from './UserMenu';
 import styles from '../styles/components/Header.module.css';
 
 const Header = () => {
-  const dispatch = useDispatch();
-  const { userName, userId, userType } = useSelector((state) => state.auth);
-  const [showLogOut, setShowLogOut] = useState(false);
+  const userName = useSelector((state) => state.auth.userName);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const userMenuRef = useRef();
 
-  const handleLogOut = () => {
-    dispatch(logOut());
+  const handleClickOutside = (e) => {
+    if (userMenuRef.current && !userMenuRef.current.contains(e.target)) {
+      setIsMenuOpen(false);
+    }
   };
+
+  const openUserMenu = () => {
+    setIsMenuOpen(true);
+    document.addEventListener('click', handleClickOutside);
+  };
+
+  useEffect(() => {
+    if (!isMenuOpen) {
+      document.removeEventListener('click', handleClickOutside);
+    }
+  }, [isMenuOpen]);
 
   return (
     <header className={styles.header}>
@@ -22,22 +35,18 @@ const Header = () => {
       </div>
       <nav className={styles.nav}>
         {userName ? (
-          <div className={styles.userBlock}>
-            <span className={styles.userName} onClick={() => setShowLogOut(!showLogOut)}>
+          <>
+            <span className={styles.userName} onClick={openUserMenu}>
               {userName}
             </span>
-            {showLogOut && (
-              <button className={styles.logOutButton} onClick={handleLogOut}>
-                Log Out
-              </button>
-            )}
-          </div>
+            {isMenuOpen && <UserMenu ref={userMenuRef} />}
+          </>
         ) : (
           <div>
-            <Link to="/login" className={styles.navButton}>
+            <Link to="/login" className="button" style={{ marginRight: '0.5rem' }}>
               Log In
             </Link>
-            <Link to="/sign_up" className={styles.navButton}>
+            <Link to="/sign_up" className="button">
               Sign Up
             </Link>
           </div>

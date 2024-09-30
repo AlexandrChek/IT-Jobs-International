@@ -4,6 +4,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { fetchCompanyRegData, saveCompanyRegData } from '../features/async/companyRegDataSlice';
 import { logIn } from '../features/async/authSlice';
 import { getFetchingSettings, getSendingSettings } from '../methods';
+import Loading from '../components/Loading';
 import MyInput from '../components/MyInput';
 import CountryCityInputs from '../components/CountryCityInputs';
 import PhoneInput from '../components/PhoneInput';
@@ -73,7 +74,7 @@ const SignUpCompany = () => {
     <div className="routesWrapper">
       <h2>Registration data</h2>
       <p>All fields are required</p>
-      {pending && <h3>Loading...</h3>}
+      {pending && <Loading />}
       {error && <h3>{error}</h3>}
       <form ref={form} onSubmit={handleSubmit}>
         <div>

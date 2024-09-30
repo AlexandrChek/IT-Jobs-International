@@ -13,13 +13,6 @@ const JobPublicView = ({ job }) => {
   return (
     <>
       <h2>
-        {job.levels &&
-          job.levels.map((level, index, levels) => (
-            <>
-              {level}
-              {levels.length > 1 && index < levels.length - 1 && '/'}
-            </>
-          ))}
         {job.position}
         {job.salary && job.salary}
       </h2>
@@ -45,7 +38,7 @@ const JobPublicView = ({ job }) => {
           {experienceFromLabel} {job.experienceFrom} {job.experienceUnit}
         </h5>
       )}
-      {job.isExperienceRequired && <p>{experienceIsNotRequired}</p>}
+      {job.experienceIsNotRequired && <p>{experienceIsNotRequired}</p>}
       {job.englishLevel && (
         <h5>
           {englishLabel} {job.englishLevel}

@@ -4,6 +4,7 @@ import { fetchCompanyProfile } from '../features/async/companyProfileSlice';
 import { useParams } from 'react-router-dom';
 import { companyPublicFields } from '../constants';
 import { getFetchingSettings } from '../methods';
+import Loading from '../components/Loading';
 import LinksList from '../components/LinksList';
 import styles from '../styles/pages/CompanyProfilePublic.module.css';
 
@@ -12,15 +13,16 @@ const CompanyProfilePublic = () => {
   const dispatch = useDispatch();
   const { profile, pending, error } = useSelector((state) => state.companyProfile);
   const { employeesNumberLabel, websiteLabel, descriptionLabel } = companyPublicFields;
-  const settings = getFetchingSettings('/api/companyProfile', companyid);
 
   useEffect(() => {
+    const settings = getFetchingSettings('/api/companyProfile', companyid);
     dispatch(fetchCompanyProfile(settings));
-  }, [dispatch, settings]);
+  }, [dispatch, companyid]);
 
   return (
     <div className="routesWrapper">
-      {pending && <h3>Loading...</h3>}
+      {pending && <Loading />}
+      {error && <h3>{error}</h3>}
       {profile && (
         <>
           <h2>{profile.companyName}</h2>
@@ -52,7 +54,6 @@ const CompanyProfilePublic = () => {
           )}
         </>
       )}
-      {error && <h3>{error}</h3>}
     </div>
   );
 };
