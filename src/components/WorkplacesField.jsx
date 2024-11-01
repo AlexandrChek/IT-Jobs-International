@@ -5,7 +5,7 @@ const WorkplacesField = ({ initialWorkplaces = [] }) => {
   return (
     <fieldset>
       <legend>Workplace</legend>
-      {workplaces.map((place) => (
+      {workplaces.map(place => (
         <label>
           <MyCheckbox
             key={place}

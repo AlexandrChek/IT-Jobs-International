@@ -1,19 +1,16 @@
 import { useSelector } from 'react-redux';
-import JobPublicView from '../components/JobPublicView';
+import JobPublicTemplate from '../components/JobPublicTemplate';
 
 const JobPreview = () => {
-  const jobData = useSelector((state) => state.formData);
-  const { userId, userName } = useSelector((state) => state.auth);
-  let job = { ...jobData, companyId: userId, companyName: userName };
+  const jobData = useSelector(state => state.formData);
+  const { userId, userName } = useSelector(state => state.auth);
+  const job = { ...jobData, companyId: userId, companyName: userName };
 
-  if (typeof job.levels === 'string') {
-    job.levels = [job.levels];
-  }
-  if (typeof job.workplaces === 'string') {
-    job.workplaces = [job.workplaces];
-  }
-
-  return <JobPublicView className="routesWrapper" job={job} />;
+  return (
+    <div className="routesWrapper">
+      <JobPublicTemplate job={job} />
+    </div>
+  );
 };
 
 export default JobPreview;

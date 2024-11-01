@@ -5,7 +5,7 @@ const LinksList = ({ cvsOrJobs, type }) => {
 
   return (
     <div>
-      {cvsOrJobs.map((item) => (
+      {cvsOrJobs.map(item => (
         <div key={item.id}>
           <Link to={type === 'cv' ? `/public_cv/${item.id}` : `/${item.countryId}/job/${item.id}`}>
             <h3>

@@ -2,28 +2,27 @@ import { useState, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, Link } from 'react-router-dom';
 import { logIn } from '../features/async/authSlice';
-import { userTypes } from '../constants';
-import { getSendingSettings } from '../methods';
+import { getRequestSettings } from '../methods';
+import UserTypeToggler from '../components/UserTypeToggler';
 import EmailInput from '../components/EmailInput';
 import MyInput from '../components/MyInput';
-import MyRadio from '../components/MyRadio';
 import Modal from '../components/Modal';
 import styles from '../styles/pages/LogIn.module.css';
 
 const LogIn = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { authFailureMessage } = useSelector((state) => state.auth);
+  const { authFailureMessage } = useSelector(state => state.auth);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [authError, setAuthError] = useState(null);
   const form = useRef();
   const regLink = <Link to="/sign_up">register</Link>;
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async e => {
     e.preventDefault();
 
     const formData = new FormData(form.current);
-    const settings = getSendingSettings('/api/login', formData);
+    const settings = getRequestSettings('/api/login', formData);
 
     try {
       await dispatch(logIn(settings)).unwrap();
@@ -45,22 +44,12 @@ const LogIn = () => {
       <h2>Log In</h2>
       {authError && <h3>{authError}</h3>}
       <form ref={form} onSubmit={handleSubmit}>
-        <fieldset>
-          <legend>Who are uoy?</legend>
-          {userTypes.map((item) => (
-            <label key={item}>
-              <MyRadio name="userType" value={item} required /> {item}
-            </label>
-          ))}
-        </fieldset>
-
+        <UserTypeToggler />
         <EmailInput />
-
         <div>
           <label htmlFor="password">Password</label>
           <MyInput type="password" id="password" name="password" required />
         </div>
-
         <button type="submit">Log In</button>
       </form>
       <p>If you don't have an account yet, please {regLink}.</p>

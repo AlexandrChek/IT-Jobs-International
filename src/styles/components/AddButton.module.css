@@ -1,0 +1,13 @@
+.addButton {
+  font-size: 2.5rem;
+  font-weight: 1000;
+  text-align: center;
+  color: limegreen;
+  border: 0.2rem solid limegreen;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.addButton:hover {
+  color: lime;
+}

@@ -1,111 +1,61 @@
-import { useState, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate, useParams } from 'react-router-dom';
-import { fetchSeekerProfile, updateSeekerProfile } from '../features/async/seekerProfileSlice';
-import styles from '../styles/pages/SignUpSeeker.module.css';
+import { useRef } from 'react';
+import { useSelector } from 'react-redux';
+import { useParams } from 'react-router-dom';
+import useFetchRegData from '../hooks/useFetchRegData';
+import useSaveRegData from '../hooks/useSaveRegData';
+import RegistrationTitle from '../components/RegistrationTitle';
+import Loading from '../components/Loading';
+import FullNameInputs from '../components/FullNameInputs';
+import DateOfBirthInput from '../components/DateOfBirthInput';
+import CountryCityInputs from '../components/CountryCityInputs';
+import CommonFieldsInRegForms from '../components/CommonFieldsInRegForms';
+import SignUpButton from '../components/SignUpButton';
 
 const SignUpSeeker = () => {
-  const { seekerid } = useParams();
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
-  const seekerProfile = useSelector((state) => state.seekerProfile.profile);
-  const [formData, setFormData] = useState({
-    firstName: '',
-    lastName: '',
-    email: '',
-    country: '',
-    city: '',
-    skills: '',
-  });
+  const { regData, pending, error } = useSelector(state => state.userRegData);
+  const form = useRef();
+  const { seekerid } = useParams() || {};
+  const saveRegData = useSaveRegData();
 
-  useEffect(() => {
-    if (!seekerProfile) {
-      dispatch(fetchSeekerProfile(seekerid));
-    } else {
-      setFormData({
-        firstName: seekerProfile.firstName,
-        lastName: seekerProfile.lastName,
-        email: seekerProfile.email,
-        country: seekerProfile.country,
-        city: seekerProfile.city,
-        skills: seekerProfile.skills.join(', '),
-      });
-    }
-  }, [dispatch, seekerProfile, seekerid]);
+  useFetchRegData(seekerid, 'Job seeker');
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prevData) => ({
-      ...prevData,
-      [name]: value,
-    }));
-  };
-
-  const handleSubmit = async (e) => {
+  const handleSubmit = e => {
     e.preventDefault();
-    const updatedProfile = {
-      ...formData,
-      skills: formData.skills.split(',').map((skill) => skill.trim()),
-    };
-    const response = await dispatch(updateSeekerProfile({ seekerid, updatedProfile }));
-    if (response.meta.requestStatus === 'fulfilled') {
-      navigate(`/job_seeker_profile/${seekerid}`);
+
+    let formData = new FormData(form.current);
+    let url = '/api/';
+
+    if (seekerid) {
+      url += 'editSeekerRegData';
+      formData.append('id', seekerid);
+    } else {
+      url += 'signUpSeeker';
     }
+
+    saveRegData({ savingUrl: url, formData, userId: seekerid, userType: 'Job seeker' });
   };
 
   return (
     <div className="routesWrapper">
-      <h2>Edit Registration Data</h2>
-      <form onSubmit={handleSubmit}>
-        <input
-          type="text"
-          name="firstName"
-          value={formData.firstName}
-          onChange={handleChange}
-          placeholder="First Name"
-          required
+      <RegistrationTitle />
+      {pending && <Loading />}
+      {error && <h3>{error}</h3>}
+      <form ref={form} onSubmit={handleSubmit}>
+        <FullNameInputs
+          initialFirstName={regData && regData.firstName}
+          initialLastName={regData && regData.lastName}
         />
-        <input
-          type="text"
-          name="lastName"
-          value={formData.lastName}
-          onChange={handleChange}
-          placeholder="Last Name"
-          required
+        <DateOfBirthInput initialValue={regData && regData.dateOfBirth} />
+        <CountryCityInputs
+          initialCountry={regData && regData.country}
+          initialCity={regData && regData.city}
+          areRequired={true}
         />
-        <input
-          type="email"
-          name="email"
-          value={formData.email}
-          onChange={handleChange}
-          placeholder="Email"
-          required
+        <CommonFieldsInRegForms
+          initialPhone={regData && regData.phone}
+          initialEmail={regData && regData.email}
         />
-        <input
-          type="text"
-          name="country"
-          value={formData.country}
-          onChange={handleChange}
-          placeholder="Country"
-          required
-        />
-        <input
-          type="text"
-          name="city"
-          value={formData.city}
-          onChange={handleChange}
-          placeholder="City"
-          required
-        />
-        <input
-          type="text"
-          name="skills"
-          value={formData.skills}
-          onChange={handleChange}
-          placeholder="Skills (comma separated)"
-          required
-        />
-        <button type="submit">Save Changes</button>
+        <SignUpButton userId={seekerid} />
       </form>
     </div>
   );

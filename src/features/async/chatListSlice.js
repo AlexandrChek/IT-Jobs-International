@@ -2,7 +2,7 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { fetchData } from '../../methods';
 import BasicInitialState from './BasicInitialState';
 
-export const fetchChatList = createAsyncThunk('chatList/fetchChatList', async (settings) => {
+export const fetchChatList = createAsyncThunk('chatList/fetchChatList', async settings => {
   return fetchData(settings);
 });
 
@@ -11,9 +11,9 @@ const initialState = new BasicInitialState('chats');
 const chatListSlice = createSlice({
   name: 'chatList',
   initialState,
-  extraReducers: (builder) => {
+  extraReducers: builder => {
     builder
-      .addCase(fetchChatList.pending, (state) => {
+      .addCase(fetchChatList.pending, state => {
         state.pending = true;
       })
       .addCase(fetchChatList.fulfilled, (state, action) => {

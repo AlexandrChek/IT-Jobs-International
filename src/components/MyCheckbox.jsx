@@ -1,16 +1,16 @@
 import { useState } from 'react';
 
-const MyCheckbox = ({ initialState, ...rest }) => {
+const MyCheckbox = ({ initialState, getVal, ...rest }) => {
   const [isChecked, setIsChecked] = useState(initialState || false);
 
-  return (
-    <input
-      type="checkbox"
-      {...rest}
-      checked={isChecked}
-      onChange={(e) => setIsChecked(e.target.checked)}
-    />
-  );
+  const handleChange = e => {
+    setIsChecked(!isChecked);
+    if (getVal) {
+      getVal(e.target.checked);
+    }
+  };
+
+  return <input type="checkbox" {...rest} checked={isChecked} onChange={handleChange} />;
 };
 
 export default MyCheckbox;

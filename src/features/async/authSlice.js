@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { fetchData } from '../../methods';
 
-export const logIn = createAsyncThunk('auth/logIn', async (settings) => {
+export const logIn = createAsyncThunk('auth/logIn', async settings => {
   return fetchData(settings);
 });
 
@@ -18,7 +18,7 @@ const authSlice = createSlice({
   reducers: {
     logOut: () => initialState,
   },
-  extraReducers: (builder) => {
+  extraReducers: builder => {
     builder.addCase(logIn.fulfilled, (state, action) => {
       if (action.payload.userName) {
         return {

@@ -3,7 +3,7 @@ import { useState } from 'react';
 const MyInput = ({ initialValue, getVal, ...rest }) => {
   const [val, setVal] = useState(initialValue || '');
 
-  const handleChange = (e) => {
+  const handleChange = e => {
     setVal(e.target.value);
     if (getVal) {
       getVal(e.target);

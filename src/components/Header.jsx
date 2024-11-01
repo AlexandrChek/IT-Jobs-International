@@ -6,11 +6,11 @@ import UserMenu from './UserMenu';
 import styles from '../styles/components/Header.module.css';
 
 const Header = () => {
-  const userName = useSelector((state) => state.auth.userName);
+  const userName = useSelector(state => state.auth.userName);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const userMenuRef = useRef();
 
-  const handleClickOutside = (e) => {
+  const handleClickOutside = e => {
     if (userMenuRef.current && !userMenuRef.current.contains(e.target)) {
       setIsMenuOpen(false);
     }

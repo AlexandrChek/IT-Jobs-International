@@ -6,12 +6,6 @@ export const baseUrl = '/IT-Jobs-International/';
 export const savingMessage = 'Changes saved successfully';
 
 // Company profile:
-export const companyPublicFields = {
-  employeesNumberLabel: 'Number of employees:',
-  websiteLabel: 'Website:',
-  descriptionLabel: 'Company description:',
-};
-
 export const employeesNumbers = [
   '<10',
   '>=10',
@@ -37,8 +31,46 @@ export const relocationTo = 'Consider relocation to another country';
 
 export const experienceFromLabel = 'Work experience: from';
 export const experienceIsNotRequired = 'Work experience is not a mandatory requirement';
-export const englishLabel = 'English proficiency level:';
 
+export const emptyWorkItem = {
+  from: '',
+  to: '',
+  isStillOngoing: false,
+  position: '',
+  organization: '',
+  functions: '',
+};
+export const emptyEducationItem = {
+  from: '',
+  to: '',
+  isStillOngoing: false,
+  specialty: '',
+  institution: '',
+  achivements: '',
+};
+
+export const workProperties = {
+  experienceType: 'work',
+  stillOngoing: { label: 'Still working', name: 'isStillOngoing' },
+  direction: { label: 'Position', name: 'position' },
+  organization: { label: 'Organization', name: 'organization' },
+  functionsAndAchivements: {
+    label: 'Functions and accomplishments',
+    name: 'functions',
+  },
+};
+export const educationProperties = {
+  experienceType: 'education',
+  stillOngoing: { label: 'Still studying', name: 'isStillOngoing' },
+  direction: { label: 'Specialty', name: 'specialty' },
+  organization: { label: 'Institution', name: 'institution' },
+  functionsAndAchivements: {
+    label: 'Achivements',
+    name: 'achivements',
+  },
+};
+
+export const englishLabel = 'English proficiency level:';
 export const englishLevels = [
   'Elementary',
   'Pre-Intermediate',

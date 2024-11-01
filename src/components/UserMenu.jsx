@@ -6,16 +6,11 @@ import styles from '../styles/components/UserMenu.module.css';
 const UserMenu = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { userId, userType } = useSelector((state) => state.auth);
+  const { userId, userType } = useSelector(state => state.auth);
 
   const goToProfile = () => {
-    let route = '';
-    if (userType === 'Company') {
-      route = `/company_profile/${userId}`;
-    } else {
-      route = `/job_seeker_profile/${userId}`;
-    }
-
+    let route = `_profile/${userId}`;
+    route = userType === 'Company' ? '/company' + route : '/job_seeker' + route;
     navigate(route);
   };
 

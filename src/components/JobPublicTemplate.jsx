@@ -6,15 +6,16 @@ import {
   englishLabel,
   jobTextareas,
 } from '../constants';
+import WorkplacesOutput from '../components/WorkplacesOutput';
 
-const JobPublicView = ({ job }) => {
-  const filteredTextareas = jobTextareas.filter((area) => job.hasOwnProperty(area.name));
+const JobPublicTemplate = ({ job }) => {
+  const filteredTextareas = jobTextareas.filter(area => job[area.name] !== undefined);
 
   return (
     <>
       <h2>
         {job.position}
-        {job.salary && job.salary}
+        {job.salary && `, ${job.salary}`}
       </h2>
       <Link to={`/company_profile/${job.companyId}/public`}>
         <h3>{job.companyName}</h3>
@@ -25,13 +26,7 @@ const JobPublicView = ({ job }) => {
           {job.city && `, ${job.city}`}
         </p>
       )}
-      {job.workplaces &&
-        job.workplaces.map((workplace, index, workplaces) => (
-          <h5>
-            Workplace: {workplace}
-            {workplaces.length > 1 && index < workplaces.length - 1 && '/'}
-          </h5>
-        ))}
+      {job.workplaces && <WorkplacesOutput workplaces={job.workplaces} />}
       {job.isRelocationPossible && <p>{relocationFrom}</p>}
       {job.experienceFrom && (
         <h5>
@@ -44,7 +39,7 @@ const JobPublicView = ({ job }) => {
           {englishLabel} {job.englishLevel}
         </h5>
       )}
-      {filteredTextareas.map((area) => (
+      {filteredTextareas.map(area => (
         <div key={area.name}>
           <h5>{area.label}</h5>
           <p>{job[area.name]}</p>
@@ -54,4 +49,4 @@ const JobPublicView = ({ job }) => {
   );
 };
 
-export default JobPublicView;
+export default JobPublicTemplate;

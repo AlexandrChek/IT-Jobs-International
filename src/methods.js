@@ -1,25 +1,4 @@
-import { useEffect } from 'react';
 import { serverUrl } from './constants';
-
-// Determine the height of a window and save it as a variable in the <html>-element's style object:
-export const saveWindowHeight = () => {
-  useEffect(() => {
-    const saveHeight = () => {
-      const vh = window.innerHeight;
-      document.documentElement.style.setProperty('--vh', `${vh}px`);
-    };
-
-    if (window.matchMedia('(hover: none) and (pointer: coarse)').matches) {
-      window.addEventListener('load', saveHeight);
-      window.addEventListener('resize', saveHeight);
-    }
-
-    return () => {
-      window.removeEventListener('load', saveHeight);
-      window.removeEventListener('resize', saveHeight);
-    };
-  }, []);
-};
 
 // Function to fetch data that is an argument to createAsyncThunk:
 export const fetchData = async ({ url, options }) => {
@@ -43,35 +22,27 @@ export const fetchData = async ({ url, options }) => {
   return data;
 };
 
-// Fn to get settings for common fetching data from server:
-export const getFetchingSettings = (url, userId, jobId = null, userName = null) => {
+// Fn to get settings for POST-requests:
+export const getRequestSettings = (url, body) => {
   const settings = {
     url,
     options: {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ userId, jobId, userName }),
     },
   };
 
-  return settings;
-};
-
-// Fn to get settings for sending FormData to server:
-export const getSendingSettings = (url, body) => {
-  const settings = {
-    url,
-    options: {
-      method: 'POST',
-      body,
-    },
-  };
+  if (body instanceof FormData) {
+    settings.options.body = body;
+  } else {
+    settings.options.headers = { 'Content-Type': 'application/json' };
+    settings.options.body = JSON.stringify(body);
+  }
 
   return settings;
 };
 
 // Fn to convert FormData to normal JS-object:
-export const convertFormDataToObj = (formData) => {
+export const convertFormDataToObj = formData => {
   let obj = {};
 
   formData.forEach((value, key) => {
@@ -82,5 +53,93 @@ export const convertFormDataToObj = (formData) => {
     }
   });
 
+  if (obj.workplaces && typeof obj.workplaces === 'string') {
+    obj.workplaces = [obj.workplaces];
+  }
+
   return obj;
+};
+
+// Fn to calculate age, taking date of birth in "YYYY-MM-DD" format:
+export const calculateAge = standartDateOfBirth => {
+  const birthDate = new Date(standartDateOfBirth);
+  const ageInMilliseconds = Date.now() - birthDate.getTime();
+  return Math.floor(ageInMilliseconds / 31536000000);
+};
+
+// Fn to normalize properties of work experience or education in object AFTER convertion
+// (by convertFormDataToObj method) of CV FormData to object.
+//It returns a CV object with work experience or education data as an array of objects.:
+export const normalizeExperienceInPreviewData = (profilePreviewData, experienceType) => {
+  let necessaryProperties = Object.fromEntries(
+    Object.entries(profilePreviewData).filter(
+      ([key]) => key.startsWith(experienceType) && key !== 'workplaces',
+    ),
+  );
+
+  let necessaryKeys = Object.keys(necessaryProperties);
+  let numberOfItems = necessaryKeys.filter(key => key.startsWith(`${experienceType}_from`)).length;
+
+  let arrayOfObjects = [];
+  for (let i = 0; i < numberOfItems; i++) {
+    let itemObj = Object.fromEntries(
+      Object.entries(necessaryProperties)
+        .filter(([key]) => key.endsWith(String(i)))
+        .map(([key, value]) => {
+          let cutKey = key.slice(experienceType.length + 1, key.length - (String(i).length + 1));
+          return [cutKey, value];
+        }),
+    );
+
+    arrayOfObjects.push(itemObj);
+  }
+
+  if (necessaryProperties[`${experienceType}_isStillOngoing`]) {
+    arrayOfObjects[0].isStillOngoing = true;
+  }
+
+  let normalizedPreviewData = { ...profilePreviewData };
+
+  necessaryKeys.forEach(key => {
+    delete normalizedPreviewData[key];
+  });
+
+  normalizedPreviewData[experienceType] = arrayOfObjects;
+
+  return normalizedPreviewData;
+};
+
+// Fn to count total work experience in years and months:
+export const countTotalExperience = experienceArr => {
+  let totalYears = 0,
+    totalMonths = 0;
+
+  experienceArr.forEach(item => {
+    let fromDate = new Date(item.from);
+    let toDate = '';
+
+    if (item.isStillOngoing) {
+      toDate = new Date();
+    } else {
+      toDate = new Date(item.to);
+    }
+
+    let years = toDate.getFullYear() - fromDate.getFullYear();
+    let months = toDate.getMonth() - fromDate.getMonth();
+
+    if (months < 0) {
+      years--;
+      months += 12;
+    }
+
+    totalYears += years;
+    totalMonths += months;
+  });
+
+  if (totalMonths >= 12) {
+    totalYears += Math.floor(totalMonths / 12);
+    totalMonths = totalMonths % 12;
+  }
+
+  return { totalYears, totalMonths };
 };

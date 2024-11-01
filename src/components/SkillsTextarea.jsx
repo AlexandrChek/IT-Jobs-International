@@ -5,6 +5,7 @@ const SkillsTextarea = ({ initialValue = '' }) => {
     <label>
       Your skills
       <MyTextarea
+        name="skills"
         initialValue={initialValue}
         placeholder={!initialValue ? 'Enter your skills separated by commas' : ''}
       />

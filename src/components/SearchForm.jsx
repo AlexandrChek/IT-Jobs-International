@@ -2,7 +2,7 @@ import { useState, useRef } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { fetchSearchResults } from '../features/async/searchSlice';
-import { getSendingSettings } from '../methods';
+import { getRequestSettings } from '../methods';
 import MyCheckbox from './MyCheckbox';
 import PositionInput from './PositionInput';
 import CountryCityInputs from './CountryCityInputs';
@@ -21,12 +21,11 @@ const SearchForm = ({ searchType }) => {
   const [advancedSearch, setAdvancedSearch] = useState(false);
   const searchForm = useRef();
 
-  const search = async (e) => {
+  const search = async e => {
     e.preventDefault();
 
-    const url = `/api/search/${searchType}`;
     const formData = new FormData(searchForm.current);
-    const settings = getSendingSettings(url, formData);
+    const settings = getRequestSettings(`/api/search/${searchType}`, formData);
 
     try {
       await dispatch(fetchSearchResults(settings)).unwrap();

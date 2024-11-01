@@ -1,10 +1,10 @@
 import Header from './components/Header';
 import Footer from './components/Footer';
 import AppRoutes from './AppRoutes.jsx';
-import { saveWindowHeight } from './methods.js';
+import useSaveWindowHeight from './hooks/useSaveWindowHeight.js';
 
 function App() {
-  saveWindowHeight();
+  useSaveWindowHeight();
 
   return (
     <>

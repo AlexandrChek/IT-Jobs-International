@@ -1,67 +1,30 @@
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchJob, disableJob, anableJob, removeJob } from '../features/async/jobSlice';
+import { fetchJob, removeJob } from '../features/async/jobSlice';
 import { useParams, useNavigate } from 'react-router-dom';
-import { getFetchingSettings } from '../methods';
+import { getRequestSettings } from '../methods';
 import Loading from '../components/Loading';
-import JobPublicView from '../components/JobPublicView';
-import Modal from '../components/Modal';
+import JobPublicTemplate from '../components/JobPublicTemplate';
+import DisableButton from '../components/DisableButton';
+import RemoveButton from '../components/RemoveButton';
+import CreateChatForm from '../components/CreateChatForm';
 import styles from '../styles/pages/Job.module.css';
 
 const Job = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { companyid, jobid } = useParams();
-  const [isDisabled, setIsDisabled] = useState(false);
-  const [isRemoveModalOpen, setIsRemoveModalOpen] = useState(false);
-  const { jobData, pending } = useSelector((state) => state.job);
-  const userId = useSelector((state) => state.auth.userId);
-  const [fetchError, setFetchError] = useState(null);
+  const { jobData, pending, error } = useSelector(state => state.job);
+  const { userId, userType } = useSelector(state => state.auth);
+  const body = { companyid, jobid };
 
   useEffect(() => {
-    const settings = getFetchingSettings('/api/job', companyid, jobid);
-
-    const fetchJobData = async () => {
-      try {
-        const result = await dispatch(fetchJob(settings)).unwrap();
-
-        if (result.status === 'disabled') {
-          setIsDisabled(true);
-        }
-      } catch (error) {
-        setFetchError(error.message);
-      }
-    };
-
-    fetchJobData();
-  }, [dispatch, companyid, jobid]);
-
-  const toggleJobStatus = async () => {
-    if (!isDisabled) {
-      const disablingSettings = getFetchingSettings('/api/disableJob', companyid, jobid);
-
-      try {
-        await dispatch(disableJob(disablingSettings)).unwrap();
-        setIsDisabled(true);
-      } catch (error) {
-        alert(error.message);
-      }
-    } else {
-      const anablingSettings = getFetchingSettings('/api/anableJob', companyid, jobid);
-
-      try {
-        await dispatch(anableJob(anablingSettings)).unwrap();
-        setIsDisabled(false);
-      } catch (error) {
-        alert(error.message);
-      }
-    }
-  };
-
-  const close = () => setIsRemoveModalOpen(false);
+    const settings = getRequestSettings('/api/job', body);
+    dispatch(fetchJob(settings));
+  }, [companyid, jobid]);
 
   const handleRemoveJob = async () => {
-    const removingSettings = getFetchingSettings('/api/removeJob', companyid, jobid);
+    const removingSettings = getRequestSettings('/api/removeJob', body);
 
     try {
       await dispatch(removeJob(removingSettings)).unwrap();
@@ -74,28 +37,31 @@ const Job = () => {
   return (
     <div className="routesWrapper">
       {pending && <Loading />}
-      {fetchError && <h3>{fetchError}</h3>}
+      {error && <h3>{error}</h3>}
       {jobData && (
         <>
-          {isDisabled && <h3>Disabled</h3>}
-          <JobPublicView job={jobData} />
-          {jobData.companyId === userId && (
-            <>
-              <Link to={`/company_profile/${companyid}/save_job`} state={jobData}>
-                <button>Edit Job</button>
+          {jobData.isDisabled && <h3>Disabled</h3>}
+          <JobPublicTemplate job={jobData} />
+          {userType === 'Company' && (
+            <nav>
+              <Link
+                to={`/company_profile/${companyid}/save_job`}
+                state={jobData}
+                className="button"
+              >
+                Edit Job
               </Link>
-              <button onClick={toggleJobStatus}>
-                {!isDisabled ? 'Disable this job' : 'Anable this job'}
-              </button>
-              <button onClick={() => setIsRemoveModalOpen(true)}>Remove this job</button>
-              <Modal isOpen={isRemoveModalOpen} close={close}>
-                <p>Are you sure you want to delete this job?</p>
-                <div>
-                  <button onClick={handleRemoveJob}>Yes</button>
-                  <button onClick={() => close()}>No</button>
-                </div>
-              </Modal>
-            </>
+              <DisableButton whatToDisable="job" body={body} />
+              <RemoveButton whatToRemove="job" remove={handleRemoveJob} />
+            </nav>
+          )}
+          {userType === 'Job seeker' && (
+            <CreateChatForm
+              seekerId={userId}
+              companyId={companyid}
+              userType="Job seeker"
+              jobId={jobid}
+            />
           )}
         </>
       )}

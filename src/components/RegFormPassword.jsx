@@ -43,7 +43,7 @@ const RegFormPassword = () => {
           name="password"
           ref={firstPassword}
           required
-          getVal={(target) => (password1 = target.value)}
+          getVal={target => (password1 = target.value)}
           onBlur={checkPasswordLength}
         />
       </label>
@@ -53,7 +53,7 @@ const RegFormPassword = () => {
           type="password"
           ref={secondPassword}
           required
-          getVal={(target) => (password2 = target.value)}
+          getVal={target => (password2 = target.value)}
           onBlur={checkPasswordMatch}
         />
       </label>

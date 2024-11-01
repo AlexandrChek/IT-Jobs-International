@@ -1,6 +1,9 @@
 import { Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
-const ChatListItem = ({ index, chat, userType, userId, userName }) => {
+const ChatListItem = ({ index, chat, userType, userId }) => {
+  const userName = useSelector(state => state.auth.userName);
+
   return (
     <div key={index}>
       {userType === 'Job seeker' ? (
