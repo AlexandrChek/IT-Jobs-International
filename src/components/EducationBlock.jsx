@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { emptyEducationItem, educationProperties } from '../constants';
-import AddButton from './AddButton';
+import AddButton from './buttons/AddButton';
 import ExperienceItem from './ExperienceItem';
 
 const EducationBlock = ({ initialEducation = [] }) => {

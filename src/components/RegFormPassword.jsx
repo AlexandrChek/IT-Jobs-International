@@ -1,5 +1,5 @@
 import { useState, useRef } from 'react';
-import MyInput from './MyInput';
+import MyInput from './inputs/MyInput';
 import Modal from './Modal';
 import { shortPassWarning, passwordsDontMatchWarning } from '../constants';
 

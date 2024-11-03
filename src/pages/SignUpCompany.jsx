@@ -8,7 +8,7 @@ import Loading from '../components/Loading';
 import CompanyNameInput from '../components/CompanyNameInput';
 import CountryCityInputs from '../components/CountryCityInputs';
 import CommonFieldsInRegForms from '../components/CommonFieldsInRegForms';
-import SignUpButton from '../components/SignUpButton';
+import SignUpButton from '../components/buttons/SignUpButton';
 import styles from '../styles/pages/SignUpCompany.module.css';
 
 const SignUpCompany = () => {

@@ -1,4 +1,4 @@
-import MyCheckbox from './MyCheckbox';
+import MyCheckbox from './inputs/MyCheckbox';
 import { workplaces } from '../constants';
 
 const WorkplacesField = ({ initialWorkplaces = [] }) => {

@@ -1,5 +1,5 @@
-import PhoneInput from './PhoneInput';
-import EmailInput from './EmailInput';
+import PhoneInput from './inputs/PhoneInput';
+import EmailInput from './inputs/EmailInput';
 import RegFormPassword from './RegFormPassword';
 import PrivacyAcceptanceCheckbox from './PrivacyAcceptanceCheckbox';
 

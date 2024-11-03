@@ -1,5 +1,5 @@
 import { employeesNumbers } from '../constants';
-import MySelect from './MySelect';
+import MySelect from './inputs/MySelect';
 
 const EmployeesNumberSelect = ({ initialValue = '' }) => {
   return (

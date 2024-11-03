@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import MyCheckbox from './MyCheckbox';
+import MyCheckbox from './inputs/MyCheckbox';
 
 const PrivacyAcceptanceCheckbox = () => {
   const privacyLink = <Link to="/privacy">privacy</Link>;

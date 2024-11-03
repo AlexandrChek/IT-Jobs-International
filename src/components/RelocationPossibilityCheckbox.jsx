@@ -1,4 +1,4 @@
-import MyCheckbox from './MyCheckbox';
+import MyCheckbox from './inputs/MyCheckbox';
 import { relocationFrom, relocationTo } from '../constants';
 
 const RelocationPossibilityCheckbox = ({ docType, initialState = '' }) => {

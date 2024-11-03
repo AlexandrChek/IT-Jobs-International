@@ -4,8 +4,8 @@ import { useNavigate, Link } from 'react-router-dom';
 import { logIn } from '../features/async/authSlice';
 import { getRequestSettings } from '../methods';
 import UserTypeToggler from '../components/UserTypeToggler';
-import EmailInput from '../components/EmailInput';
-import MyInput from '../components/MyInput';
+import EmailInput from '../components/inputs/EmailInput';
+import MyInput from '../components/inputs/MyInput';
 import Modal from '../components/Modal';
 import styles from '../styles/pages/LogIn.module.css';
 

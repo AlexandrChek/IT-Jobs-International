@@ -6,9 +6,9 @@ import useSaveProfile from '../hooks/useSaveProfile';
 import Loading from '../components/Loading';
 import ProfileMenu from '../components/ProfileMenu';
 import EmployeesNumberSelect from '../components/EmployeesNumberSelect';
-import UrlInput from '../components/UrlInput';
-import MyTextarea from '../components/MyTextarea';
-import PreviewButton from '../components/PreviewButton';
+import UrlInput from '../components/inputs/UrlInput';
+import MyTextarea from '../components/inputs/MyTextarea';
+import PreviewButton from '../components/buttons/PreviewButton';
 import LinksList from '../components/LinksList';
 import styles from '../styles/pages/CompanyProfile.module.css';
 

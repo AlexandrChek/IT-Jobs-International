@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { toggleJobStatus } from '../features/async/jobSlice';
-import { toggleProfileStatus } from '../features/async/userProfileSlice';
-import { getRequestSettings } from '../methods';
+import { toggleJobStatus } from '../../features/async/jobSlice';
+import { toggleProfileStatus } from '../../features/async/userProfileSlice';
+import { getRequestSettings } from '../../methods';
 
 const DisableButton = ({ whatToDisable, body }) => {
   const dispatch = useDispatch();

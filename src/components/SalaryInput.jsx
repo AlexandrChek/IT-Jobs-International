@@ -1,4 +1,4 @@
-import MyInput from './MyInput';
+import MyInput from './inputs/MyInput';
 
 const SalaryInput = ({ initialSalary = '' }) => {
   return (

@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { emptyWorkItem, workProperties } from '../constants';
-import AddButton from './AddButton';
+import AddButton from './buttons/AddButton';
 import ExperienceItem from './ExperienceItem';
 
 const WorkExperienceBlock = ({ initialExperience = [] }) => {

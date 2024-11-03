@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { fetchSearchResults } from '../features/async/searchSlice';
 import { getRequestSettings } from '../methods';
-import MyCheckbox from './MyCheckbox';
+import MyCheckbox from './inputs/MyCheckbox';
 import PositionInput from './PositionInput';
 import CountryCityInputs from './CountryCityInputs';
 import SalaryInput from './SalaryInput';

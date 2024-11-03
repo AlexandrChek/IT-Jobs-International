@@ -1,4 +1,4 @@
-import MySelect from './MySelect';
+import MySelect from './inputs/MySelect';
 import { englishLabel, englishLevels } from '../constants';
 
 const EnglishLevelSelect = ({ initialLevel = '' }) => {

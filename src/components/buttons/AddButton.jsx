@@ -1,4 +1,4 @@
-import styles from '../styles/components/AddButton.module.css';
+import styles from '../../styles/components/buttons/AddButton.module.css';
 
 const AddButton = ({ itemName }) => {
   return (

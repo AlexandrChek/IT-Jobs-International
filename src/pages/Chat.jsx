@@ -5,7 +5,7 @@ import { fetchChat, sendMessage, addMessageLocally } from '../features/async/cha
 import { getRequestSettings } from '../methods';
 import Loading from '../components/Loading';
 import UserMessage from '../components/UserMessage';
-import MyTextarea from '../components/MyTextarea';
+import MyTextarea from '../components/inputs/MyTextarea';
 import styles from '../styles/pages/Chat.module.css';
 
 const Chat = () => {

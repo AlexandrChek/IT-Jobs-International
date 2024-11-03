@@ -1,7 +1,7 @@
 import { useDispatch } from 'react-redux';
-import { convertFormDataToObj } from '../methods';
-import { saveFormData } from '../features/sync/formDataSlice';
-import { getCvPreviewObj } from '../features/sync/cvFormSlice';
+import { convertFormDataToObj } from '../../methods';
+import { saveFormData } from '../../features/sync/formDataSlice';
+import { getCvPreviewObj } from '../../features/sync/cvFormSlice';
 
 const PreviewButton = ({ formElem, route, ...rest }) => {
   const dispatch = useDispatch();

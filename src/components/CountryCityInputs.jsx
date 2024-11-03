@@ -1,4 +1,4 @@
-import MyInput from './MyInput';
+import MyInput from './inputs/MyInput';
 
 const CountryCityInputs = ({ initialCountry = '', initialCity = '', areRequired = false }) => {
   return (

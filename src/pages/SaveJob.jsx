@@ -11,8 +11,8 @@ import RelocationPossibilityCheckbox from '../components/RelocationPossibilityCh
 import ExperienceFromField from '../components/ExperienceFromField';
 import ExperienceIsNotRequiredCheckbox from '../components/ExperienceIsNotRequiredCheckbox';
 import EnglishLevelSelect from '../components/EnglishLevelSelect';
-import MyTextarea from '../components/MyTextarea';
-import PreviewButton from '../components/PreviewButton';
+import MyTextarea from '../components/inputs/MyTextarea';
+import PreviewButton from '../components/buttons/PreviewButton';
 import { jobTextareas, savingMessage } from '../constants';
 import styles from '../styles/pages/SaveJob.module.css';
 

@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { calculateAge } from '../methods';
-import MyInput from './MyInput';
+import MyInput from './inputs/MyInput';
 import Modal from './Modal';
 
 const DateOfBirthInput = ({ initialValue = '' }) => {

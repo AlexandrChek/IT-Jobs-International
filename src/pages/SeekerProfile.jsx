@@ -14,9 +14,9 @@ import SkillsTextarea from '../components/SkillsTextarea';
 import WorkExperienceBlock from '../components/WorkExperienceBlock';
 import EducationBlock from '../components/EducationBlock';
 import EnglishLevelSelect from '../components/EnglishLevelSelect';
-import UrlInput from '../components/UrlInput';
-import MyTextarea from '../components/MyTextarea';
-import PreviewButton from '../components/PreviewButton';
+import UrlInput from '../components/inputs/UrlInput';
+import MyTextarea from '../components/inputs/MyTextarea';
+import PreviewButton from '../components/buttons/PreviewButton';
 import styles from '../styles/pages/SeekerProfile.module.css';
 
 const SeekerProfile = () => {

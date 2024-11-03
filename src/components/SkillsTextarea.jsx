@@ -1,4 +1,4 @@
-import MyTextarea from './MyTextarea';
+import MyTextarea from './inputs/MyTextarea';
 
 const SkillsTextarea = ({ initialValue = '' }) => {
   return (

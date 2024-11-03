@@ -2,8 +2,8 @@ import { useRef } from 'react';
 import { useDispatch } from 'react-redux';
 import { createChat } from '../features/async/chatSlice';
 import { getRequestSettings } from '../methods';
-import MyTextarea from './MyTextarea';
-import UrlInput from './UrlInput';
+import MyTextarea from './inputs/MyTextarea';
+import UrlInput from './inputs/UrlInput';
 
 const CreateChatForm = ({ seekerId, companyId, userType, jobId = '' }) => {
   const dispatch = useDispatch();

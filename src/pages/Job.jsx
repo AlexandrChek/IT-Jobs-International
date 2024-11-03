@@ -5,8 +5,8 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { getRequestSettings } from '../methods';
 import Loading from '../components/Loading';
 import JobPublicTemplate from '../components/JobPublicTemplate';
-import DisableButton from '../components/DisableButton';
-import RemoveButton from '../components/RemoveButton';
+import DisableButton from '../components/buttons/DisableButton';
+import RemoveButton from '../components/buttons/RemoveButton';
 import CreateChatForm from '../components/CreateChatForm';
 import styles from '../styles/pages/Job.module.css';
 

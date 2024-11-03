@@ -9,7 +9,7 @@ import FullNameInputs from '../components/FullNameInputs';
 import DateOfBirthInput from '../components/DateOfBirthInput';
 import CountryCityInputs from '../components/CountryCityInputs';
 import CommonFieldsInRegForms from '../components/CommonFieldsInRegForms';
-import SignUpButton from '../components/SignUpButton';
+import SignUpButton from '../components/buttons/SignUpButton';
 
 const SignUpSeeker = () => {
   const { regData, pending, error } = useSelector(state => state.userRegData);

@@ -1,5 +1,5 @@
-import MyInput from './MyInput';
-import MySelect from './MySelect';
+import MyInput from './inputs/MyInput';
+import MySelect from './inputs/MySelect';
 import { experienceUnits, experienceFromLabel } from '../constants';
 
 const ExperienceFromField = ({ initialExperience = '', initialUnit = '' }) => {

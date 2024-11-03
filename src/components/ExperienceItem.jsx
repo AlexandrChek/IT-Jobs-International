@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { countWorkExperience } from '../features/sync/cvFormSlice';
-import MyInput from './MyInput';
-import MyCheckbox from './MyCheckbox';
-import MyTextarea from './MyTextarea';
+import MyInput from './inputs/MyInput';
+import MyCheckbox from './inputs/MyCheckbox';
+import MyTextarea from './inputs/MyTextarea';
 
 const ExperienceItem = ({ item, index, properties }) => {
   const dispatch = useDispatch();

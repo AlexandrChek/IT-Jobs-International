@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import Modal from './Modal';
+import Modal from '../Modal';
 
 const RemoveButton = ({ whatToRemove, remove }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);

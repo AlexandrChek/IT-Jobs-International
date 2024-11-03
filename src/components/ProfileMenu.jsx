@@ -2,7 +2,8 @@ import { useDispatch } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import { removeProfile } from '../features/async/userProfileSlice';
 import { getRequestSettings } from '../methods';
-import RemoveButton from './RemoveButton';
+import DisableButton from './buttons/DisableButton';
+import RemoveButton from './buttons/RemoveButton';
 
 const ProfileMenu = ({ userId, userType }) => {
   const dispatch = useDispatch();
