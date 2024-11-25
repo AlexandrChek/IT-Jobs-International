@@ -13,7 +13,7 @@ const ChatList = () => {
 
   useEffect(() => {
     const body = { userId, userType };
-    const settings = getRequestSettings('/api/chat_list', body);
+    const settings = getRequestSettings('/chat_list', body);
     dispatch(fetchChatList(settings));
   }, [dispatch, userId, userType]);
 
@@ -22,7 +22,7 @@ const ChatList = () => {
       <h2>Correspondence</h2>
       {pending && <Loading />}
       {error && <h3>{error}</h3>}
-      {chats.length === 0 ? (
+      {!chats?.length ? (
         <p>No correspondences yet.</p>
       ) : (
         chats.map((chat, index) => (

@@ -15,16 +15,8 @@ const useSaveRegData = () => {
     try {
       await dispatch(saveRegData(savingSettings)).unwrap();
 
-      let route = '';
-      let logInUrl = '/api/';
-
-      if (userType === 'Company') {
-        route = '/company_profile/';
-        logInUrl += 'logInCompany';
-      } else {
-        route = '/job_seeker_profile/';
-        logInUrl += 'logInSeeker';
-      }
+      let route = userType === 'Company' ? '/company_profile/' : '/job_seeker_profile/';
+      let logInUrl = '/log_in/' + userType === 'Company' ? 'company' : 'seeker';
 
       if (!userId) {
         const body = {

@@ -40,7 +40,7 @@ const SeekerProfile = () => {
   return (
     <div className="routesWrapper">
       <ProfileMenu userId={seekerid} userType="Job seeker" />
-      <h3>Profile</h3>
+      <h3>Profile {profile?.isDisabled && '(disabled)'}</h3>
       {pending && <Loading />}
       {error && <h3>{error}</h3>}
       <form ref={form} onSubmit={handleSubmit}>

@@ -23,14 +23,11 @@ const SignUpSeeker = () => {
     e.preventDefault();
 
     let formData = new FormData(form.current);
-    let url = '/api/';
-
     if (seekerid) {
-      url += 'editSeekerRegData';
       formData.append('id', seekerid);
-    } else {
-      url += 'signUpSeeker';
     }
+
+    let url = seekerid ? '/edit/seeker_reg_data' : '/sign_up/seeker';
 
     saveRegData({ savingUrl: url, formData, userId: seekerid, userType: 'Job seeker' });
   };
@@ -42,18 +39,18 @@ const SignUpSeeker = () => {
       {error && <h3>{error}</h3>}
       <form ref={form} onSubmit={handleSubmit}>
         <FullNameInputs
-          initialFirstName={regData && regData.firstName}
-          initialLastName={regData && regData.lastName}
+          initialFirstName={regData?.firstName}
+          initialLastName={regData?.lastName}
         />
-        <DateOfBirthInput initialValue={regData && regData.dateOfBirth} />
+        <DateOfBirthInput initialValue={regData?.dateOfBirth} />
         <CountryCityInputs
-          initialCountry={regData && regData.country}
-          initialCity={regData && regData.city}
+          initialCountry={regData?.country}
+          initialCity={regData?.city}
           areRequired={true}
         />
         <CommonFieldsInRegForms
-          initialPhone={regData && regData.phone}
-          initialEmail={regData && regData.email}
+          initialPhone={regData?.phone}
+          initialEmail={regData?.email}
         />
         <SignUpButton userId={seekerid} />
       </form>

@@ -27,16 +27,12 @@ const SaveJob = () => {
     e.preventDefault();
 
     let formData = new FormData(form.current);
-    let url = '/api/';
-
-    if (state) {
-      url += 'editJob';
-      formData.append('id', state.id);
-    } else {
-      url += 'createJob';
-    }
-
     formData.append('companyId', companyid);
+    if (state) {
+      formData.append('jobId', state.jobId);
+    };
+
+    const url = state ? '/edit/job' : '/create/job';
 
     const settings = getRequestSettings(url, formData);
 

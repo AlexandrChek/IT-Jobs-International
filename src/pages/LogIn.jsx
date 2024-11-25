@@ -5,13 +5,14 @@ import { logIn } from '../features/async/authSlice';
 import { getRequestSettings } from '../methods';
 import UserTypeToggler from '../components/UserTypeToggler';
 import EmailInput from '../components/inputs/EmailInput';
-import MyInput from '../components/inputs/MyInput';
+import PasswordInput from '../components/inputs/PasswordInput';
 import Modal from '../components/Modal';
 import styles from '../styles/pages/LogIn.module.css';
 
 const LogIn = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [password, setPassword] = useState('');
   const { authFailureMessage } = useSelector(state => state.auth);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [authError, setAuthError] = useState(null);
@@ -22,7 +23,7 @@ const LogIn = () => {
     e.preventDefault();
 
     const formData = new FormData(form.current);
-    const settings = getRequestSettings('/api/login', formData);
+    const settings = getRequestSettings('/login', formData);
 
     try {
       await dispatch(logIn(settings)).unwrap();
@@ -47,8 +48,10 @@ const LogIn = () => {
         <UserTypeToggler />
         <EmailInput />
         <div>
-          <label htmlFor="password">Password</label>
-          <MyInput type="password" id="password" name="password" required />
+          <label>
+            Password
+            <PasswordInput name="password" val={password} setVal={setPassword} />
+          </label>
         </div>
         <button type="submit">Log In</button>
       </form>

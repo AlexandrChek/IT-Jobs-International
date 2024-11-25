@@ -23,14 +23,11 @@ const SignUpCompany = () => {
     e.preventDefault();
 
     let formData = new FormData(form.current);
-    let url = '/api/';
-
     if (companyid) {
-      url += 'editCompanyRegData';
       formData.append('id', companyid);
-    } else {
-      url += 'signUpCompany';
     }
+
+    let url = companyid ? '/edit/company_reg_data' : '/sign_up/company';
 
     saveRegData({ savingUrl: url, formData, userId: companyid, userType: 'Company' });
   };
@@ -41,18 +38,18 @@ const SignUpCompany = () => {
       {pending && <Loading />}
       {error && <h3>{error}</h3>}
       <form ref={form} onSubmit={handleSubmit}>
-        <CompanyNameInput initialValue={regData && regData.name} />
+        <CompanyNameInput initialValue={regData?.name} />
         <fieldset>
           <legend>Location of the main office</legend>
           <CountryCityInputs
-            initialCountry={regData && regData.country}
-            initialCity={regData && regData.city}
+            initialCountry={regData?.country}
+            initialCity={regData?.city}
             areRequired={true}
           />
         </fieldset>
         <CommonFieldsInRegForms
-          initialPhone={regData && regData.phone}
-          initialEmail={regData && regData.email}
+          initialPhone={regData?.phone}
+          initialEmail={regData?.email}
         />
         <SignUpButton userId={companyid} />
       </form>

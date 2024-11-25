@@ -9,15 +9,8 @@ const ProfileMenu = ({ userId, userType }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  let searchLinkText = 'Find ';
-  let profileRouteStart = '';
-  if ((userType = 'Company')) {
-    searchLinkText += 'CVs';
-    profileRouteStart = '/company_profile';
-  } else {
-    searchLinkText += 'jobs';
-    profileRouteStart = '/job_seeker_profile';
-  }
+  const searchLinkText = 'Find ' + userType === 'Company' ? 'CVs' : 'jobs';
+  const profileRouteStart = userType === 'Company' ? '/company_profile' : '/job_seeker_profile';
 
   const menuData = [
     { to: '/', text: searchLinkText },
@@ -26,8 +19,7 @@ const ProfileMenu = ({ userId, userType }) => {
   ];
 
   const handleRemove = async () => {
-    let url = '/api/remove';
-    url += userType === 'Company' ? 'CompanyProfile' : 'SeekerProfile';
+    const url = '/remove/' + userType === 'Company' ? 'company_profile' : 'seeker_profile';
 
     const settings = getRequestSettings(url, userId);
 

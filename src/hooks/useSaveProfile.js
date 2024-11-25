@@ -10,7 +10,7 @@ const useSaveProfile = () => {
     let formData = new FormData(formElem);
     formData.append('id', userId);
 
-    const url = userType === 'Company' ? '/api/saveCompanyProfile' : '/api/saveSeekerProfile';
+    const url = '/save/' + userType === 'Company' ? 'company_profile' : 'seeker_profile';
 
     const settings = getRequestSettings(url, formData);
 

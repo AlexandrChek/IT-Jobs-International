@@ -24,7 +24,7 @@ const Chat = () => {
       position: state.position,
     };
 
-    const fetchingSettings = getRequestSettings('/api/chat', fetchingBody);
+    const fetchingSettings = getRequestSettings('/chat', fetchingBody);
 
     dispatch(fetchChat(fetchingSettings));
   }, [dispatch, userId, state]);
@@ -32,12 +32,12 @@ const Chat = () => {
   const send = async () => {
     if (messageText.trim()) {
       const message = {
-        date: new Date(),
+        date: new Date().toLocaleString(),
         name: userName,
         text: messageText,
       };
       const sendingBody = { ...fetchingBody, message };
-      const sendingSettings = getRequestSettings('/api/addChatMessage', sendingBody);
+      const sendingSettings = getRequestSettings('/add_chat_message', sendingBody);
 
       try {
         await dispatch(sendMessage(sendingSettings)).unwrap();
@@ -53,7 +53,7 @@ const Chat = () => {
     <div className="routesWrapper">
       {pending && <Loading />}
       {error && <h3>{error}</h3>}
-      <Link to={`/${chat.job.companyId}/job/${chat.job.jobId}`}>
+      <Link to={chat.job.jobRoute}>
         <h2>{chat.job.position}</h2>
       </Link>
       <div className={styles.messages}>

@@ -3,22 +3,21 @@ import { useSelector } from 'react-redux';
 
 const ChatListItem = ({ index, chat, userType, userId }) => {
   const userName = useSelector(state => state.auth.userName);
+  
+  const chatParticipantRoute = userType === 'Job seeker'
+    ? `/company_profile/${chat.chatParticipantId}/public`
+    : `/public_cv/${chat.chatParticipantId}`
+  const chatRoute = userType === 'Job seeker'
+    ? `/job_seeker_profile/${userId}/chat/${chat.chatParticipantId}`
+    : `/company_profile/${userId}/chat/${chat.chatParticipantId}`
 
   return (
     <div key={index}>
-      {userType === 'Job seeker' ? (
-        <Link to={`/company_profile/${chat.chatParticipantId}/public`}>
-          {chat.chatParticipantName}
-        </Link>
-      ) : (
-        <h5>{chat.chatParticipantName}</h5>
-      )}
+      <Link to={chatParticipantRoute}>
+        {chat.chatParticipantName}
+      </Link>
       <Link
-        to={
-          userType === 'Job seeker'
-            ? `/job_seeker_profile/${userId}/chat/${chat.chatParticipantId}`
-            : `/company_profile/${userId}/chat/${chat.chatParticipantId}`
-        }
+        to={chatRoute}
         state={{
           position: chat.position,
           chatParticipantId: chat.chatParticipantId,

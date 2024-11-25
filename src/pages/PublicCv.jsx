@@ -13,6 +13,7 @@ const PublicCv = () => {
   const { profile, pending, error } = useSelector(state => state.userProfile);
   const { userId, userType } = useSelector(state => state.auth);
   const fetchProfile = useFetchProfile();
+  const actualProfile = profilePreviewData?.userName ? profilePreviewData : profile;
 
   useEffect(() => {
     if (!profilePreviewData?.userName && !profile) {
@@ -24,8 +25,8 @@ const PublicCv = () => {
     <div className="routesWrapper">
       {pending && <Loading />}
       {error && <h3>{error}</h3>}
-      {(profile || profilePreviewData?.userName) && (
-        <CvPublicTemplate profile={profilePreviewData?.userName ? profilePreviewData : profile} />
+      {actualProfile && (
+        <CvPublicTemplate profile={actualProfile} />
       )}
       {userType === 'Company' && (
         <CreateChatForm seekerId={seekerid} companyId={userId} userType="Company" />

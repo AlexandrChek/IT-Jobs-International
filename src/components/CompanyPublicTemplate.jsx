@@ -1,6 +1,8 @@
+import { useParams } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 import LinksList from './LinksList';
 
-const CompanyPublicTemplate = ({ profile }) => {
+const CompanyPublicTemplate = ({ profile, activeJobs }) => {
   return (
     <>
       <h2>{profile.companyName}</h2>
@@ -24,10 +26,10 @@ const CompanyPublicTemplate = ({ profile }) => {
           <p>{profile.description}</p>
         </>
       )}
-      {profile.jobs && (
+      {activeJobs.length && (
         <>
           <h4>Current jobs</h4>
-          <LinksList cvsOrJobs={profile.jobs} type="job" />
+          <LinksList cvsOrJobs={activeJobs} type="job" />
         </>
       )}
     </>

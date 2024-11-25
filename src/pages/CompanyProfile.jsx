@@ -54,7 +54,7 @@ const CompanyProfile = () => {
           <button type="submit">Save</button>
         </div>
       </form>
-      {profile?.jobs && <LinksList cvsOrJobs={profile.jobs} type="job" />}
+      {profile?.jobs?.length && <LinksList cvsOrJobs={profile.jobs} type="job" />}
       <Link to={`/company_profile/${companyid}/save_job`} className="button">
         Add job
       </Link>

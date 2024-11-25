@@ -14,18 +14,12 @@ const JobPublicTemplate = ({ job }) => {
   return (
     <>
       <h2>
-        {job.position}
-        {job.salary && `, ${job.salary}`}
+        {job.position}{job.salary && `, ${job.salary}$`}
       </h2>
       <Link to={`/company_profile/${job.companyId}/public`}>
         <h3>{job.companyName}</h3>
       </Link>
-      {job.country && (
-        <p>
-          {job.country}
-          {job.city && `, ${job.city}`}
-        </p>
-      )}
+      {job.country && <p>{job.country}{job.city && `, ${job.city}`}</p>}
       {job.workplaces && <WorkplacesOutput workplaces={job.workplaces} />}
       {job.isRelocationPossible && <p>{relocationFrom}</p>}
       {job.experienceFrom && (

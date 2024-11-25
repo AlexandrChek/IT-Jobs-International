@@ -2,6 +2,7 @@ import { configureStore } from '@reduxjs/toolkit';
 import formDataReducer from './features/sync/formDataSlice';
 import cvFormReducer from './features/sync/cvFormSlice';
 import authReducer from './features/async/authSlice';
+import jobListReducer from './features/async/jobListSlice';
 import chatListReducer from './features/async/chatListSlice';
 import chatReducer from './features/async/chatSlice';
 import userProfileReducer from './features/async/userProfileSlice';
@@ -14,6 +15,7 @@ const store = configureStore({
     formData: formDataReducer,
     cvForm: cvFormReducer,
     auth: authReducer,
+    jobList: jobListReducer,
     chatList: chatListReducer,
     chat: chatReducer,
     userProfile: userProfileReducer,

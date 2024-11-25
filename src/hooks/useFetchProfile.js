@@ -6,7 +6,7 @@ const useFetchProfile = () => {
   const dispatch = useDispatch();
 
   const runFetchProfile = (userId, userType) => {
-    const url = userType === 'Company' ? '/api/companyProfile' : '/api/seekerProfile';
+    const url = userType === 'Company' ? '/company_profile' : '/seeker_profile';
 
     const settings = getRequestSettings(url, userId);
 

@@ -10,7 +10,7 @@ const DisableButton = ({ whatToDisable, body }) => {
   const isDisabled = whatToDisable === 'job' ? isJobDisabled : isProfileDisabled;
 
   const toggleStatus = async () => {
-    const url = isDisabled ? `/api/anable_${whatToDisable}` : `/api/disable_${whatToDisable}`;
+    const url = isDisabled ? `/enable/${whatToDisable}` : `/disable/${whatToDisable}`;
 
     const toggleMethod = whatToDisable === 'job' ? toggleJobStatus : toggleProfileStatus;
 
@@ -27,7 +27,7 @@ const DisableButton = ({ whatToDisable, body }) => {
     <>
       {isDisabled !== undefined && (
         <button onClick={toggleStatus}>
-          {!isDisabled ? `Disable this ${whatToDisable}` : `Anable this ${whatToDisable}`}
+          {!isDisabled ? `Disable this ${whatToDisable}` : `Enable this ${whatToDisable}`}
         </button>
       )}
     </>

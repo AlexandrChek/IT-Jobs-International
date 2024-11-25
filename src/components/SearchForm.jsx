@@ -13,6 +13,7 @@ import ExperienceIsNotRequiredCheckbox from './ExperienceIsNotRequiredCheckbox';
 import ExperienceFromField from './ExperienceFromField';
 import SkillsTextarea from './SkillsTextarea';
 import EnglishLevelSelect from './EnglishLevelSelect';
+import SearchTypeButton from './buttons/SearchTypeButton';
 import styles from '../styles/components/SearchForm.module.css';
 
 const SearchForm = ({ searchType }) => {
@@ -25,7 +26,7 @@ const SearchForm = ({ searchType }) => {
     e.preventDefault();
 
     const formData = new FormData(searchForm.current);
-    const settings = getRequestSettings(`/api/search/${searchType}`, formData);
+    const settings = getRequestSettings(`/search/${searchType}`, formData);
 
     try {
       await dispatch(fetchSearchResults(settings)).unwrap();
@@ -61,9 +62,7 @@ const SearchForm = ({ searchType }) => {
       )}
       <div>
         <button type="submit">Search</button>
-        <button type="button" onClick={() => setAdvancedSearch(!advancedSearch)}>
-          {advancedSearch ? 'Normal search' : 'Advanced search'}
-        </button>
+        <SearchTypeButton onClick={() => setAdvancedSearch(!advancedSearch)} />
       </div>
     </form>
   );

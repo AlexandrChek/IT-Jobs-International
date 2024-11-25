@@ -19,12 +19,12 @@ const Job = () => {
   const body = { companyid, jobid };
 
   useEffect(() => {
-    const settings = getRequestSettings('/api/job', body);
+    const settings = getRequestSettings('/job', body);
     dispatch(fetchJob(settings));
   }, [companyid, jobid]);
 
   const handleRemoveJob = async () => {
-    const removingSettings = getRequestSettings('/api/removeJob', body);
+    const removingSettings = getRequestSettings('/remove/job', body);
 
     try {
       await dispatch(removeJob(removingSettings)).unwrap();
@@ -61,6 +61,7 @@ const Job = () => {
               companyId={companyid}
               userType="Job seeker"
               jobId={jobid}
+              position={jobData.position}
             />
           )}
         </>

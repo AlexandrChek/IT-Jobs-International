@@ -11,10 +11,15 @@ const CompanyProfilePublic = () => {
   const profilePreviewData = useSelector(state => state.formData);
   const { profile, pending, error } = useSelector(state => state.userProfile);
   const fetchProfile = useFetchProfile();
+  let activeJobs = [];
 
   useEffect(() => {
     if (!profilePreviewData?.companyName && !profile) {
       fetchProfile(companyid, 'Company');
+    }
+
+    if (profile?.jobs) {
+      activeJobs = profile.jobs.filter(job => (!Object.keys(job).includes('isDisabled')));
     }
   }, [profilePreviewData?.companyName, profile, companyid]);
 
@@ -25,6 +30,7 @@ const CompanyProfilePublic = () => {
       {(profile || profilePreviewData?.companyName) && (
         <CompanyPublicTemplate
           profile={profilePreviewData?.companyName ? profilePreviewData : profile}
+          activeJobs={activeJobs}
         />
       )}
     </div>

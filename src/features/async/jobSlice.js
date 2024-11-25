@@ -37,7 +37,11 @@ const jobSlice = createSlice({
         state.error = action.error.message;
       })
       .addCase(toggleJobStatus.fulfilled, state => {
-        state.jobData.isDisabled = !state.jobData.isDisabled;
+        if (state.jobData.isDisabled) {
+          state.jobData.isDisabled = false;
+        } else {
+          state.jobData.isDisabled = true;
+        }
       });
   },
 });

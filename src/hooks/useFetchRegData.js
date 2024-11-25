@@ -8,7 +8,7 @@ const useFetchRegData = (userId, userType) => {
 
   useEffect(() => {
     if (userId) {
-      const url = userType === 'Company' ? '/api/companyRegData' : '/api/seekerRegData';
+      const url = userType === 'Company' ? '/company_reg_data' : '/seeker_reg_data';
 
       const settings = getRequestSettings(url, userId);
 

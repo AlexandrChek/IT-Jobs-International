@@ -1,21 +1,21 @@
-import { Link, useMatch } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 const LinksList = ({ cvsOrJobs, type }) => {
-  const matchCompanyProfile = useMatch('/company_profile/:companyid');
+  const getRoute = item => {
+    return type === 'cv' ? `/public_cv/${item.seekerId}` : `/${item.companyId}/job/${item.jobId}`
+  }
 
   return (
     <div>
       {cvsOrJobs.map(item => (
-        <div key={item.id}>
-          <Link to={type === 'cv' ? `/public_cv/${item.id}` : `/${item.countryId}/job/${item.id}`}>
+        <div key={item.jobId || item.seekerId}>
+          <Link to={getRoute(item)}>
             <h3>
-              {item.position} {item.salary}
+              {item.position}{item.salary && `, ${item.salary}`}
             </h3>
-            <p>
-              {item.country}, {item.city}
-            </p>
+            {item.country && <p>{item.country}{item.city && `, ${item.city}`}</p>}
+            {type === 'job' && item.isDisabled && <h4>Disabled</h4>}
           </Link>
-          {matchCompanyProfile && <span>{item.status}</span>}
         </div>
       ))}
     </div>

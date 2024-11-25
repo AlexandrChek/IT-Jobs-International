@@ -1,13 +1,12 @@
 import MyInput from './inputs/MyInput';
 
-const CompanyNameInput = ({ initialValue = '', customName = null }) => {
+const CompanyNameInput = ({ initialValue = '' }) => {
   return (
     <label>
       Company name
       <MyInput
         type="text"
-        id="name"
-        name={customName ? customName : 'name'}
+        name="companyName"
         required
         initialValue={initialValue}
       />

@@ -1,13 +1,13 @@
 import MyInput from './inputs/MyInput';
 
-const PositionInput = ({ initialPosition = '', isRequired = false, posName = null }) => {
+const PositionInput = ({ initialPosition = '', isRequired = false }) => {
   return (
     <div>
       <label htmlFor="position">Position</label>
       <MyInput
         id="position"
         type="text"
-        name={posName ? posName : 'position'}
+        name="position"
         initialValue={initialPosition}
         required={isRequired}
       />

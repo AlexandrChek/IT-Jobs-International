@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from 'react';
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import logo from '../assets/logo.svg';
@@ -8,24 +8,6 @@ import styles from '../styles/components/Header.module.css';
 const Header = () => {
   const userName = useSelector(state => state.auth.userName);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const userMenuRef = useRef();
-
-  const handleClickOutside = e => {
-    if (userMenuRef.current && !userMenuRef.current.contains(e.target)) {
-      setIsMenuOpen(false);
-    }
-  };
-
-  const openUserMenu = () => {
-    setIsMenuOpen(true);
-    document.addEventListener('click', handleClickOutside);
-  };
-
-  useEffect(() => {
-    if (!isMenuOpen) {
-      document.removeEventListener('click', handleClickOutside);
-    }
-  }, [isMenuOpen]);
 
   return (
     <header className={styles.header}>
@@ -36,14 +18,14 @@ const Header = () => {
       <nav className={styles.nav}>
         {userName ? (
           <>
-            <span className={styles.userName} onClick={openUserMenu}>
+            <span className={styles.userName} onClick={() => setIsMenuOpen(true)}>
               {userName}
             </span>
-            {isMenuOpen && <UserMenu ref={userMenuRef} />}
+            {isMenuOpen && <UserMenu isMenuOpen={isMenuOpen} setIsMenuOpen={setIsMenuOpen} />}
           </>
         ) : (
           <div>
-            <Link to="/login" className="button" style={{ marginRight: '0.5rem' }}>
+            <Link to="/login" className={`button ${styles.logInLink}`}>
               Log In
             </Link>
             <Link to="/sign_up" className="button">

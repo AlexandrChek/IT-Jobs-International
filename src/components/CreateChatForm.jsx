@@ -3,12 +3,15 @@ import { useDispatch } from 'react-redux';
 import { createChat } from '../features/async/chatSlice';
 import { getRequestSettings } from '../methods';
 import MyTextarea from './inputs/MyTextarea';
-import UrlInput from './inputs/UrlInput';
+import JobSelect from './JobSelect';
 
-const CreateChatForm = ({ seekerId, companyId, userType, jobId = '' }) => {
+const CreateChatForm = ({ seekerId, companyId, userType, jobId = '', position = '' }) => {
   const dispatch = useDispatch();
   const form = useRef();
   const isCompany = userType === 'Company';
+  let realJobId = jobId;
+
+  const getJobId = id => realJobId = id;
 
   const handleSubmit = async e => {
     e.preventDefault();
@@ -16,11 +19,14 @@ const CreateChatForm = ({ seekerId, companyId, userType, jobId = '' }) => {
     const formData = new FormData(form.current);
     formData.append('seekerId', seekerId);
     formData.append('companyId', companyId);
-    if (jobId) {
-      formData.append('jobId', jobId);
-    }
+    formData.append('userType', userType);
+    formData.append('jobRoute', `/${companyId}/job/${realJobId}`);
+    if (position) {
+      formData.append('position', position);
+    };
+    formData.append('date', new Date().toLocaleString());
 
-    const settings = getRequestSettings('/api/createChat', formData);
+    const settings = getRequestSettings('/create_chat', formData);
 
     try {
       await dispatch(createChat(settings)).unwrap();
@@ -32,11 +38,11 @@ const CreateChatForm = ({ seekerId, companyId, userType, jobId = '' }) => {
 
   return (
     <>
-      <h5>{isCompany ? 'Offer a job' : 'Apply for a job'}</h5>
+      <h4>{isCompany ? 'Offer a job' : 'Apply for a job'}</h4>
       <form ref={form} onSubmit={handleSubmit}>
         <MyTextarea name="message" placeholder="Write a message" required />
         {isCompany ? (
-          <UrlInput labelAndName={{ label: 'Job link:', name: 'jobLink' }} isRequired={true} />
+          <JobSelect companyId={companyId} getJobId={getJobId} />
         ) : (
           <label>
             Upload your CV file
