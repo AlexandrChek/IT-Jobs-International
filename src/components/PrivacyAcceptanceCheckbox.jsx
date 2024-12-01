@@ -6,8 +6,8 @@ const PrivacyAcceptanceCheckbox = () => {
 
   return (
     <label>
-      <MyCheckbox name="privacyAcceptance" initialState={true} required />
-      I accept the {privacyLink} terms.
+      <MyCheckbox name="privacyAcceptance" initialState={true} required /> I accept the{' '}
+      {privacyLink} terms.
     </label>
   );
 };

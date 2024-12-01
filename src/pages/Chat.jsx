@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation, Link } from 'react-router-dom';
 import { fetchChat, sendMessage, addMessageLocally } from '../features/async/chatSlice';
-import { getRequestSettings } from '../methods';
+import { createPostReqSettings } from '../methods';
 import Loading from '../components/Loading';
 import UserMessage from '../components/UserMessage';
 import MyTextarea from '../components/inputs/MyTextarea';
@@ -24,7 +24,7 @@ const Chat = () => {
       position: state.position,
     };
 
-    const fetchingSettings = getRequestSettings('/chat', fetchingBody);
+    const fetchingSettings = createPostReqSettings('/chat', fetchingBody);
 
     dispatch(fetchChat(fetchingSettings));
   }, [dispatch, userId, state]);
@@ -37,7 +37,7 @@ const Chat = () => {
         text: messageText,
       };
       const sendingBody = { ...fetchingBody, message };
-      const sendingSettings = getRequestSettings('/add_chat_message', sendingBody);
+      const sendingSettings = createPostReqSettings('/add_chat_message', sendingBody);
 
       try {
         await dispatch(sendMessage(sendingSettings)).unwrap();

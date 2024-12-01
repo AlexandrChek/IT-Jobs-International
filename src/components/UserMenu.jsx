@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { logOut } from '../features/async/authSlice';
 import styles from '../styles/components/UserMenu.module.css';
 
-const UserMenu = ({isMenuOpen, setIsMenuOpen}) => {
+const UserMenu = ({ isMenuOpen, setIsMenuOpen }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { userId, userType } = useSelector(state => state.auth);
@@ -14,15 +14,15 @@ const UserMenu = ({isMenuOpen, setIsMenuOpen}) => {
     if (!menuRef.current.contains(e.target)) {
       setIsMenuOpen(false);
     }
-  }
+  };
 
   useEffect(() => {
     if (isMenuOpen) {
       document.addEventListener('click', handleClickOutside);
     }
-    
+
     return () => document.removeEventListener('click', handleClickOutside);
-  }, [isMenuOpen])
+  }, [isMenuOpen]);
 
   const goToProfile = () => {
     let route = `_profile/${userId}`;

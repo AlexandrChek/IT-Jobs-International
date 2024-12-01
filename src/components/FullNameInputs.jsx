@@ -12,13 +12,7 @@ const FullNameInputs = ({ initialFirstName = '', initialLastName = '' }) => {
         required
       />
       <label htmlFor="lastName">Last name</label>
-      <MyInput
-        id="lastName"
-        type="text"
-        name="lastName"
-        initialValue={initialLastName}
-        required
-      />
+      <MyInput id="lastName" type="text" name="lastName" initialValue={initialLastName} required />
     </div>
   );
 };

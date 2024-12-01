@@ -1,6 +1,6 @@
 import { useDispatch } from 'react-redux';
 import { saveProfile } from '../features/async/userProfileSlice';
-import { getRequestSettings } from '../methods';
+import { createPostReqSettings } from '../methods';
 import { savingMessage } from '../constants';
 
 const useSaveProfile = () => {
@@ -8,11 +8,11 @@ const useSaveProfile = () => {
 
   return async ({ formElem, userId, userType }) => {
     let formData = new FormData(formElem);
-    formData.append('id', userId);
 
-    const url = '/save/' + userType === 'Company' ? 'company_profile' : 'seeker_profile';
+    const url =
+      '/save/' + userType === 'Company' ? `company_profile/${userId}` : `seeker_profile/${userId}`;
 
-    const settings = getRequestSettings(url, formData);
+    const settings = createPostReqSettings(url, formData);
 
     try {
       await dispatch(saveProfile(settings)).unwrap();

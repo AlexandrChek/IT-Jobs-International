@@ -39,7 +39,7 @@ const RegFormPassword = () => {
       setPassword2('');
       pas2Ref.current.focus();
     }
-  
+
     setWarning('');
   };
 
@@ -47,12 +47,7 @@ const RegFormPassword = () => {
     <div>
       <label>
         Password
-        <PasswordInput
-          name="password"
-          ref={pas1Ref}
-          val={password1}
-          setVal={checkPasswordLength}
-        />
+        <PasswordInput name="password" ref={pas1Ref} val={password1} setVal={checkPasswordLength} />
       </label>
       <label>
         Password (again)

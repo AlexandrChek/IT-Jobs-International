@@ -2,29 +2,28 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { saveRegData } from '../features/async/userRegDataSlice';
 import { logIn } from '../features/async/authSlice';
-import { getRequestSettings } from '../methods';
+import { createPostReqSettings } from '../methods';
 
 const useSaveRegData = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const userIdFromAuth = useSelector(state => state.auth.userId);
 
-  return async ({ savingUrl, formData, userId, userType }) => {
-    const savingSettings = getRequestSettings(savingUrl, formData);
+  return async ({ url, formData, userId, userType }) => {
+    const savingSettings = createPostReqSettings(url, formData);
 
     try {
       await dispatch(saveRegData(savingSettings)).unwrap();
 
       let route = userType === 'Company' ? '/company_profile/' : '/job_seeker_profile/';
-      let logInUrl = '/log_in/' + userType === 'Company' ? 'company' : 'seeker';
 
       if (!userId) {
-        const body = {
-          email: formData.get('email'),
-          password: formData.get('password'),
-        };
+        const body = new FormData();
+        body.append('userType', userType);
+        body.append('email', formData.get('email'));
+        body.append('password', formData.get('password'));
 
-        const logInSettings = getRequestSettings(logInUrl, body);
+        const logInSettings = createPostReqSettings('/login', body);
 
         await dispatch(logIn(logInSettings)).unwrap();
       }

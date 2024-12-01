@@ -6,7 +6,9 @@ const UserMessage = ({ index, msg, userName }) => {
       </p>
       <p>{msg.text}</p>
       {msg.cvFileLink && (
-        <a href={msg.cvFileLink} target="_blank">Open CV</a>
+        <a href={msg.cvFileLink} target="_blank">
+          Open CV
+        </a>
       )}
     </div>
   );

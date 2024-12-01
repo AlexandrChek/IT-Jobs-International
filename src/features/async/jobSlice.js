@@ -19,6 +19,7 @@ export const removeJob = createAsyncThunk('job/removeJob', async settings => {
 });
 
 const initialState = new BasicInitialState('jobData');
+initialState.togglePending = false;
 
 const jobSlice = createSlice({
   name: 'job',
@@ -36,12 +37,20 @@ const jobSlice = createSlice({
         state.pending = false;
         state.error = action.error.message;
       })
+      .addCase(toggleJobStatus.pending, state => {
+        state.togglePending = true;
+      })
       .addCase(toggleJobStatus.fulfilled, state => {
         if (state.jobData.isDisabled) {
           state.jobData.isDisabled = false;
         } else {
           state.jobData.isDisabled = true;
         }
+
+        state.togglePending = false;
+      })
+      .addCase(toggleJobStatus.rejected, state => {
+        state.togglePending = false;
       });
   },
 });

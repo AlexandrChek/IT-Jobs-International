@@ -1,7 +1,7 @@
 import { useRef } from 'react';
 import { useDispatch } from 'react-redux';
 import { createChat } from '../features/async/chatSlice';
-import { getRequestSettings } from '../methods';
+import { createPostReqSettings } from '../methods';
 import MyTextarea from './inputs/MyTextarea';
 import JobSelect from './JobSelect';
 
@@ -11,7 +11,7 @@ const CreateChatForm = ({ seekerId, companyId, userType, jobId = '', position = 
   const isCompany = userType === 'Company';
   let realJobId = jobId;
 
-  const getJobId = id => realJobId = id;
+  const getJobId = id => (realJobId = id);
 
   const handleSubmit = async e => {
     e.preventDefault();
@@ -23,10 +23,10 @@ const CreateChatForm = ({ seekerId, companyId, userType, jobId = '', position = 
     formData.append('jobRoute', `/${companyId}/job/${realJobId}`);
     if (position) {
       formData.append('position', position);
-    };
+    }
     formData.append('date', new Date().toLocaleString());
 
-    const settings = getRequestSettings('/create_chat', formData);
+    const settings = createPostReqSettings('/create_chat', formData);
 
     try {
       await dispatch(createChat(settings)).unwrap();

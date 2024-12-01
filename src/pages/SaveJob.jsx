@@ -2,7 +2,7 @@ import { useRef } from 'react';
 import { useDispatch } from 'react-redux';
 import { useParams, useNavigate, useLocation } from 'react-router-dom';
 import { saveJobData } from '../features/async/jobSlice';
-import { getRequestSettings } from '../methods';
+import { createPostReqSettings } from '../methods';
 import PositionInput from '../components/PositionInput';
 import SalaryInput from '../components/SalaryInput';
 import CountryCityInputs from '../components/CountryCityInputs';
@@ -26,15 +26,10 @@ const SaveJob = () => {
   const handleSubmit = async e => {
     e.preventDefault();
 
-    let formData = new FormData(form.current);
-    formData.append('companyId', companyid);
-    if (state) {
-      formData.append('jobId', state.jobId);
-    };
+    const formData = new FormData(form.current);
+    const url = state ? `/edit/job/${companyid}/${state.jobId}` : `/create/job/${companyid}`;
 
-    const url = state ? '/edit/job' : '/create/job';
-
-    const settings = getRequestSettings(url, formData);
+    const settings = createPostReqSettings(url, formData);
 
     try {
       await dispatch(saveJobData(settings)).unwrap();

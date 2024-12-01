@@ -25,9 +25,7 @@ const PublicCv = () => {
     <div className="routesWrapper">
       {pending && <Loading />}
       {error && <h3>{error}</h3>}
-      {actualProfile && (
-        <CvPublicTemplate profile={actualProfile} />
-      )}
+      {actualProfile && <CvPublicTemplate profile={actualProfile} />}
       {userType === 'Company' && (
         <CreateChatForm seekerId={seekerid} companyId={userId} userType="Company" />
       )}

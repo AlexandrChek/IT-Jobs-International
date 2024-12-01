@@ -22,14 +22,10 @@ const SignUpCompany = () => {
   const handleSubmit = e => {
     e.preventDefault();
 
-    let formData = new FormData(form.current);
-    if (companyid) {
-      formData.append('id', companyid);
-    }
+    const formData = new FormData(form.current);
+    const url = companyid ? `/edit/company_reg_data/${companyid}` : '/sign_up/company';
 
-    let url = companyid ? '/edit/company_reg_data' : '/sign_up/company';
-
-    saveRegData({ savingUrl: url, formData, userId: companyid, userType: 'Company' });
+    saveRegData({ url, formData, userId: companyid, userType: 'Company' });
   };
 
   return (
@@ -47,10 +43,7 @@ const SignUpCompany = () => {
             areRequired={true}
           />
         </fieldset>
-        <CommonFieldsInRegForms
-          initialPhone={regData?.phone}
-          initialEmail={regData?.email}
-        />
+        <CommonFieldsInRegForms initialPhone={regData?.phone} initialEmail={regData?.email} />
         <SignUpButton userId={companyid} />
       </form>
     </div>

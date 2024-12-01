@@ -22,14 +22,10 @@ const SignUpSeeker = () => {
   const handleSubmit = e => {
     e.preventDefault();
 
-    let formData = new FormData(form.current);
-    if (seekerid) {
-      formData.append('id', seekerid);
-    }
+    const formData = new FormData(form.current);
+    const url = seekerid ? `/edit/seeker_reg_data/${seekerid}` : '/sign_up/seeker';
 
-    let url = seekerid ? '/edit/seeker_reg_data' : '/sign_up/seeker';
-
-    saveRegData({ savingUrl: url, formData, userId: seekerid, userType: 'Job seeker' });
+    saveRegData({ url, formData, userId: seekerid, userType: 'Job seeker' });
   };
 
   return (
@@ -38,20 +34,14 @@ const SignUpSeeker = () => {
       {pending && <Loading />}
       {error && <h3>{error}</h3>}
       <form ref={form} onSubmit={handleSubmit}>
-        <FullNameInputs
-          initialFirstName={regData?.firstName}
-          initialLastName={regData?.lastName}
-        />
+        <FullNameInputs initialFirstName={regData?.firstName} initialLastName={regData?.lastName} />
         <DateOfBirthInput initialValue={regData?.dateOfBirth} />
         <CountryCityInputs
           initialCountry={regData?.country}
           initialCity={regData?.city}
           areRequired={true}
         />
-        <CommonFieldsInRegForms
-          initialPhone={regData?.phone}
-          initialEmail={regData?.email}
-        />
+        <CommonFieldsInRegForms initialPhone={regData?.phone} initialEmail={regData?.email} />
         <SignUpButton userId={seekerid} />
       </form>
     </div>

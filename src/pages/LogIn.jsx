@@ -2,7 +2,7 @@ import { useState, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, Link } from 'react-router-dom';
 import { logIn } from '../features/async/authSlice';
-import { getRequestSettings } from '../methods';
+import { createPostReqSettings } from '../methods';
 import UserTypeToggler from '../components/UserTypeToggler';
 import EmailInput from '../components/inputs/EmailInput';
 import PasswordInput from '../components/inputs/PasswordInput';
@@ -23,7 +23,7 @@ const LogIn = () => {
     e.preventDefault();
 
     const formData = new FormData(form.current);
-    const settings = getRequestSettings('/login', formData);
+    const settings = createPostReqSettings('/login', formData);
 
     try {
       await dispatch(logIn(settings)).unwrap();

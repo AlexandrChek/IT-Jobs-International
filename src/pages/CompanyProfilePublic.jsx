@@ -19,7 +19,7 @@ const CompanyProfilePublic = () => {
     }
 
     if (profile?.jobs) {
-      activeJobs = profile.jobs.filter(job => (!Object.keys(job).includes('isDisabled')));
+      activeJobs = profile.jobs.filter(job => !Object.keys(job).includes('isDisabled'));
     }
   }, [profilePreviewData?.companyName, profile, companyid]);
 

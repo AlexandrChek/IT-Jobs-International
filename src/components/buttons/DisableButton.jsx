@@ -1,36 +1,40 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { toggleJobStatus } from '../../features/async/jobSlice';
 import { toggleProfileStatus } from '../../features/async/userProfileSlice';
-import { getRequestSettings } from '../../methods';
 
-const DisableButton = ({ whatToDisable, body }) => {
+const DisableButton = ({ whatToDisable, params, buttonIsDisabled = false }) => {
   const dispatch = useDispatch();
   const isJobDisabled = useSelector(state => state.job.jobData?.isDisabled);
   const isProfileDisabled = useSelector(state => state.userProfile.profile?.isDisabled);
-  const isDisabled = whatToDisable === 'job' ? isJobDisabled : isProfileDisabled;
+  let isDisabled = false,
+    urlEnd = '',
+    toggleMethod = null;
+
+  if (whatToDisable === 'job') {
+    isDisabled = isJobDisabled;
+    urlEnd = `${params.companyid}/${params.jobid}`;
+    toggleMethod = toggleJobStatus;
+  } else {
+    isDisabled = isProfileDisabled;
+    urlEnd = params;
+    toggleMethod = toggleProfileStatus;
+  }
 
   const toggleStatus = async () => {
-    const url = isDisabled ? `/enable/${whatToDisable}` : `/disable/${whatToDisable}`;
-
-    const toggleMethod = whatToDisable === 'job' ? toggleJobStatus : toggleProfileStatus;
-
-    const settings = getRequestSettings(url, body);
+    const urlStart = isDisabled ? '/enable/' : '/disable/';
+    const url = `${urlStart}${whatToDisable}/${urlEnd}`;
 
     try {
-      await dispatch(toggleMethod(settings)).unwrap();
+      await dispatch(toggleMethod({ url })).unwrap();
     } catch (error) {
       alert(error.message);
     }
   };
 
   return (
-    <>
-      {isDisabled !== undefined && (
-        <button onClick={toggleStatus}>
-          {!isDisabled ? `Disable this ${whatToDisable}` : `Enable this ${whatToDisable}`}
-        </button>
-      )}
-    </>
+    <button onClick={toggleStatus} disabled={buttonIsDisabled || isDisabled === undefined}>
+      {!isDisabled ? `Disable this ${whatToDisable}` : `Enable this ${whatToDisable}`}
+    </button>
   );
 };
 

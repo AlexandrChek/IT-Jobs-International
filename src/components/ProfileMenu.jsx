@@ -1,7 +1,6 @@
 import { useDispatch } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import { removeProfile } from '../features/async/userProfileSlice';
-import { getRequestSettings } from '../methods';
 import DisableButton from './buttons/DisableButton';
 import RemoveButton from './buttons/RemoveButton';
 
@@ -10,21 +9,19 @@ const ProfileMenu = ({ userId, userType }) => {
   const navigate = useNavigate();
 
   const searchLinkText = 'Find ' + userType === 'Company' ? 'CVs' : 'jobs';
-  const profileRouteStart = userType === 'Company' ? '/company_profile' : '/job_seeker_profile';
+  const profileRouteStart = userType === 'Company' ? '/company_profile/' : '/job_seeker_profile/';
 
   const menuData = [
     { to: '/', text: searchLinkText },
-    { to: `${profileRouteStart}/${userId}/chat_list`, text: 'Correspondence' },
-    { to: `${profileRouteStart}/${userId}/edit_reg_data`, text: 'Edit registration data' },
+    { to: `${profileRouteStart}${userId}/chat_list`, text: 'Correspondence' },
+    { to: `${profileRouteStart}${userId}/edit_reg_data`, text: 'Edit registration data' },
   ];
 
   const handleRemove = async () => {
-    const url = '/remove/' + userType === 'Company' ? 'company_profile' : 'seeker_profile';
-
-    const settings = getRequestSettings(url, userId);
+    const url = `/remove${profileRouteStart}${userId}`;
 
     try {
-      await dispatch(removeProfile(settings)).unwrap();
+      await dispatch(removeProfile({ url })).unwrap();
       navigate('/');
     } catch (error) {
       alert(error.message);
@@ -38,7 +35,7 @@ const ProfileMenu = ({ userId, userType }) => {
           {item.text}
         </Link>
       ))}
-      {userType === 'Job seeker' && <DisableButton whatToDisable="profile" body={userId} />}
+      {userType === 'Job seeker' && <DisableButton whatToDisable="profile" params={userId} />}
       <RemoveButton whatToRemove="profile" remove={handleRemove} />
     </nav>
   );

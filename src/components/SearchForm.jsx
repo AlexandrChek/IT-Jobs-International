@@ -2,7 +2,7 @@ import { useState, useRef } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { fetchSearchResults } from '../features/async/searchSlice';
-import { getRequestSettings } from '../methods';
+import { createPostReqSettings } from '../methods';
 import MyCheckbox from './inputs/MyCheckbox';
 import PositionInput from './PositionInput';
 import CountryCityInputs from './CountryCityInputs';
@@ -26,7 +26,7 @@ const SearchForm = ({ searchType }) => {
     e.preventDefault();
 
     const formData = new FormData(searchForm.current);
-    const settings = getRequestSettings(`/search/${searchType}`, formData);
+    const settings = createPostReqSettings(`/search/${searchType}`, formData);
 
     try {
       await dispatch(fetchSearchResults(settings)).unwrap();

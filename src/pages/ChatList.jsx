@@ -1,7 +1,6 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchChatList } from '../features/async/chatListSlice';
-import { getRequestSettings } from '../methods';
 import Loading from '../components/Loading';
 import ChatListItem from '../components/ChatListItem';
 import styles from '../styles/pages/ChatList.module.css';
@@ -12,9 +11,8 @@ const ChatList = () => {
   const { chats, pending, error } = useSelector(state => state.chatList);
 
   useEffect(() => {
-    const body = { userId, userType };
-    const settings = getRequestSettings('/chat_list', body);
-    dispatch(fetchChatList(settings));
+    const url = '/chat_list/' + userType === 'Company' ? `company/${userId}` : `seeker/${userId}`;
+    dispatch(fetchChatList({ url }));
   }, [dispatch, userId, userType]);
 
   return (

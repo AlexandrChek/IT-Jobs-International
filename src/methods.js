@@ -1,9 +1,9 @@
 import { serverUrl } from './constants';
 
 // Function to fetch data that is an argument to createAsyncThunk:
-export const fetchData = async ({ url, options }) => {
+export const fetchData = async ({ url, options = null }) => {
   const fullUrl = serverUrl + url;
-  const response = await fetch(fullUrl, options);
+  const response = options ? await fetch(fullUrl, options) : await fetch(fullUrl);
 
   if (!response.ok) throw new Error('Failed to get server response');
 
@@ -23,7 +23,7 @@ export const fetchData = async ({ url, options }) => {
 };
 
 // Fn to get settings for POST-requests:
-export const getRequestSettings = (url, body) => {
+export const createPostReqSettings = (url, body) => {
   const settings = {
     url,
     options: {

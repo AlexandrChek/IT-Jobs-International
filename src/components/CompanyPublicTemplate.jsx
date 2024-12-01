@@ -7,11 +7,7 @@ const CompanyPublicTemplate = ({ profile, activeJobs }) => {
     <>
       <h2>{profile.companyName}</h2>
       <p>{profile.location}</p>
-      {profile.employeesNumber && (
-        <h5>
-          Number of employees: {profile.employeesNumber}
-        </h5>
-      )}
+      {profile.employeesNumber && <h5>Number of employees: {profile.employeesNumber}</h5>}
       {profile.website && (
         <h5>
           Website:

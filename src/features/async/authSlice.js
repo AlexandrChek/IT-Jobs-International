@@ -19,7 +19,7 @@ const authSlice = createSlice({
     logOut: () => initialState,
   },
   extraReducers: builder => {
-    builder.addCase(logIn.fulfilled, (action) => {
+    builder.addCase(logIn.fulfilled, action => {
       if (action.payload.userName) {
         return {
           ...initialState,

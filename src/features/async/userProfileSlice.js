@@ -40,7 +40,11 @@ const userProfileSlice = createSlice({
         state.error = action.error.message;
       })
       .addCase(toggleProfileStatus.fulfilled, state => {
-        state.profile.isDisabled = !state.profile.isDisabled;
+        if (state.profile.isDisabled) {
+          state.profile.isDisabled = false;
+        } else {
+          state.profile.isDisabled = true;
+        }
       });
   },
 });

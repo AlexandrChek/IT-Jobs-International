@@ -1,16 +1,13 @@
 import { useDispatch } from 'react-redux';
 import { fetchProfile } from '../features/async/userProfileSlice';
-import { getRequestSettings } from '../methods';
 
 const useFetchProfile = () => {
   const dispatch = useDispatch();
 
   const runFetchProfile = (userId, userType) => {
-    const url = userType === 'Company' ? '/company_profile' : '/seeker_profile';
+    const url = userType === 'Company' ? `/company_profile/${userId}` : `/seeker_profile/${userId}`;
 
-    const settings = getRequestSettings(url, userId);
-
-    dispatch(fetchProfile(settings));
+    dispatch(fetchProfile({ url }));
   };
 
   return runFetchProfile;
