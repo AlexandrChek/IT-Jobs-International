@@ -15,8 +15,7 @@ const useSaveRegData = () => {
     try {
       await dispatch(saveRegData(savingSettings)).unwrap();
 
-      let route = userType === 'Company' ? '/company_profile/' : '/job_seeker_profile/';
-
+      // User is automatically logged to his account upon registration
       if (!userId) {
         const body = new FormData();
         body.append('userType', userType);
@@ -28,6 +27,7 @@ const useSaveRegData = () => {
         await dispatch(logIn(logInSettings)).unwrap();
       }
 
+      let route = userType === 'company' ? '/company_profile/' : '/job_seeker_profile/';
       route += userIdFromAuth;
       navigate(route);
     } catch (error) {

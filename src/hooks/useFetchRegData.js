@@ -7,9 +7,7 @@ const useFetchRegData = (userId, userType) => {
 
   useEffect(() => {
     if (userId) {
-      const url =
-        userType === 'Company' ? `/company_reg_data/${userId}` : `/seeker_reg_data/${userId}`;
-
+      const url = `/${userType}_reg_data/${userId}`;
       dispatch(fetchRegData({ url }));
     }
   }, [userId, userType]);

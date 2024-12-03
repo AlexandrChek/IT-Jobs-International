@@ -41,7 +41,7 @@ const Job = () => {
         <>
           {jobData.isDisabled && <h3>Disabled</h3>}
           <JobPublicTemplate job={jobData} />
-          {userType === 'Company' && (
+          {userType === 'company' && (
             <nav>
               <Link
                 to={`/company_profile/${companyid}/save_job`}
@@ -58,11 +58,11 @@ const Job = () => {
               <RemoveButton whatToRemove="job" remove={handleRemoveJob} />
             </nav>
           )}
-          {userType === 'Job seeker' && (
+          {userType === 'seeker' && (
             <CreateChatForm
               seekerId={userId}
               companyId={companyid}
-              userType="Job seeker"
+              userType={userType}
               jobId={jobid}
               position={jobData.position}
             />

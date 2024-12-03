@@ -28,18 +28,18 @@ const SeekerProfile = () => {
   const saveProfile = useSaveProfile();
 
   useEffect(() => {
-    fetchProfile(seekerid, 'Job seeker');
+    fetchProfile(seekerid, 'seeker');
     dispatch(setCvFormRef(form.current));
   }, [seekerid]);
 
   const handleSubmit = e => {
     e.preventDefault();
-    saveProfile({ formElem: form.current, userId: seekerid, userType: 'Job seeker' });
+    saveProfile({ formElem: form.current, userId: seekerid, userType: 'seeker' });
   };
 
   return (
     <div className="routesWrapper">
-      <ProfileMenu userId={seekerid} userType="Job seeker" />
+      <ProfileMenu userId={seekerid} userType="seeker" />
       <h3>Profile {profile?.isDisabled && '(disabled)'}</h3>
       {pending && <Loading />}
       {error && <h3>{error}</h3>}

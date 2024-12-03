@@ -17,7 +17,7 @@ const PublicCv = () => {
 
   useEffect(() => {
     if (!profilePreviewData?.userName && !profile) {
-      fetchProfile(seekerid, 'Job seeker');
+      fetchProfile(seekerid, 'seeker');
     }
   }, [profilePreviewData?.userName, profile, seekerid]);
 
@@ -26,8 +26,8 @@ const PublicCv = () => {
       {pending && <Loading />}
       {error && <h3>{error}</h3>}
       {actualProfile && <CvPublicTemplate profile={actualProfile} />}
-      {userType === 'Company' && (
-        <CreateChatForm seekerId={seekerid} companyId={userId} userType="Company" />
+      {userType === 'company' && (
+        <CreateChatForm seekerId={seekerid} companyId={userId} userType={userType} />
       )}
     </div>
   );

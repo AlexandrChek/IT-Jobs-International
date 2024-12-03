@@ -5,11 +5,11 @@ const ChatListItem = ({ index, chat, userType, userId }) => {
   const userName = useSelector(state => state.auth.userName);
 
   const chatParticipantRoute =
-    userType === 'Job seeker'
+    userType === 'seeker'
       ? `/company_profile/${chat.chatParticipantId}/public`
       : `/public_cv/${chat.chatParticipantId}`;
   const chatRoute =
-    userType === 'Job seeker'
+    userType === 'seeker'
       ? `/job_seeker_profile/${userId}/chat/${chat.chatParticipantId}`
       : `/company_profile/${userId}/chat/${chat.chatParticipantId}`;
 

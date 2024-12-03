@@ -17,7 +17,7 @@ const SignUpCompany = () => {
   const { companyid } = useParams() || {};
   const saveRegData = useSaveRegData();
 
-  useFetchRegData(companyid, 'Company');
+  useFetchRegData(companyid, 'company');
 
   const handleSubmit = e => {
     e.preventDefault();
@@ -25,7 +25,7 @@ const SignUpCompany = () => {
     const formData = new FormData(form.current);
     const url = companyid ? `/edit/company_reg_data/${companyid}` : '/sign_up/company';
 
-    saveRegData({ url, formData, userId: companyid, userType: 'Company' });
+    saveRegData({ url, formData, userId: companyid, userType: 'company' });
   };
 
   return (

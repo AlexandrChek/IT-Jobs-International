@@ -17,7 +17,7 @@ const SignUpSeeker = () => {
   const { seekerid } = useParams() || {};
   const saveRegData = useSaveRegData();
 
-  useFetchRegData(seekerid, 'Job seeker');
+  useFetchRegData(seekerid, 'seeker');
 
   const handleSubmit = e => {
     e.preventDefault();
@@ -25,7 +25,7 @@ const SignUpSeeker = () => {
     const formData = new FormData(form.current);
     const url = seekerid ? `/edit/seeker_reg_data/${seekerid}` : '/sign_up/seeker';
 
-    saveRegData({ url, formData, userId: seekerid, userType: 'Job seeker' });
+    saveRegData({ url, formData, userId: seekerid, userType: 'seeker' });
   };
 
   return (

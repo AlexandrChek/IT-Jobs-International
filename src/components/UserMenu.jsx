@@ -26,7 +26,7 @@ const UserMenu = ({ isMenuOpen, setIsMenuOpen }) => {
 
   const goToProfile = () => {
     let route = `_profile/${userId}`;
-    route = userType === 'Company' ? '/company' + route : '/job_seeker' + route;
+    route = userType === 'company' ? `/company${route}` : `/job_seeker${route}`;
     navigate(route);
   };
 

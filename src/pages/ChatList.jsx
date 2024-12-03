@@ -11,7 +11,7 @@ const ChatList = () => {
   const { chats, pending, error } = useSelector(state => state.chatList);
 
   useEffect(() => {
-    const url = '/chat_list/' + userType === 'Company' ? `company/${userId}` : `seeker/${userId}`;
+    const url = `/chat_list/${userType}/${userId}`;
     dispatch(fetchChatList({ url }));
   }, [dispatch, userId, userType]);
 

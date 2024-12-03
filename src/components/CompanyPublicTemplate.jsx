@@ -1,5 +1,3 @@
-import { useParams } from 'react-router-dom';
-import { useSelector } from 'react-redux';
 import LinksList from './LinksList';
 
 const CompanyPublicTemplate = ({ profile, activeJobs }) => {

@@ -53,6 +53,7 @@ const ExperienceItem = ({ item, index, properties }) => {
       <label>
         {properties.direction.label} {/* position or specialty */}
         <MyInput
+          type="text"
           name={`${properties.experienceType}${properties.direction.name}_${index}`}
           initialValue={item[properties.direction.name]}
           required
@@ -61,6 +62,7 @@ const ExperienceItem = ({ item, index, properties }) => {
       <label>
         {properties.organization.label} {/* organization or institution */}
         <MyInput
+          type="text"
           name={`${properties.experienceType}${properties.organization.name}_${index}`}
           initialValue={item[properties.organization.name]}
           required

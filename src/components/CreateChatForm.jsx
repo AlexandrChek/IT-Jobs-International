@@ -8,7 +8,7 @@ import JobSelect from './JobSelect';
 const CreateChatForm = ({ seekerId, companyId, userType, jobId = '', position = '' }) => {
   const dispatch = useDispatch();
   const form = useRef();
-  const isCompany = userType === 'Company';
+  const isCompany = userType === 'company';
   let realJobId = jobId;
 
   const getJobId = id => (realJobId = id);

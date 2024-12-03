@@ -5,8 +5,7 @@ const useFetchProfile = () => {
   const dispatch = useDispatch();
 
   const runFetchProfile = (userId, userType) => {
-    const url = userType === 'Company' ? `/company_profile/${userId}` : `/seeker_profile/${userId}`;
-
+    const url = `/${userType}_profile/${userId}`;
     dispatch(fetchProfile({ url }));
   };
 

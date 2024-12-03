@@ -8,8 +8,8 @@ const ProfileMenu = ({ userId, userType }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const searchLinkText = 'Find ' + userType === 'Company' ? 'CVs' : 'jobs';
-  const profileRouteStart = userType === 'Company' ? '/company_profile/' : '/job_seeker_profile/';
+  const searchLinkText = 'Find ' + userType === 'company' ? 'CVs' : 'jobs';
+  const profileRouteStart = userType === 'company' ? '/company_profile/' : '/job_seeker_profile/';
 
   const menuData = [
     { to: '/', text: searchLinkText },
@@ -35,7 +35,7 @@ const ProfileMenu = ({ userId, userType }) => {
           {item.text}
         </Link>
       ))}
-      {userType === 'Job seeker' && <DisableButton whatToDisable="profile" params={userId} />}
+      {userType === 'seeker' && <DisableButton whatToDisable="profile" params={userId} />}
       <RemoveButton whatToRemove="profile" remove={handleRemove} />
     </nav>
   );

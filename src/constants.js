@@ -102,7 +102,10 @@ export const jobTextareas = [
 // Sign up
 export const shortPassWarning = 'The password must be at least three characters long.';
 export const passwordsDontMatchWarning = 'Passwords in both fields must match.';
-export const userTypes = ['Company', 'Job seeker'];
+export const userTypes = [
+  { label: 'Company', value: 'company' },
+  { label: 'Job seeker', value: 'seeker' },
+];
 
 // Search
 export const searchTypes = [

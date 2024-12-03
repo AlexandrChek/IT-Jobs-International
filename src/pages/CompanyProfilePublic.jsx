@@ -15,7 +15,7 @@ const CompanyProfilePublic = () => {
 
   useEffect(() => {
     if (!profilePreviewData?.companyName && !profile) {
-      fetchProfile(companyid, 'Company');
+      fetchProfile(companyid, 'company');
     }
 
     if (profile?.jobs) {

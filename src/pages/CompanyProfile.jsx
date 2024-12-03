@@ -20,17 +20,17 @@ const CompanyProfile = () => {
   const saveProfile = useSaveProfile();
 
   useEffect(() => {
-    fetchProfile(companyid, 'Company');
+    fetchProfile(companyid, 'company');
   }, [companyid]);
 
   const handleSubmit = e => {
     e.preventDefault();
-    saveProfile({ formElem: form.current, userId: companyid, userType: 'Company' });
+    saveProfile({ formElem: form.current, userId: companyid, userType: 'company' });
   };
 
   return (
     <div className="routesWrapper">
-      <ProfileMenu userId={companyid} userType="Company" />
+      <ProfileMenu userId={companyid} userType="company" />
       <h3>Profile</h3>
       {pending && <Loading />}
       {error && <h3>{error}</h3>}

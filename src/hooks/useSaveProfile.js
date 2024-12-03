@@ -7,11 +7,8 @@ const useSaveProfile = () => {
   const dispatch = useDispatch();
 
   return async ({ formElem, userId, userType }) => {
-    let formData = new FormData(formElem);
-
-    const url =
-      '/save/' + userType === 'Company' ? `company_profile/${userId}` : `seeker_profile/${userId}`;
-
+    const formData = new FormData(formElem);
+    const url = `/save/${userType}_profile/${userId}`;
     const settings = createPostReqSettings(url, formData);
 
     try {
