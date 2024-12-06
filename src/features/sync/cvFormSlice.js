@@ -15,9 +15,8 @@ const cvFormSlice = createSlice({
     countWorkExperience: state => {
       const formData = new FormData(state.formRef);
       const cvObj = convertFormDataToObj(formData);
-      const cvObjWithNormalWorkBlock = normalizeExperienceInPreviewData(cvObj, 'work');
-      state.totalWorkExperience = countTotalExperience(cvObjWithNormalWorkBlock.work);
-      state.cvPreviewObj = cvObjWithNormalWorkBlock;
+      state.cvPreviewObj = normalizeExperienceInPreviewData(cvObj, 'work');
+      state.totalWorkExperience = countTotalExperience(state.cvPreviewObj.work);
     },
     getCvPreviewObj: state => {
       if (state.cvPreviewObj) {

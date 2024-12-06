@@ -1,12 +1,19 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { emptyWorkItem, workProperties } from '../constants';
 import AddButton from './buttons/AddButton';
 import ExperienceItem from './ExperienceItem';
 
-const WorkExperienceBlock = ({ initialExperience = [] }) => {
+const WorkExperienceBlock = ({ initialExperience = [], initialTotalExperience = null }) => {
   const [experience, setExperience] = useState(initialExperience);
-  const { totalYears, totalMonths } = useSelector(state => state.cvForm.totalWorkExperience);
+  const [totalExperience, setTotalExperience] = useState(initialTotalExperience);
+  const updatedTotalExperience = useSelector(state => state.cvForm.totalWorkExperience);
+
+  useEffect(() => {
+    if (updatedTotalExperience) {
+      setTotalExperience(updatedTotalExperience);
+    }
+  }, [updatedTotalExperience]);
 
   const addEmptyItem = () => {
     setExperience(prev => [emptyWorkItem, ...prev]);
@@ -24,7 +31,8 @@ const WorkExperienceBlock = ({ initialExperience = [] }) => {
             </div>
           ))}
           <p>
-            Total work experience: {totalYears} years, {totalMonths} months
+            Total work experience: {totalExperience?.totalYears || 0} years,{' '}
+            {totalExperience?.totalMonths || 0} months
           </p>
         </>
       )}

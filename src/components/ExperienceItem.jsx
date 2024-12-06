@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { countWorkExperience } from '../features/sync/cvFormSlice';
 import MyInput from './inputs/MyInput';
@@ -7,15 +7,34 @@ import MyTextarea from './inputs/MyTextarea';
 
 const ExperienceItem = ({ item, index, properties }) => {
   const dispatch = useDispatch();
-  const [isStillOngoing, setIsStillOngoing] = useState(false);
-  let from = item.from,
-    to = item.to;
+  const [from, setFrom] = useState(item.from);
+  const [to, setTo] = useState(item.to || '');
+  const [isStillOngoing, setIsStillOngoing] = useState(item.isStillOngoing || false);
 
-  useEffect(() => {
-    if (properties.experienceType === 'work' && from && (to || isStillOngoing)) {
+  const updateTotalWorkExperience = (from, to, isStillOngoing) => {
+    if (from && (to || isStillOngoing)) {
       dispatch(countWorkExperience());
     }
-  }, [properties.experienceType, from, to, isStillOngoing]);
+  };
+
+  const updateFromTo = target => {
+    if (properties.experienceType === 'work') {
+      if (target.name.startsWith('work_from')) {
+        setFrom(target.value);
+        updateTotalWorkExperience(target.value, to, isStillOngoing);
+      } else {
+        setTo(target.value);
+        updateTotalWorkExperience(from, target.value, isStillOngoing);
+      }
+    }
+  };
+
+  const updateIsStillOngoing = isChecked => {
+    if (properties.experienceType === 'work') {
+      setIsStillOngoing(isChecked);
+      updateTotalWorkExperience(from, to, isChecked);
+    }
+  };
 
   return (
     <>
@@ -25,7 +44,7 @@ const ExperienceItem = ({ item, index, properties }) => {
           type="month"
           name={`${properties.experienceType}_from_${index}`}
           initialValue={item.from}
-          getVal={target => (from = target.value)}
+          getVal={updateFromTo}
           required
         />
       </label>
@@ -35,7 +54,7 @@ const ExperienceItem = ({ item, index, properties }) => {
           type="month"
           name={`${properties.experienceType}_to_${index}`}
           initialValue={item.to}
-          getVal={target => (to = target.value)}
+          getVal={updateFromTo}
           required
           disabled={isStillOngoing}
         />
@@ -43,11 +62,11 @@ const ExperienceItem = ({ item, index, properties }) => {
       {!index && (
         <label>
           <MyCheckbox
-            name={`${properties.experienceType}_${properties.stillOngoing.name}`}
-            initialState={item[properties.stillOngoing.name]}
-            getVal={isChecked => setIsStillOngoing(isChecked)}
+            name={`${properties.experienceType}_isStillOngoing`}
+            initialState={item.isStillOngoing}
+            getVal={updateIsStillOngoing}
           />
-          {properties.stillOngoing.label} {/* 'Still working' or 'Still studying' */}
+          {properties.stillOngoingLabel} {/* 'Still working' or 'Still studying' */}
         </label>
       )}
       <label>

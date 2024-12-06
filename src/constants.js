@@ -51,7 +51,7 @@ export const emptyEducationItem = {
 
 export const workProperties = {
   experienceType: 'work',
-  stillOngoing: { label: 'Still working', name: 'isStillOngoing' },
+  stillOngoingLabel: 'Still working',
   direction: { label: 'Position', name: 'position' },
   organization: { label: 'Organization', name: 'organization' },
   functionsAndAchivements: {
@@ -61,7 +61,7 @@ export const workProperties = {
 };
 export const educationProperties = {
   experienceType: 'education',
-  stillOngoing: { label: 'Still studying', name: 'isStillOngoing' },
+  stillOngoingLabel: 'Still studying',
   direction: { label: 'Specialty', name: 'specialty' },
   organization: { label: 'Institution', name: 'institution' },
   functionsAndAchivements: {
