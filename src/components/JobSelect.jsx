@@ -7,19 +7,14 @@ const JobSelect = ({ companyId, getJobId, isRequired = true }) => {
   const jobs = useSelector(state => state.jobList.jobs);
   const [selected, setSelected] = useState('');
 
-  const getJobs = () => {
-    const url = `/company_job_list/${companyId}`;
-    dispatch(fetchJobs({ url }));
-  };
-
   useEffect(() => {
-    window.addEventListener('load', getJobs);
+    if (companyId) {
+      const url = `/company_job_list/${companyId}`;
+      dispatch(fetchJobs({ url }));
+    }
 
-    return () => {
-      window.removeEventListener('load', getJobs);
-      dispatch(clearJobs());
-    };
-  }, []);
+    return () => dispatch(clearJobs());
+  }, [companyId]);
 
   const handleChange = e => {
     setSelected(e.target.value);
@@ -32,7 +27,8 @@ const JobSelect = ({ companyId, getJobId, isRequired = true }) => {
     <label>
       Select proposed job
       <select name="position" value={selected} onChange={handleChange} required={isRequired}>
-        {jobs.map(job => (
+        <option value="">Select a job</option>
+        {jobs?.map(job => (
           <option key={job.jobId} value={job.position} data-job-id={job.jobId}>
             {job.position}
           </option>

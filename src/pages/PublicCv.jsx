@@ -11,7 +11,7 @@ const PublicCv = () => {
   const { seekerid } = useParams();
   const profilePreviewData = useSelector(state => state.cvForm.cvPreviewObj);
   const { profile, pending, error } = useSelector(state => state.userProfile);
-  const { userId, userType } = useSelector(state => state.auth);
+  const { userId, userName, userType } = useSelector(state => state.auth);
   const fetchProfile = useFetchProfile();
   const actualProfile = profilePreviewData?.userName ? profilePreviewData : profile;
 
@@ -27,7 +27,12 @@ const PublicCv = () => {
       {error && <h3>{error}</h3>}
       {actualProfile && <CvPublicTemplate profile={actualProfile} />}
       {userType === 'company' && (
-        <CreateChatForm seekerId={seekerid} companyId={userId} userType={userType} />
+        <CreateChatForm
+          seekerId={seekerid}
+          companyId={userId}
+          userName={userName}
+          userType={userType}
+        />
       )}
     </div>
   );

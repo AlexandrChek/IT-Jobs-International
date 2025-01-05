@@ -5,13 +5,15 @@ import { createPostReqSettings } from '../methods';
 import MyTextarea from './inputs/MyTextarea';
 import JobSelect from './JobSelect';
 
-const CreateChatForm = ({ seekerId, companyId, userType, jobId = '', position = '' }) => {
+const CreateChatForm = ({ seekerId, companyId, userName, userType, jobId = '', position = '' }) => {
   const dispatch = useDispatch();
   const form = useRef();
   const isCompany = userType === 'company';
   let realJobId = jobId;
 
-  const getJobId = id => (realJobId = id);
+  const getJobId = id => {
+    realJobId = id;
+  };
 
   const handleSubmit = async e => {
     e.preventDefault();
@@ -19,6 +21,7 @@ const CreateChatForm = ({ seekerId, companyId, userType, jobId = '', position = 
     const formData = new FormData(form.current);
     formData.append('seekerId', seekerId);
     formData.append('companyId', companyId);
+    formData.append('userName', userName);
     formData.append('userType', userType);
     formData.append('jobRoute', `/${companyId}/job/${realJobId}`);
     if (position) {

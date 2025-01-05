@@ -1,5 +1,5 @@
 // Common things:
-export const serverUrl = 'url';
+export const serverUrl = 'https://it-jobs-international-back.glitch.me';
 
 export const baseUrl = '/IT-Jobs-International/';
 
@@ -24,12 +24,15 @@ export const employeesNumbers = [
 
 // Job/CV options:
 export const workplaces = ['office', 'remote', 'mixed'];
-export const experienceUnits = ['years', 'months'];
 
 export const relocationFrom = 'Relocation from another country is possible';
 export const relocationTo = 'Consider relocation to another country';
 
 export const experienceFromLabel = 'Work experience: from';
+export const requiredExperienceProps = [
+  { name: 'experienceFromYears', label: 'years' },
+  { name: 'experienceFromMonths', label: 'months' },
+];
 export const experienceIsNotRequired = 'Work experience is not a mandatory requirement';
 
 export const emptyWorkItem = {

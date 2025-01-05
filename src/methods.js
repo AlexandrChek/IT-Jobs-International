@@ -14,7 +14,7 @@ export const fetchData = async ({ url, options = null }) => {
     data = await response.json();
   } else if (contentType.includes('text/')) {
     data = await response.text();
-  } else if (contentType.includes('image/' || 'application/pdf')) {
+  } else if (contentType.includes('image/') || contentType.includes('application/pdf')) {
     const blob = await response.blob();
     data = URL.createObjectURL(blob);
   }
@@ -71,31 +71,25 @@ export const calculateAge = standartDateOfBirth => {
 // (by convertFormDataToObj method) of CV FormData to object.
 //It returns a CV object with work experience or education data as an array of objects.:
 export const normalizeExperienceInPreviewData = (profilePreviewData, experienceType) => {
-  let necessaryProperties = Object.fromEntries(
-    Object.entries(profilePreviewData).filter(
-      ([key]) => key.startsWith(experienceType) && key !== 'workplaces',
-    ),
+  const necessaryProperties = Object.fromEntries(
+    Object.entries(profilePreviewData).filter(([key]) => key.startsWith(`${experienceType}_`)),
   );
 
   let necessaryKeys = Object.keys(necessaryProperties);
   let numberOfItems = necessaryKeys.filter(key => key.startsWith(`${experienceType}_from`)).length;
-
   let arrayOfObjects = [];
+
   for (let i = 0; i < numberOfItems; i++) {
     let itemObj = Object.fromEntries(
       Object.entries(necessaryProperties)
-        .filter(([key]) => key.endsWith(String(i)))
+        .filter(([key]) => key.endsWith(`${i}`))
         .map(([key, value]) => {
-          let cutKey = key.slice(experienceType.length + 1, key.length - (String(i).length + 1));
+          let cutKey = key.slice(experienceType.length + 1, key.length - 1 - String(i).length);
           return [cutKey, value];
         }),
     );
 
     arrayOfObjects.push(itemObj);
-  }
-
-  if (necessaryProperties[`${experienceType}_isStillOngoing`]) {
-    arrayOfObjects[0].isStillOngoing = true;
   }
 
   let normalizedPreviewData = { ...profilePreviewData };
@@ -115,15 +109,8 @@ export const countTotalExperience = experienceArr => {
     totalMonths = 0;
 
   experienceArr.forEach(item => {
-    let fromDate = new Date(item.from);
-    let toDate = '';
-
-    if (item.isStillOngoing) {
-      toDate = new Date();
-    } else {
-      toDate = new Date(item.to);
-    }
-
+    const fromDate = new Date(item.from);
+    const toDate = item.isStillOngoing ? new Date() : new Date(item.to);
     let years = toDate.getFullYear() - fromDate.getFullYear();
     let months = toDate.getMonth() - fromDate.getMonth();
 

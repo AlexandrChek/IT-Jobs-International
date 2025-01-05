@@ -1,6 +1,7 @@
 import { calculateAge } from '../methods';
 import { relocationTo } from '../constants';
 import WorkplacesOutput from './WorkplacesOutput';
+import TotalExperienceOutput from './TotalExperienceOutput';
 import ExperienceOutputBlock from './ExperienceOutputBlock';
 
 const CvPublicTemplate = ({ profile }) => {
@@ -27,11 +28,7 @@ const CvPublicTemplate = ({ profile }) => {
       {profile.work && (
         <>
           <h4>Work experience</h4>
-          <h5>
-            Total work experience: {profile.totalWorkExperience.totalYears} years
-            {profile.totalWorkExperience.totalMonths &&
-              `, ${profile.totalWorkExperience.totalMonths} months`}
-          </h5>
+          <TotalExperienceOutput totalExperience={profile.totalWorkExperience} />
           <ExperienceOutputBlock experienceArr={profile.work} experienceType="work" />
         </>
       )}

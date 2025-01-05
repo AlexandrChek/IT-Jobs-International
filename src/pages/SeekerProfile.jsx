@@ -44,12 +44,15 @@ const SeekerProfile = () => {
       {pending && <Loading />}
       {error && <h3>{error}</h3>}
       <form ref={form} onSubmit={handleSubmit}>
-        <PositionInput initialPosition={profile?.position} isRequired={false} />
+        <PositionInput initialPosition={profile.position} isRequired={true} />
         <SalaryInput initialSalary={profile?.salary} />
         <WorkplacesField initialWorkplaces={profile?.workplaces} />
         <RelocationPossibilityCheckbox docType="cv" initialState={profile?.isRelocationPossible} />
         <SkillsTextarea />
-        <WorkExperienceBlock initialExperience={profile?.work} />
+        <WorkExperienceBlock
+          initialExperience={profile?.work}
+          initialTotalExperience={profile?.totalWorkExperience}
+        />
         <EducationBlock initialEducation={profile?.education} />
         <EnglishLevelSelect initialLevel={profile?.englishLevel} />
         <UrlInput

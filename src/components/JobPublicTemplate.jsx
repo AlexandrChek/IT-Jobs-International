@@ -28,9 +28,10 @@ const JobPublicTemplate = ({ job }) => {
       )}
       {job.workplaces && <WorkplacesOutput workplaces={job.workplaces} />}
       {job.isRelocationPossible && <p>{relocationFrom}</p>}
-      {job.experienceFrom && (
+      {(job.experienceFromYears || job.experienceFromMonths) && (
         <h5>
-          {experienceFromLabel} {job.experienceFrom} {job.experienceUnit}
+          {experienceFromLabel} {`${job.experienceFromYears || 0} years`}{' '}
+          {job.experienceFromMonths && `, ${job.experienceFromMonths} months`}
         </h5>
       )}
       {job.experienceIsNotRequired && <p>{experienceIsNotRequired}</p>}

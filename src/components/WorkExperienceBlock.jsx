@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux';
 import { emptyWorkItem, workProperties } from '../constants';
 import AddButton from './buttons/AddButton';
 import ExperienceItem from './ExperienceItem';
+import TotalExperienceOutput from './TotalExperienceOutput';
 
 const WorkExperienceBlock = ({ initialExperience = [], initialTotalExperience = null }) => {
   const [experience, setExperience] = useState(initialExperience);
@@ -30,10 +31,7 @@ const WorkExperienceBlock = ({ initialExperience = [], initialTotalExperience = 
               <ExperienceItem item={item} index={index} properties={workProperties} />
             </div>
           ))}
-          <p>
-            Total work experience: {totalExperience?.totalYears || 0} years,{' '}
-            {totalExperience?.totalMonths || 0} months
-          </p>
+          <TotalExperienceOutput totalExperience={totalExperience} />
         </>
       )}
     </div>

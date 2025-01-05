@@ -1,6 +1,9 @@
+import { useState } from 'react';
 import MyInput from './inputs/MyInput';
 
 const CountryCityInputs = ({ initialCountry = '', initialCity = '', areRequired = false }) => {
+  const [country, setCountry] = useState(initialCountry);
+
   return (
     <div>
       <label htmlFor="country">Country</label>
@@ -10,6 +13,7 @@ const CountryCityInputs = ({ initialCountry = '', initialCity = '', areRequired 
         name="country"
         initialValue={initialCountry}
         required={areRequired}
+        getVal={target => setCountry(target.value)}
       />
       <label htmlFor="city">City</label>
       <MyInput
@@ -18,6 +22,7 @@ const CountryCityInputs = ({ initialCountry = '', initialCity = '', areRequired 
         name="city"
         initialValue={initialCity}
         required={areRequired}
+        disabled={!country}
       />
     </div>
   );

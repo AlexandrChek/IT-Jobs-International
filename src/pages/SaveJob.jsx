@@ -20,7 +20,7 @@ const SaveJob = () => {
   const { companyid } = useParams();
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { state } = useLocation();
+  const { state } = useLocation(); //from JobOwnerMenu in the Job.jsx
   const form = useRef();
 
   const handleSubmit = async e => {
@@ -50,8 +50,8 @@ const SaveJob = () => {
         <WorkplacesField initialWorkplaces={state?.workplaces} />
         <RelocationPossibilityCheckbox docType="job" initialState={state?.isRelocationPossible} />
         <ExperienceFromField
-          initialExperience={state?.experienceFrom}
-          initialUnit={state?.experienceUnit}
+          experienceFromYears={state?.experienceFromYears}
+          experienceFromMonths={state?.experienceFromMonths}
         />
         <ExperienceIsNotRequiredCheckbox initialState={state?.experienceIsNotRequired} />
         <EnglishLevelSelect initialLevel={state?.englishLevel} />

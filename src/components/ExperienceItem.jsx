@@ -62,7 +62,7 @@ const ExperienceItem = ({ item, index, properties }) => {
       {!index && (
         <label>
           <MyCheckbox
-            name={`${properties.experienceType}_isStillOngoing`}
+            name={`${properties.experienceType}_isStillOngoing_${index}`}
             initialState={item.isStillOngoing}
             getVal={updateIsStillOngoing}
           />
@@ -73,7 +73,7 @@ const ExperienceItem = ({ item, index, properties }) => {
         {properties.direction.label} {/* position or specialty */}
         <MyInput
           type="text"
-          name={`${properties.experienceType}${properties.direction.name}_${index}`}
+          name={`${properties.experienceType}_${properties.direction.name}_${index}`}
           initialValue={item[properties.direction.name]}
           required
         />
@@ -82,7 +82,7 @@ const ExperienceItem = ({ item, index, properties }) => {
         {properties.organization.label} {/* organization or institution */}
         <MyInput
           type="text"
-          name={`${properties.experienceType}${properties.organization.name}_${index}`}
+          name={`${properties.experienceType}_${properties.organization.name}_${index}`}
           initialValue={item[properties.organization.name]}
           required
         />
@@ -90,7 +90,7 @@ const ExperienceItem = ({ item, index, properties }) => {
       <label>
         {properties.functionsAndAchivements.label}
         <MyTextarea
-          name={`${properties.experienceType}${properties.functionsAndAchivements.name}_${index}`}
+          name={`${properties.experienceType}_${properties.functionsAndAchivements.name}_${index}`}
           initialValue={item[properties.functionsAndAchivements.name]}
         />
       </label>

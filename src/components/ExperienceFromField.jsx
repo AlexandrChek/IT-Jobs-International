@@ -1,22 +1,16 @@
 import MyInput from './inputs/MyInput';
-import MySelect from './inputs/MySelect';
-import { experienceUnits, experienceFromLabel } from '../constants';
+import { experienceFromLabel, requiredExperienceProps } from '../constants';
 
-const ExperienceFromField = ({ initialExperience = '', initialUnit = '' }) => {
+const ExperienceFromField = props => {
   return (
     <div>
-      <label htmlFor="experienceFrom">{experienceFromLabel}</label>
-      <MyInput
-        id="experienceFrom"
-        type="number"
-        name="experienceFrom"
-        initialValue={initialExperience}
-      />
-      <MySelect
-        name="experienceUnit"
-        options={experienceUnits}
-        initialValue={initialUnit || experienceUnits[0]}
-      />
+      <h5>{experienceFromLabel}</h5>
+      {requiredExperienceProps.map(item => (
+        <label key={item.name}>
+          <MyInput type="number" name={item.name} initialValue={props[item.name] || ''} />
+          {item.label}
+        </label>
+      ))}
     </div>
   );
 };

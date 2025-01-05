@@ -14,12 +14,7 @@ const LinksList = ({ cvsOrJobs, type }) => {
               {item.position}
               {item.salary && `, ${item.salary}`}
             </h3>
-            {item.country && (
-              <p>
-                {item.country}
-                {item.city && `, ${item.city}`}
-              </p>
-            )}
+            {item.location && <p>{item.location}</p>}
             {type === 'job' && item.isDisabled && <h4>Disabled</h4>}
           </Link>
         </div>

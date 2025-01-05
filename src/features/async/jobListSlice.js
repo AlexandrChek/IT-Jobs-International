@@ -5,16 +5,13 @@ export const fetchJobs = createAsyncThunk('jobList/fetchJobs', async settings =>
   return fetchData(settings);
 });
 
-const initialState = {
-  jobs: null,
-  error: null,
-};
-
 const jobListSlice = createSlice({
   name: 'jobList',
-  initialState,
+  initialState: {
+    jobs: null,
+  },
   reducers: {
-    clearJobs: () => initialState,
+    clearJobs: () => ({ jobs: null }),
   },
   extraReducers: builder => {
     builder

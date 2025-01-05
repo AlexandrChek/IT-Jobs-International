@@ -21,8 +21,7 @@ const DisableButton = ({ whatToDisable, params, buttonIsDisabled = false }) => {
   }
 
   const toggleStatus = async () => {
-    const urlStart = isDisabled ? '/enable/' : '/disable/';
-    const url = `${urlStart}${whatToDisable}/${urlEnd}`;
+    const url = `/toggle_status/${whatToDisable}/${urlEnd}`;
 
     try {
       await dispatch(toggleMethod({ url })).unwrap();
