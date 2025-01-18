@@ -10,7 +10,7 @@ export const saveRegData = createAsyncThunk('userRegData/saveRegData', async set
 });
 
 const initialState = createBasicInitialState('regData');
-initialState.suchUserAlreadyExists = null;
+initialState.emailDoesAlreadyExist = null;
 
 const userRegDataSlice = createSlice({
   name: 'userRegData',
@@ -22,17 +22,17 @@ const userRegDataSlice = createSlice({
       })
       .addCase(fetchRegData.fulfilled, (state, action) => {
         state.pending = false;
-
-        if (action.payload.suchUserAlreadyExists) {
-          state.suchUserAlreadyExists = action.payload.suchUserAlreadyExists;
-        } else {
-          state.regData = action.payload;
-        }
+        state.regData = action.payload;
       })
       .addCase(fetchRegData.rejected, (state, action) => {
         state.pending = false;
         state.error = action.error.message;
-      });
+      })
+      .addCase(saveRegData.fulfilled, (state, action) => {
+        if (action.payload.emailDoesAlreadyExist) {
+          state.emailDoesAlreadyExist = action.payload.emailDoesAlreadyExist;
+        }
+      })
   },
 });
 

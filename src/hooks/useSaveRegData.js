@@ -8,7 +8,7 @@ import { createPostReqSettings } from '../methods';
 const useSaveRegData = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { suchUserAlreadyExists } = useSelector(state => state.userRegData);
+  const { emailDoesAlreadyExist } = useSelector(state => state.userRegData);
   const { userId } = useSelector(state => state.auth);
 
   return async ({ url, formData, userType }) => {
@@ -17,7 +17,7 @@ const useSaveRegData = () => {
     try {
       await dispatch(saveRegData(savingSettings)).unwrap();
 
-      if (!suchUserAlreadyExists) {
+      if (!emailDoesAlreadyExist) {
         // User is automatically logged to his account upon registration
         if (!userId) {
           const body = new FormData();
@@ -34,7 +34,7 @@ const useSaveRegData = () => {
         route += userId;
         navigate(route);
       } else {
-        dispatch(openModal({ modalNameInSlice: 'modalInfo', message: suchUserAlreadyExists }));
+        dispatch(openModal({ modalNameInSlice: 'modalInfo', message: emailDoesAlreadyExist }));
       }
     } catch (error) {
       console.error(error.message);
