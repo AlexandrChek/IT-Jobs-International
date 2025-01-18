@@ -35,7 +35,7 @@ const CreateChatForm = ({ seekerId, companyId, userName, userType, jobId = '', p
       await dispatch(createChat(settings)).unwrap();
       alert('Message sent successfully');
     } catch (error) {
-      alert(error.message);
+      console.error(error.message);
     }
   };
 

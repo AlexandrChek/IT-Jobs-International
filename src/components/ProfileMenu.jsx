@@ -24,7 +24,7 @@ const ProfileMenu = ({ userId, userType }) => {
       await dispatch(removeProfile({ url })).unwrap();
       navigate('/');
     } catch (error) {
-      alert(error.message);
+      console.error(error.message);
     }
   };
 

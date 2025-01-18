@@ -1,6 +1,5 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { fetchData } from '../../methods';
-import BasicInitialState from './BasicInitialState';
+import { fetchData, createBasicInitialState } from '../../methods';
 
 export const createChat = createAsyncThunk('chat/createChat', async settings => {
   return fetchData(settings);
@@ -14,7 +13,7 @@ export const sendMessage = createAsyncThunk('chat/sendMessage', async settings =
   return fetchData(settings);
 });
 
-const initialState = new BasicInitialState('chat');
+const initialState = createBasicInitialState('chat');
 
 const chatSlice = createSlice({
   name: 'currentChat',

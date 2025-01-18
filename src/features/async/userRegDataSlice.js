@@ -1,6 +1,5 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { fetchData } from '../../methods';
-import BasicInitialState from './BasicInitialState';
+import { fetchData, createBasicInitialState } from '../../methods';
 
 export const fetchRegData = createAsyncThunk('userRegData/fetchRegData', async settings => {
   return fetchData(settings);
@@ -10,7 +9,8 @@ export const saveRegData = createAsyncThunk('userRegData/saveRegData', async set
   return fetchData(settings);
 });
 
-const initialState = new BasicInitialState('regData');
+const initialState = createBasicInitialState('regData');
+initialState.suchUserAlreadyExists = null;
 
 const userRegDataSlice = createSlice({
   name: 'userRegData',
@@ -22,7 +22,12 @@ const userRegDataSlice = createSlice({
       })
       .addCase(fetchRegData.fulfilled, (state, action) => {
         state.pending = false;
-        state.regData = action.payload;
+
+        if (action.payload.suchUserAlreadyExists) {
+          state.suchUserAlreadyExists = action.payload.suchUserAlreadyExists;
+        } else {
+          state.regData = action.payload;
+        }
       })
       .addCase(fetchRegData.rejected, (state, action) => {
         state.pending = false;

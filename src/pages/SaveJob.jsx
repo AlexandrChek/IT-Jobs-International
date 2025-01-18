@@ -36,7 +36,7 @@ const SaveJob = () => {
       alert(savingMessage);
       navigate(`/company_profile/${companyid}`);
     } catch (error) {
-      alert(error.message);
+      console.error(error.message);
     }
   };
 

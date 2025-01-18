@@ -4,26 +4,6 @@
   gap: 1rem;
 }
 
-.searchForm input[type='text'],
-.searchForm input[type='number'] {
-  padding: 0.5rem;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-}
-
-.searchForm button {
-  padding: 0.5rem 1rem;
-  background-color: #333;
-  color: #fff;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-}
-
-.searchForm button:hover {
-  background-color: #555;
-}
-
 .workplace,
 .salary,
 .level,

@@ -13,6 +13,7 @@ import styles from '../styles/pages/SignUpCompany.module.css';
 
 const SignUpCompany = () => {
   const { regData, pending, error } = useSelector(state => state.userRegData);
+  const { doPasswordsMatch } = useSelector(state => state.passwordsMatch);
   const form = useRef();
   const { companyid } = useParams() || {};
   const saveRegData = useSaveRegData();
@@ -22,10 +23,12 @@ const SignUpCompany = () => {
   const handleSubmit = e => {
     e.preventDefault();
 
-    const formData = new FormData(form.current);
-    const url = companyid ? `/edit/company_reg_data/${companyid}` : '/sign_up/company';
+    if (doPasswordsMatch) {
+      const formData = new FormData(form.current);
+      const url = companyid ? `/edit/company_reg_data/${companyid}` : '/sign_up/company';
 
-    saveRegData({ url, formData, userId: companyid, userType: 'company' });
+      saveRegData({ url, formData, userType: 'company' });
+    }
   };
 
   return (

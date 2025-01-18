@@ -28,12 +28,8 @@ const SearchForm = ({ searchType }) => {
     const formData = new FormData(searchForm.current);
     const settings = createPostReqSettings(`/search/${searchType}`, formData);
 
-    try {
-      await dispatch(fetchSearchResults(settings)).unwrap();
-      navigate('/search_res', { state: { searchType } });
-    } catch (error) {
-      alert(error.message);
-    }
+    dispatch(fetchSearchResults(settings));
+    navigate('/search_res', { state: { searchType } });
   };
 
   return (

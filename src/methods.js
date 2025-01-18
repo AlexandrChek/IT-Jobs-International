@@ -41,6 +41,15 @@ export const createPostReqSettings = (url, body) => {
   return settings;
 };
 
+// Fn to create basic initial state object for asynchronous slices:
+export const createBasicInitialState = key => {
+  return {
+    [key]: null,
+    pending: false,
+    error: null,
+  };
+};
+
 // Fn to convert FormData to normal JS-object:
 export const convertFormDataToObj = formData => {
   let obj = {};

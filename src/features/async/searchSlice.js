@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { fetchData } from '../../methods';
+import { fetchData, createBasicInitialState } from '../../methods';
 
 export const fetchSearchResults = createAsyncThunk(
   'searchResults/fetchSearchResults',
@@ -8,12 +8,11 @@ export const fetchSearchResults = createAsyncThunk(
   },
 );
 
+const initialState = createBasicInitialState('searchRes');
+
 const searchSlice = createSlice({
   name: 'searchResults',
-  initialState: {
-    searchRes: null,
-    pending: false,
-  },
+  initialState,
   extraReducers: builder => {
     builder
       .addCase(fetchSearchResults.pending, state => {
@@ -23,8 +22,9 @@ const searchSlice = createSlice({
         state.pending = false;
         state.searchRes = action.payload;
       })
-      .addCase(fetchSearchResults.rejected, state => {
+      .addCase(fetchSearchResults.rejected, (state, action) => {
         state.pending = false;
+        state.error = action.error.message;
       });
   },
 });

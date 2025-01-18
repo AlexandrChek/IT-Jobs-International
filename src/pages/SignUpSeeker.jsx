@@ -13,6 +13,7 @@ import SignUpButton from '../components/buttons/SignUpButton';
 
 const SignUpSeeker = () => {
   const { regData, pending, error } = useSelector(state => state.userRegData);
+  const { doPasswordsMatch } = useSelector(state => state.passwordsMatch);
   const form = useRef();
   const { seekerid } = useParams() || {};
   const saveRegData = useSaveRegData();
@@ -22,10 +23,12 @@ const SignUpSeeker = () => {
   const handleSubmit = e => {
     e.preventDefault();
 
-    const formData = new FormData(form.current);
-    const url = seekerid ? `/edit/seeker_reg_data/${seekerid}` : '/sign_up/seeker';
+    if (doPasswordsMatch) {
+      const formData = new FormData(form.current);
+      const url = seekerid ? `/edit/seeker_reg_data/${seekerid}` : '/sign_up/seeker';
 
-    saveRegData({ url, formData, userId: seekerid, userType: 'seeker' });
+      saveRegData({ url, formData, userType: 'seeker' });
+    }
   };
 
   return (

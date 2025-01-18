@@ -18,8 +18,8 @@ const jobListSlice = createSlice({
       .addCase(fetchJobs.fulfilled, (state, action) => {
         state.jobs = action.payload;
       })
-      .addCase(fetchJobs.rejected, action => {
-        console.log(action.error.message);
+      .addCase(fetchJobs.rejected, (state, action) => {
+        console.error(action.error.message);
       });
   },
 });

@@ -1,11 +1,22 @@
 import MyInput from './MyInput';
 
-const EmailInput = ({ initialEmail = '' }) => {
+const EmailInput = ({ initialEmail = '', getVal }) => {
   return (
-    <div>
-      <label htmlFor="email">E-mail</label>
-      <MyInput type="email" id="email" name="email" required initialValue={initialEmail} />
-    </div>
+    <label>
+      E-mail
+      <MyInput
+        type="email"
+        id="email"
+        name="email"
+        required
+        initialValue={initialEmail}
+        onBlur={e => {
+          if (getVal) {
+            getVal(e.target.value);
+          }
+        }}
+      />
+    </label>
   );
 };
 

@@ -16,7 +16,7 @@ const JobOwnerMenu = ({ jobData }) => {
       await dispatch(removeJob({ url })).unwrap();
       navigate(`/company_profile/${jobData.companyId}`);
     } catch (error) {
-      alert(error.message);
+      console.error(error.message);
     }
   };
 

@@ -1,6 +1,5 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { fetchData } from '../../methods';
-import BasicInitialState from './BasicInitialState';
+import { fetchData, createBasicInitialState } from '../../methods';
 
 export const fetchJob = createAsyncThunk('job/fetchJob', async settings => {
   return fetchData(settings);
@@ -18,7 +17,7 @@ export const removeJob = createAsyncThunk('job/removeJob', async settings => {
   return fetchData(settings);
 });
 
-const initialState = new BasicInitialState('jobData');
+const initialState = createBasicInitialState('jobData');
 initialState.toggleStatusPending = false;
 
 const jobSlice = createSlice({

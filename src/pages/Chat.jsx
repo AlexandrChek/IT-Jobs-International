@@ -44,7 +44,7 @@ const Chat = () => {
         dispatch(addMessageLocally(message));
         setMessageText('');
       } catch (error) {
-        alert(error.message);
+        console.error(error.message);
       }
     }
   };

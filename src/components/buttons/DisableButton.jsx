@@ -20,13 +20,13 @@ const DisableButton = ({ whatToDisable, params, buttonIsDisabled = false }) => {
     toggleMethod = toggleProfileStatus;
   }
 
-  const toggleStatus = async () => {
+  const toggleStatus = () => {
     const url = `/toggle_status/${whatToDisable}/${urlEnd}`;
 
     try {
-      await dispatch(toggleMethod({ url })).unwrap();
+      dispatch(toggleMethod({ url })).unwrap();
     } catch (error) {
-      alert(error.message);
+      console.error(error.message);
     }
   };
 

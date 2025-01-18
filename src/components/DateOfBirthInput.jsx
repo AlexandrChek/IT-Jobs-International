@@ -1,24 +1,18 @@
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { openModal } from '../features/sync/modalSlice';
 import { calculateAge } from '../methods';
 import MyInput from './inputs/MyInput';
-import Modal from './Modal';
 
 const DateOfBirthInput = ({ initialValue = '' }) => {
-  const navigate = useNavigate();
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const dispatch = useDispatch();
 
   const ageControl = target => {
     const fullYears = calculateAge(target.value);
 
     if (fullYears < 18) {
-      setIsModalOpen(true);
+      const message = 'Only adult users can register!';
+      dispatch(openModal({ modalNameInSlice: 'modalInfo', message, routeAfterClosing: '/' }));
     }
-  };
-
-  const close = () => {
-    isModalOpen(false);
-    navigate('/');
   };
 
   return (
@@ -32,10 +26,6 @@ const DateOfBirthInput = ({ initialValue = '' }) => {
           getVal={ageControl}
           required
         />
-        <Modal isOpen={isModalOpen} close={close}>
-          <p>Only adult users can register!</p>
-          <button onClick={close}>Ok</button>
-        </Modal>
       </label>
     </>
   );

@@ -1,63 +1,67 @@
-import { useState, useRef } from 'react';
+import { useState, useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import { setPasswordsMatch } from '../features/sync/passwordsMatchSlice';
+import { openModal } from '../features/sync/modalSlice';
 import PasswordInput from './inputs/PasswordInput';
-import Modal from './Modal';
-import { shortPassWarning, passwordsDontMatchWarning } from '../constants';
 
 const RegFormPassword = () => {
-  const [warning, setWarning] = useState('');
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const dispatch = useDispatch();
   const [password1, setPassword1] = useState('');
   const [password2, setPassword2] = useState('');
-  const pas1Ref = useRef();
-  const pas2Ref = useRef();
+  const [isErrorInPas1, setIsErrorInPas1] = useState(false);
+  const [isErrorInPas2, setIsErrorInPas2] = useState(false);
 
-  const checkPasswordLength = pas1 => {
-    setPassword1(pas1);
+  useEffect(() => {
+    dispatch(setPasswordsMatch(password1 === password2));
+  }, [password1, password2]);
 
-    if (pas1.length < 3) {
-      setWarning(shortPassWarning);
-      setIsModalOpen(true);
+  const makeShortPasswordWarning = () => {
+    const message = 'The password must contain at least three characters.';
+    dispatch(openModal({ modalNameInSlice: 'modalInfo', message }));
+    setIsErrorInPas1(true);
+  };
+
+  const checkPasswordLength = password => {
+    setPassword1(password);
+
+    if (password.length < 3) {
+      makeShortPasswordWarning();
+    } else if (password2) {
+      checkPasswordsMatch(password, password2);
+    } else {
+      setIsErrorInPas1(false);
     }
   };
 
-  const checkPasswordMatch = pas2 => {
-    if (password1 === pas2) {
-      setPassword2(pas2);
+  const checkPasswordsMatch = (pass1, pass2) => {
+    if (pass1 !== pass2) {
+      const message = 'Passwords in both fields must match.';
+      dispatch(openModal({ modalNameInSlice: 'modalInfo', message }));
+      setIsErrorInPas1(true);
+      setIsErrorInPas2(true);
+    } else if (pass1.length < 3) {
+      makeShortPasswordWarning();
     } else {
-      setWarning(passwordsDontMatchWarning);
-      setIsModalOpen(true);
+      setIsErrorInPas1(false);
+      setIsErrorInPas2(false);
     }
   };
 
-  const close = () => {
-    setIsModalOpen(false);
-
-    if (warning === shortPassWarning) {
-      setPassword1('');
-      pas1Ref.current.focus();
-    } else {
-      setPassword2('');
-      pas2Ref.current.focus();
-    }
-
-    setWarning('');
+  const savePassword2 = password => {
+    setPassword2(password);
+    checkPasswordsMatch(password1, password);
   };
 
   return (
     <div>
       <label>
         Password
-        <PasswordInput name="password" ref={pas1Ref} val={password1} setVal={checkPasswordLength} />
+        <PasswordInput name="password" getVal={checkPasswordLength} isError={isErrorInPas1} />
       </label>
       <label>
         Password (again)
-        <PasswordInput ref={pas2Ref} val={password2} setVal={checkPasswordMatch} />
+        <PasswordInput getVal={savePassword2} isError={isErrorInPas2} />
       </label>
-
-      <Modal isOpen={isModalOpen} close={close}>
-        <p>{warning}</p>
-        <button onClick={close}>Ok</button>
-      </Modal>
     </div>
   );
 };

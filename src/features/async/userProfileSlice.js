@@ -1,6 +1,5 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { fetchData } from '../../methods';
-import BasicInitialState from './BasicInitialState';
+import { fetchData, createBasicInitialState } from '../../methods';
 
 export const fetchProfile = createAsyncThunk('userProfile/fetchProfile', async settings => {
   return fetchData(settings);
@@ -21,7 +20,7 @@ export const removeProfile = createAsyncThunk('userProfile/removeProfile', async
   return fetchData(settings);
 });
 
-const initialState = new BasicInitialState('profile');
+const initialState = createBasicInitialState('profile');
 
 const userProfileSlice = createSlice({
   name: 'userProfile',

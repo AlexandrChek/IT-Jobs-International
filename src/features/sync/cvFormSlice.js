@@ -10,7 +10,7 @@ const cvFormSlice = createSlice({
   initialState: { formRef: null, totalWorkExperience: null, cvPreviewObj: null },
   reducers: {
     setCvFormRef: (state, action) => {
-      state.cvForm.formRef = action.payload;
+      state.formRef = action.payload;
     },
     countWorkExperience: state => {
       const formData = new FormData(state.formRef);
