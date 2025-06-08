@@ -1,0 +1,22 @@
+.animatedText {
+  font-size: 1.5rem;
+  margin-bottom: 2rem;
+  position: relative;
+  animation: underline 2s infinite;
+}
+
+@keyframes underline {
+  0%,
+  100% {
+    background-position: 0 100%;
+  }
+  50% {
+    background-position: 100% 100%;
+  }
+}
+
+.searchType {
+  display: flex;
+  gap: 2rem;
+  margin-bottom: 1rem;
+}

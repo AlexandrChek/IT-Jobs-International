@@ -1,0 +1,33 @@
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  background-color: rgb(250, 205, 120);
+}
+
+.logo {
+  font-weight: bold;
+  color: var(--main-text-color);
+  display: flex;
+}
+
+.logo img {
+  max-width: 3rem;
+}
+
+.nav {
+  position: relative;
+}
+
+.userName {
+  cursor: pointer;
+}
+
+.logInLink {
+  margin-right: 0.5rem;
+}

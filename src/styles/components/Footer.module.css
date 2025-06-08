@@ -1,0 +1,18 @@
+.footer {
+  display: flex;
+  justify-content: center;
+  padding: 1rem;
+  background-color: #333;
+  color: #fff;
+  margin-top: auto;
+}
+
+.footerLink {
+  margin: 0 1rem;
+  color: #fff;
+  text-decoration: none;
+}
+
+.footerLink:hover {
+  text-decoration: underline;
+}

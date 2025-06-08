@@ -1,0 +1,26 @@
+:root {
+  --w-dialog: max(270px, 30vw);
+  --h-dialog: calc(var(--w-dialog) / 2);
+}
+
+dialog {
+  width: var(--w-dialog);
+  height: var(--h-dialog);
+  top: calc(50% - (var(--h-dialog) / 2));
+  left: calc(50% - (var(--w-dialog) / 2));
+  padding: 0;
+  border: none;
+}
+
+::backdrop {
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modalWrapper {
+  width: var(--w-dialog);
+  height: var(--h-dialog);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
