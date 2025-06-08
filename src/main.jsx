@@ -8,7 +8,7 @@ import './index.css';
 
 createRoot(document.getElementById('root')).render(
   <Provider store={store}>
-    <Router basename={base}>
+    <Router>
       <App />
     </Router>
   </Provider>,
