@@ -38,7 +38,11 @@ const chatSlice = createSlice({
         state.error = { message: action.error.message, actionCausedError: 'fetch' };
       })
       .addCase(createChat.rejected, (state, action) => {
-        state.error = { message: action.error.message, actionCausedError: 'create' };
+        let error = { message: action.error.message, actionCausedError: 'create' };
+        if (action.error.name === 'MulterError') {
+          error.multerError = true;
+        }
+        state.error = error;
       })
       .addCase(sendMessage.rejected, (state, action) => {
         state.error = { message: action.error.message, actionCausedError: 'send' };

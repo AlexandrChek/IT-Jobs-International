@@ -61,6 +61,7 @@ const CreateChatForm = ({ seekerId, companyId, userName, userType, jobId = '', p
         error={error?.actionCausedError === 'create' && error.message}
         parentName="CreateChatForm"
         actionAfterClosing={() => dispatch(clearError())}
+        customlMsg={error.multerError ? error.multerError : null}
       />
     </>
   );

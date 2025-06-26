@@ -1,11 +1,11 @@
 // Common things:
-export const serverUrl = 'https://it-jobs-international-back.glitch.me';
+export const serverUrl = 'https://it-jobs-international-back.onrender.com';
 
 export const baseUrl = '/IT-Jobs-International/';
 
 export const savingMessage = 'Changes saved successfully';
 export const serverErrorMessage = 'Sorry! Failed to get server response. Please try again later.';
-export const logInErrorMessage = 'There was an error logging into your account.';
+export const logInErrorMessage = 'Sorry! There was an error logging into your account.';
 
 // Company profile:
 export const employeesNumbers = [

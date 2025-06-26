@@ -5,7 +5,10 @@ export const fetchData = async ({ url, options = null }) => {
   const fullUrl = serverUrl + url;
   const response = options ? await fetch(fullUrl, options) : await fetch(fullUrl);
 
-  if (!response.ok) throw new Error('Failed to get server response');
+  if (!response.ok) {
+    const error = await response.json();
+    throw error;
+  }
 
   let data = null;
   const contentType = response.headers.get('content-type');

@@ -83,7 +83,7 @@ const SignUpCompany = () => {
         error={error?.message || logInError}
         parentName="SignUpCompany"
         actionAfterClosing={() => clearSignUpErrors(error, logInError)}
-        additionalMsg={logInError && logInErrorMessage}
+        customlMsg={logInErrorMessage}
       />
     </div>
   );

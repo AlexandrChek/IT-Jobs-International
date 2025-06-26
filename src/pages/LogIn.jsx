@@ -65,7 +65,7 @@ const LogIn = () => {
         error={error}
         parentName="LogIn"
         actionAfterClosing={() => dispatch(clearLogInError())}
-        additionalMsg={logInErrorMessage}
+        customlMsg={logInErrorMessage}
       />
     </div>
   );
