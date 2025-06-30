@@ -4,6 +4,7 @@ import { createChat, clearError } from '../features/async/chatSlice';
 import { createPostReqSettings } from '../methods';
 import MyTextarea from './inputs/MyTextarea';
 import JobSelect from './JobSelect';
+import CvFileInput from './inputs/CvFileInput';
 import ErrorModal from './modals/ErrorModal';
 
 const CreateChatForm = ({ seekerId, companyId, userName, userType, jobId = '', position = '' }) => {
@@ -47,21 +48,14 @@ const CreateChatForm = ({ seekerId, companyId, userName, userType, jobId = '', p
       <h4>{isCompany ? 'Offer a job' : 'Apply for a job'}</h4>
       <form ref={form} onSubmit={handleSubmit}>
         <MyTextarea name="message" placeholder="Write a message" required />
-        {isCompany ? (
-          <JobSelect companyId={companyId} getJobId={getJobId} />
-        ) : (
-          <label>
-            Upload your CV file
-            <input type="file" name="cvFile" />
-          </label>
-        )}
+        {isCompany ? <JobSelect companyId={companyId} getJobId={getJobId} /> : <CvFileInput />}
         <button type="submit">{isCompany ? 'Send the message' : 'Apply'}</button>
       </form>
       <ErrorModal
         error={error?.actionCausedError === 'create' && error.message}
         parentName="CreateChatForm"
         actionAfterClosing={() => dispatch(clearError())}
-        customlMsg={error.multerError ? error.multerError : null}
+        customlMsg={error.multerError || null}
       />
     </>
   );
