@@ -1,0 +1,27 @@
+:root {
+  --msg-side-padding: 3px;
+}
+
+.messageWrapper {
+  text-align: start;
+  border: 1px dotted var(--light-gray);
+  border-radius: 3px;
+}
+
+.messageWrapper > :first-child {
+  background-color: var(--light-gray);
+  text-indent: var(--standard-text-indent);
+}
+
+.messageWrapper > :first-child,
+.messageWrapper div {
+  padding: 0.1rem var(--msg-side-padding) 0;
+}
+
+.messageWrapper div p {
+  margin-bottom: 0.45rem;
+}
+
+.messageWrapper a {
+  padding-left: calc(var(--standard-text-indent) + var(--msg-side-padding));
+}

@@ -1,26 +1,32 @@
-:root {
-  --w-dialog: max(270px, 30vw);
-  --h-dialog: calc(var(--w-dialog) / 2);
+dialog,
+.modalWrapper {
+  --w-dialog: clamp(270px, 30vw, 490px);
+  --offset: calc(var(--w-dialog) / 100);
+  width: var(--w-dialog);
+  min-height: calc(var(--w-dialog) / 2);
+  border-radius: 8px;
+  box-shadow: var(--offset) var(--offset) calc(var(--offset) * 2) var(--offset) black;
 }
 
 dialog {
-  width: var(--w-dialog);
-  height: var(--h-dialog);
-  top: calc(50% - (var(--h-dialog) / 2));
-  left: calc(50% - (var(--w-dialog) / 2));
   padding: 0;
   border: none;
 }
 
 ::backdrop {
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: var(--half-black);
 }
 
 .modalWrapper {
-  width: var(--w-dialog);
-  height: var(--h-dialog);
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  gap: 1.4rem;
+  background-color: var(--light-gray);
+  padding: 0.75rem;
+}
+
+.message {
+  font-size: 1.2rem;
 }

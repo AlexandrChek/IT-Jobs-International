@@ -1,18 +1,21 @@
-import { useState, useEffect } from 'react';
+import { forwardRef } from 'react';
+import useControlledInputScript from '../../hooks/useControlledInputScript';
 
-const MyTextarea = ({ initialValue = '', getVal, ...rest }) => {
-  const [val, setVal] = useState(initialValue || '');
+const MyTextarea = forwardRef(
+  ({ id = null, initialValue = '', width = '100%', getTargetOnChange, ...rest }, ref) => {
+    const { value, handleChange } = useControlledInputScript(initialValue, getTargetOnChange);
 
-  useEffect(() => setVal(initialValue || ''), [initialValue]);
-
-  const handleChange = e => {
-    setVal(e.target.value);
-    if (getVal) {
-      getVal(e.target);
-    }
-  };
-
-  return <textarea {...rest} value={val} onChange={handleChange} />;
-};
+    return (
+      <textarea
+        id={id}
+        value={value}
+        onChange={e => handleChange(e.target)}
+        style={{ width }}
+        ref={ref}
+        {...rest}
+      />
+    );
+  },
+);
 
 export default MyTextarea;

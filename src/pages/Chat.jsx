@@ -1,30 +1,52 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams, Link } from 'react-router-dom';
-import { fetchChat, sendMessage, addMessageLocally, clearError } from '../features/async/chatSlice';
+import {
+  fetchChat,
+  sendMessage,
+  markMessagesAsRead,
+  setToZeroChatUnreadCount,
+  addMessageLocally,
+  clearError,
+} from '../features/async/chatSlice';
+import { reduceUnreadCountLocally } from '../features/async/authSlice';
 import { createPostReqSettings } from '../methods';
 import Loading from '../components/Loading';
+import UserProfilePublicLink from '../components/UserProfilePublicLink';
 import UserMessage from '../components/UserMessage';
 import MyTextarea from '../components/inputs/MyTextarea';
+import DownButton from '../components/buttons/DownButton';
 import ErrorModal from '../components/modals/ErrorModal';
 import styles from '../styles/pages/Chat.module.css';
 
 const Chat = () => {
   const dispatch = useDispatch();
   const { companyid, seekerid, jobid } = useParams() || {};
-  const { userName } = useSelector(state => state.auth);
+  const { userName, userType } = useSelector(state => state.auth);
   const { chat, pending, error } = useSelector(state => state.currentChat);
+  const messageFieldRef = useRef();
   const [messageText, setMessageText] = useState('');
 
   useEffect(() => {
-    const url = `/chat/${companyid}/${seekerid}/${jobid}`;
+    const url = `/chat/${userType}/${companyid}/${seekerid}/${jobid}`;
     dispatch(fetchChat({ url }));
-  }, [companyid, seekerid, jobid]);
+  }, [userType, companyid, seekerid, jobid]);
+
+  useEffect(() => {
+    if (chat.messages.length === chat.msgCount && chat.unreadCount) {
+      const url = `mark_messages_as_read/${userType}/${seekerid}/${companyid}/${jobid}`;
+      dispatch(markMessagesAsRead({ url }));
+      dispatch(reduceUnreadCountLocally(chat.unreadCount));
+      dispatch(setToZeroChatUnreadCount());
+    }
+  }, [chat.messages.length, chat.msgCount, chat.unreadCount]);
+
+  const scrollToMessageField = () => messageFieldRef.current.scrollIntoView();
 
   const send = async () => {
     if (messageText.trim()) {
       const message = {
-        date: new Date().toLocaleString(),
+        date: Date.now(),
         name: userName,
         text: messageText,
       };
@@ -48,16 +70,35 @@ const Chat = () => {
   return (
     <div className="routesWrapper">
       {pending && <Loading />}
-      <Link to={`/${companyid}/job/${chat?.job.jobId}`}>
-        <h2>{chat?.job.position}</h2>
+      <Link to={`/${companyid}/job/${jobid}`}>
+        <h2 className={styles.position}>{chat?.job?.position}</h2>
       </Link>
-      <div className={styles.messages}>
+      <UserProfilePublicLink
+        userName={chat?.chatParticipantName}
+        userId={userType === 'seeker' ? companyid : seekerid}
+        userType={userType === 'seeker' ? 'company' : 'seeker'}
+        className={styles.userName}
+      />
+      <div className={`flexColumnBox ${styles.messages}`}>
         {chat?.messages.map((msg, index) => (
-          <UserMessage index={index} msg={msg} userName={userName} />
+          <UserMessage key={index} msg={msg} userName={userName} className={styles.msg} />
         ))}
       </div>
-      <MyTextarea getVal={target => setMessageText(target.value)} placeholder="Type your message" />
-      <button onClick={send}>Send</button>
+      <MyTextarea
+        getTargetOnChange={target => setMessageText(target.value)}
+        initialValue={messageText}
+        placeholder="Type your message"
+        ref={messageFieldRef}
+        className={styles.messageField}
+      />
+      <button className="standardButton" onClick={send}>
+        Send
+      </button>
+      <DownButton
+        isDataLoaded={chat?.messages?.length > 1}
+        targetRef={messageFieldRef}
+        goDown={scrollToMessageField}
+      />
       <ErrorModal
         error={['fetch', 'send'].includes(error?.actionCausedError) && error.message}
         parentName="Chat"

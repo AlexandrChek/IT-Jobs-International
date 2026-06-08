@@ -4,12 +4,12 @@ import { openModal, closeModal } from '../../features/sync/modalSlice';
 import { serverErrorMessage } from '../../constants';
 import Modal from './Modal';
 
-const ErrorModal = ({ error, parentName, actionAfterClosing, customlMsg = null }) => {
+const ErrorModal = ({ error, parentName, actionAfterClosing, customMsg = null }) => {
   const dispatch = useDispatch();
 
   const message = useMemo(() => {
-    return customlMsg ? customlMsg : serverErrorMessage;
-  }, [customlMsg]);
+    return customMsg ? customMsg : serverErrorMessage;
+  }, [customMsg]);
 
   useEffect(() => {
     if (error) {
@@ -33,7 +33,9 @@ const ErrorModal = ({ error, parentName, actionAfterClosing, customlMsg = null }
       message={message}
       actionAfterClickOnBackdrop={runActionAfterClosing}
     >
-      <button onClick={closeModalWindow}>Close</button>
+      <button className="standardButton" onClick={closeModalWindow}>
+        Close
+      </button>
     </Modal>
   );
 };

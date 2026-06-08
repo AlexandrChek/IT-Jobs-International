@@ -4,7 +4,7 @@ import {
   countTotalExperience,
 } from '../../methods';
 
-const PreviewButton = ({ formElem, route, isDisabled = false, ...rest }) => {
+const PreviewButton = ({ formElem, route, isDisabled = false, newClass = null, ...rest }) => {
   const showPreview = () => {
     const formData = new FormData(formElem);
     let formObj = convertFormDataToObj(formData);
@@ -20,16 +20,27 @@ const PreviewButton = ({ formElem, route, isDisabled = false, ...rest }) => {
       }
     }
 
+    if (route === '/job_preview' && formObj?.country) {
+      const country = formObj.country;
+      const city = formObj.city || '';
+      formObj.location = `${country}${city && `, ${city}`}`;
+    }
+
     if (Object.keys(rest).length) {
       formObj = { ...formObj, ...rest };
     }
 
     localStorage.setItem('previewData', JSON.stringify(formObj));
-    window.open(route, '_blank');
+    window.open(`/#${route}`, '_blank');
   };
 
   return (
-    <button type="button" disabled={isDisabled} onClick={showPreview}>
+    <button
+      type="button"
+      className={`standardButton ${newClass}`}
+      disabled={isDisabled}
+      onClick={showPreview}
+    >
       Show preview
     </button>
   );

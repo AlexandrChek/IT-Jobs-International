@@ -1,7 +1,9 @@
+import styles from '../styles/components/RegistrationTitle.module.css';
+
 const RegistrationTitle = () => {
   return (
     <>
-      <h2>Registration data</h2>
+      <h2 className={styles.mainTitle}>Registration data</h2>
       <p>All fields are required</p>
     </>
   );

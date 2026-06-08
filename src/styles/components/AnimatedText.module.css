@@ -1,0 +1,16 @@
+.animatedText {
+  position: relative;
+  font-size: 1.4rem;
+  text-decoration: underline double;
+  animation: changeColor 7s infinite;
+}
+
+@keyframes changeColor {
+  0%,
+  100% {
+    color: green;
+  }
+  50% {
+    color: rgb(255, 0, 150);
+  }
+}

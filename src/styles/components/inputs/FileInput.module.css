@@ -1,0 +1,30 @@
+.fileInputWrapper {
+  --indent: calc(var(--side-padding) * 4);
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  max-width: min(calc(100vw - var(--indent)), calc(var(--content-max-width) - var(--indent)));
+}
+
+.fileInputWrapper [type='file'] {
+  position: absolute;
+  width: 0;
+  height: 0;
+  opacity: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.fileInputWrapper p {
+  min-width: 75%;
+  background-color: var(--input-background);
+  padding: 0.3rem;
+  border-radius: 3px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  border: 1px solid gray;
+  line-height: 1;
+  font-size: var(--button-f-size);
+}

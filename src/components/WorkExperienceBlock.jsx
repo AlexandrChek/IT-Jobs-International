@@ -1,14 +1,11 @@
 import { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
-import {
-  totalExperienceLabel,
-  zeroTotalWorkExperience,
-  emptyWorkItem,
-  workProperties,
-} from '../constants';
+import { totalExperienceLabel, zeroTotalWorkExperience, emptyWorkItem } from '../constants';
 import AddButton from './buttons/AddButton';
-import ExperienceItem from './ExperienceItem';
-import TotalExperienceOutput from './TotalExperienceOutput';
+import ExperienceList from './ExperienceList';
+import TotalExperienceOutput from './output_components/TotalExperienceOutput';
+import CrossButton from './buttons/CrossButton';
+import styles from '../styles/components/WorkExperienceBlock.module.css';
 
 const WorkExperienceBlock = ({
   initialExperience = [],
@@ -23,30 +20,32 @@ const WorkExperienceBlock = ({
   useEffect(() => {
     setExperience(initialExperience || []);
     setTotalExperience(initialTotalExperience || zeroTotalWorkExperience);
-  }, [initialTotalExperience?.totalYears, initialTotalExperience?.totalMonths]);
+  }, [JSON.stringify(initialTotalExperience)]);
 
   useEffect(() => {
     updatedTotalExperience && setTotalExperience(updatedTotalExperience);
-  }, [updatedTotalExperience?.totalYears, updatedTotalExperience?.totalMonths]);
+  }, [JSON.stringify(updatedTotalExperience)]);
 
   const addEmptyItem = () => {
-    setExperience(prev => [...prev, { ...emptyWorkItem }]);
+    setExperience(prev => [emptyWorkItem, ...prev]);
   };
 
   return (
-    <div>
+    <div className="flexColumnBox">
       <h5>Work experience history (in reverse order)</h5>
       {experience.length ? (
         <>
-          {experience.map((item, index) => (
-            <ExperienceItem key={index} item={item} index={index} properties={workProperties} />
-          ))}
-          <TotalExperienceOutput totalExperience={totalExperience}>
+          <ExperienceList
+            experienceType="work"
+            experienceArr={experience}
+            updateExperience={setExperience}
+          />
+          <TotalExperienceOutput totalExperience={totalExperience} className={styles.totalExpBox}>
             {totalExperienceLabel}
           </TotalExperienceOutput>
         </>
       ) : null}
-      <AddButton itemName="work experience" onClick={addEmptyItem} />
+      <AddButton addItem={addEmptyItem} itemName="work experience" />
     </div>
   );
 };

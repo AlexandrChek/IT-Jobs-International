@@ -1,29 +1,27 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { fetchData, createBasicInitialState } from '../../methods';
 
-export const createChat = createAsyncThunk('chat/createChat', async settings => {
-  return fetchData(settings);
-});
-
-export const fetchChat = createAsyncThunk('chat/fetchChat', async settings => {
-  return fetchData(settings);
-});
-
-export const sendMessage = createAsyncThunk('chat/sendMessage', async settings => {
-  return fetchData(settings);
-});
+export const createChat = createAsyncThunk('chat/createChat', fetchData);
+export const fetchChat = createAsyncThunk('chat/fetchChat', fetchData);
+export const checkIfChatExists = createAsyncThunk('chat/checkIfChatExists', fetchData);
+export const sendMessage = createAsyncThunk('chat/sendMessage', fetchData);
+export const markMessagesAsRead = createAsyncThunk('chat/markMessagesAsRead', fetchData);
 
 const initialState = createBasicInitialState('chat');
+initialState.doesChatAlreadyExists = false;
 
 const chatSlice = createSlice({
   name: 'currentChat',
   initialState,
   reducers: {
     addMessageLocally: (state, action) => {
-      state.chat.messages.unshift(action.payload);
+      state.chat.messages.push(action.payload);
     },
     clearError: state => {
       state.error = null;
+    },
+    setToZeroChatUnreadCount: state => {
+      state.chat.unreadCount = 0;
     },
   },
   extraReducers: builder => {
@@ -44,6 +42,12 @@ const chatSlice = createSlice({
           multerError: action.error.name === 'MulterError',
         };
       })
+      .addCase(checkIfChatExists.fulfilled, (state, action) => {
+        state.doesChatAlreadyExists = action.payload.doesChatAlreadyExists;
+      })
+      .addCase(checkIfChatExists.rejected, (state, action) => {
+        console.error(action.error);
+      })
       .addCase(sendMessage.rejected, (state, action) => {
         state.error = { message: action.error.message, actionCausedError: 'send' };
       });
@@ -51,4 +55,4 @@ const chatSlice = createSlice({
 });
 
 export default chatSlice.reducer;
-export const { addMessageLocally, clearError } = chatSlice.actions;
+export const { addMessageLocally, clearError, setToZeroChatUnreadCount } = chatSlice.actions;

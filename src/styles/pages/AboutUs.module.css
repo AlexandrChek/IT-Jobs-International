@@ -1,0 +1,7 @@
+.about h2 {
+  margin-bottom: var(--big-vertical-gap);
+}
+
+.about h4 {
+  margin-top: var(--global-items-vertical-gap);
+}

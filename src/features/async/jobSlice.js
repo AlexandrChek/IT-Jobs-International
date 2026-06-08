@@ -1,21 +1,10 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { fetchData, createBasicInitialState } from '../../methods';
 
-export const fetchJob = createAsyncThunk('job/fetchJob', async settings => {
-  return fetchData(settings);
-});
-
-export const saveJobData = createAsyncThunk('job/saveJobData', async settings => {
-  return fetchData(settings);
-});
-
-export const toggleJobStatus = createAsyncThunk('job/toggleStatus', async settings => {
-  return fetchData(settings);
-});
-
-export const removeJob = createAsyncThunk('job/removeJob', async settings => {
-  return fetchData(settings);
-});
+export const fetchJob = createAsyncThunk('job/fetchJob', fetchData);
+export const saveJobData = createAsyncThunk('job/saveJobData', fetchData);
+export const toggleJobStatus = createAsyncThunk('job/toggleStatus', fetchData);
+export const removeJob = createAsyncThunk('job/removeJob', fetchData);
 
 const initialState = createBasicInitialState('jobData');
 
@@ -43,7 +32,7 @@ const jobSlice = createSlice({
         state.pending = true;
       })
       .addCase(saveJobData.fulfilled, () => initialState)
-      .addCase(saveJobData.rejected, state => {
+      .addCase(saveJobData.rejected, (state, action) => {
         state.pending = false;
         state.error = { message: action.error.message, actionCausedError: 'save' };
       })

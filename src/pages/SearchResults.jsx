@@ -4,7 +4,7 @@ import { useParams } from 'react-router-dom';
 import useShowErrorPage from '../hooks/useShowErrorPage';
 import Loading from '../components/Loading';
 import LinksList from '../components/LinksList';
-import styles from '../styles/pages/SearchRes.module.css';
+import styles from '../styles/pages/SearchResults.module.css';
 
 const SearchResults = () => {
   const { searchtype } = useParams() || {};
@@ -17,11 +17,11 @@ const SearchResults = () => {
 
   return (
     <div className="routesWrapper">
-      <h2>Search Results</h2>
       {pending && <Loading />}
+      <h2 className={styles.resultsTitle}>Search Results</h2>
       {searchRes &&
         (typeof searchRes !== 'string' ? (
-          <LinksList cvsOrJobs={searchRes} type={searchtype} />
+          <LinksList cvsOrJobs={searchRes} type={searchtype} itemsPerPage={5} />
         ) : (
           <h3>{searchRes}</h3>
         ))}

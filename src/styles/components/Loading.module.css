@@ -1,11 +1,60 @@
-.loading {
-  color: lime;
-  opacity: 1;
-  animation: blinking 0.7s linear infinite;
+:root {
+  --spinner-min-item-diametr: 3px;
+  --spinner-item-multiplier: 5;
+  --spinner-time: 1.5s;
+  --spinner-time-interval: calc(var(--spinner-time) / 11);
 }
 
-@keyframes blinking {
-  to {
-    opacity: 0.5;
+.spinnerWrapper {
+  position: fixed;
+  width: min(100vw, var(--content-max-width));
+  height: var(--content-height);
+  z-index: 99;
+}
+
+.circleWrapper {
+  --delay: calc(var(--spinner-time-interval) * var(--num));
+  --orbit-radius: 31px;
+  --max-item-radius: calc(var(--spinner-min-item-diametr) / 2 * var(--spinner-item-multiplier));
+  position: relative;
+  top: calc(
+    var(--vh, 1vh) * 50 - var(--header-height) - (var(--orbit-radius) + var(--max-item-radius))
+  );
+  left: calc(50% - var(--max-item-radius));
+  transform-origin: 0 var(--orbit-radius);
+  animation: rotating var(--spinner-time) linear infinite;
+  -webkit-animation-delay: var(--delay);
+  -moz-animation-delay: var(--delay);
+  animation-delay: var(--delay);
+}
+
+.circle {
+  --delay: calc(var(--spinner-time-interval) * var(--num));
+  position: absolute;
+  width: var(--spinner-min-item-diametr);
+  height: var(--spinner-min-item-diametr);
+  border-radius: 50%;
+  background-color: lime;
+  animation: scaling var(--spinner-time) linear infinite;
+  -webkit-animation-delay: var(--delay);
+  -moz-animation-delay: var(--delay);
+  animation-delay: var(--delay);
+}
+
+@keyframes rotating {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes scaling {
+  0% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(var(--spinner-item-multiplier));
   }
 }

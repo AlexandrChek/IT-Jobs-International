@@ -1,0 +1,8 @@
+.logInTitle,
+.logInForm {
+  margin-bottom: calc(1.5 * var(--global-items-vertical-gap));
+}
+
+.logInForm button {
+  align-self: flex-start;
+}

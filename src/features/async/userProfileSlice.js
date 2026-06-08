@@ -1,20 +1,9 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { fetchData, createBasicInitialState } from '../../methods';
 
-export const fetchProfile = createAsyncThunk('userProfile/fetchProfile', async settings => {
-  return fetchData(settings);
-});
-
-export const saveProfile = createAsyncThunk('userProfile/saveProfile', async settings => {
-  return fetchData(settings);
-});
-
-export const toggleProfileStatus = createAsyncThunk(
-  'userProfile/toggleProfileStatus',
-  async settings => {
-    return fetchData(settings);
-  },
-);
+export const fetchProfile = createAsyncThunk('userProfile/fetchProfile', fetchData);
+export const saveProfile = createAsyncThunk('userProfile/saveProfile', fetchData);
+export const toggleProfileStatus = createAsyncThunk('userProfile/toggleProfileStatus', fetchData);
 
 const initialState = createBasicInitialState('profile');
 
@@ -49,7 +38,7 @@ const userProfileSlice = createSlice({
 
         state.pending = false;
       })
-      .addCase(toggleProfileStatus.rejected, state => {
+      .addCase(toggleProfileStatus.rejected, (state, action) => {
         state.pending = false;
         state.error = { message: action.error.message, actionCausedError: 'toggle' };
       })
@@ -59,7 +48,7 @@ const userProfileSlice = createSlice({
       .addCase(saveProfile.fulfilled, state => {
         state.pending = false;
       })
-      .addCase(saveProfile.rejected, state => {
+      .addCase(saveProfile.rejected, (state, action) => {
         state.pending = false;
         state.error = { message: action.error.message, actionCausedError: 'save' };
       });

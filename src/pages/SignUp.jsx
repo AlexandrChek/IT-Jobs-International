@@ -1,19 +1,19 @@
 import { Link } from 'react-router-dom';
+import { logInLink } from '../constantLinks';
+import { userTypes } from '../constants';
 import styles from '../styles/pages/SignUp.module.css';
 
 const SignUp = () => {
-  const logInLink = <Link to="/login">log in</Link>;
-
   return (
     <div className="routesWrapper">
-      <h2>Sign Up</h2>
+      <h2 className={styles.mainTitle}>Sign Up</h2>
+      <h5>as a</h5>
       <div className={styles.options}>
-        <Link to="/sign_up/job-seeker" className={styles.signupButton}>
-          Job Seeker
-        </Link>
-        <Link to="/sign_up/company" className={styles.signupButton}>
-          Company
-        </Link>
+        {userTypes.map(item => (
+          <Link key={item.value} to={item.signUpRoute} className={styles.userType}>
+            <h2>{item.label}</h2>
+          </Link>
+        ))}
       </div>
       <p>If you already have an account, please {logInLink}.</p>
     </div>

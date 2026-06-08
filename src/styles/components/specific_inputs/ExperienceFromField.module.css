@@ -1,0 +1,15 @@
+.experienceFromBox {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+}
+
+.title {
+  margin: 0 0.7rem 0 0;
+  text-wrap: nowrap;
+}
+
+.experienceInputBox {
+  display: inline-flex;
+  gap: 0.5rem;
+}

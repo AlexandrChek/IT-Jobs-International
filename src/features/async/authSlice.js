@@ -1,14 +1,14 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { fetchData } from '../../methods';
 
-export const logIn = createAsyncThunk('auth/logIn', async settings => {
-  return fetchData(settings);
-});
+export const logIn = createAsyncThunk('auth/logIn', fetchData);
+export const updateUnreadCount = createAsyncThunk('auth/updateUnreadCount', fetchData);
 
 const initialState = {
   userName: null,
   userId: null,
   userType: null,
+  unreadCount: 0,
   authFailureMessage: null,
   pending: false,
   error: null,
@@ -24,6 +24,11 @@ const authSlice = createSlice({
     },
     clearLogInError: state => {
       state.error = null;
+    },
+    reduceUnreadCountLocally: (state, action) => {
+      if (state.unreadCount) {
+        state.unreadCount -= action.payload;
+      }
     },
   },
   extraReducers: builder => {
@@ -50,9 +55,13 @@ const authSlice = createSlice({
       .addCase(logIn.rejected, (state, action) => {
         state.pending = false;
         state.error = action.error.message;
+      })
+      .addCase(updateUnreadCount.fulfilled, (state, action) => {
+        state.unreadCount = action.payload.unreadCount;
       });
   },
 });
 
-export const { logOut, changeUserName, clearLogInError } = authSlice.actions;
+export const { logOut, changeUserName, clearLogInError, reduceUnreadCountLocally } =
+  authSlice.actions;
 export default authSlice.reducer;

@@ -6,8 +6,9 @@ import useFetchProfile from '../hooks/useFetchProfile';
 import useChooseProfileOrPreview from '../hooks/useChooseProfileOrPreview';
 import useShowErrorPage from '../hooks/useShowErrorPage';
 import Loading from '../components/Loading';
-import CvPublicTemplate from '../components/CvPublicTemplate';
+import CvPublicTemplate from '../components/public_templates/CvPublicTemplate';
 import CreateChatForm from '../components/CreateChatForm';
+import CreateChatFormAlt from '../components/CreateChatFormAlt';
 import styles from '../styles/pages/PublicCv.module.css';
 
 const PublicCv = () => {
@@ -20,21 +21,19 @@ const PublicCv = () => {
   const showErrorPage = useShowErrorPage();
 
   useEffect(() => {
-    if (!isPreview && !profile) {
-      fetchProfile(seekerid, 'seeker');
-    }
-  }, [isPreview, profile?.userName, seekerid]);
+    !isPreview && fetchProfile(seekerid, 'seeker');
+  }, [isPreview, seekerid]);
 
   useEffect(() => {
     if (error?.actionCausedError === 'fetch') {
-      showErrorPage(error.message, clearProfileError);
+      showErrorPage(error.message, 'profileNotFounde', clearProfileError);
     }
   }, [error?.actionCausedError, error?.message]);
 
   return (
     <div className="routesWrapper">
       {pending && <Loading />}
-      {currentCv && <CvPublicTemplate cv={currentCv} />}
+      {currentCv && <CvPublicTemplate cv={currentCv} viewType={viewType} />}
       {userType === 'company' && (
         <CreateChatForm
           seekerId={seekerid}
@@ -43,6 +42,7 @@ const PublicCv = () => {
           userType={userType}
         />
       )}
+      {!userType && <CreateChatFormAlt offerType="cv" />}
     </div>
   );
 };

@@ -1,12 +1,7 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { fetchData, createBasicInitialState } from '../../methods';
 
-export const fetchSearchResults = createAsyncThunk(
-  'searchResults/fetchSearchResults',
-  async settings => {
-    return fetchData(settings);
-  },
-);
+export const fetchSearchResults = createAsyncThunk('searchResults/fetchSearchResults', fetchData);
 
 const initialState = createBasicInitialState('searchRes');
 

@@ -1,0 +1,29 @@
+.listItem:not(:last-child) {
+  margin-bottom: var(--global-items-vertical-gap);
+}
+
+.pagination {
+  list-style: none;
+  display: inline-flex;
+  padding: 0;
+}
+
+.pageLink {
+  margin: 0 calc(3px + 0.05rem);
+  cursor: pointer;
+}
+
+.pageLink.active {
+  color: var(--dark-lime);
+  font-weight: 1000;
+}
+
+.previousLink,
+.nextLink {
+  cursor: pointer;
+}
+
+.disabled {
+  color: var(--input-disabled-color);
+  cursor: not-allowed;
+}

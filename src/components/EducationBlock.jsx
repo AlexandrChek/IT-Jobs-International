@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
-import { emptyEducationItem, educationProperties } from '../constants';
+import { emptyEducationItem } from '../constants';
 import AddButton from './buttons/AddButton';
-import ExperienceItem from './ExperienceItem';
+import ExperienceList from './ExperienceList';
 
 const EducationBlock = ({ initialEducation = [] }) => {
   const [education, setEducation] = useState(initialEducation || []);
@@ -9,22 +9,20 @@ const EducationBlock = ({ initialEducation = [] }) => {
   useEffect(() => setEducation(initialEducation || []), [initialEducation?.length]);
 
   const addEmptyItem = () => {
-    setEducation(prev => [emptyEducationItem, ...prev]);
+    setEducation(prev => [...prev, emptyEducationItem]);
   };
 
   return (
-    <div>
+    <div className="flexColumnBox">
       <h5>Education</h5>
       {education.length ? (
-        <>
-          {education.map((item, index) => (
-            <div key={index}>
-              <ExperienceItem item={item} index={index} properties={educationProperties} />
-            </div>
-          ))}
-        </>
+        <ExperienceList
+          experienceType="education"
+          experienceArr={education}
+          updateExperience={setEducation}
+        />
       ) : null}
-      <AddButton itemName="education details" onClick={addEmptyItem} />
+      <AddButton addItem={addEmptyItem} itemName="education details" />
     </div>
   );
 };

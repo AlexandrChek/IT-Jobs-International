@@ -1,0 +1,5 @@
+.experienceItemBox {
+  display: inline-flex;
+  gap: 1px;
+  width: 100%;
+}

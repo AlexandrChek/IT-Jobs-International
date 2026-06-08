@@ -1,0 +1,44 @@
+:root {
+  --menu-border: 1px solid var(--main-background);
+  --menu-border-radius: 3px;
+}
+
+.relativeBox {
+  position: relative;
+}
+
+.menuWrapper {
+  --shadow-blur: 0.15rem;
+  position: absolute;
+  top: var(--shadow-blur);
+  background-color: var(--main-background);
+  border: var(--menu-border);
+  border-radius: var(--menu-border-radius);
+  box-shadow: 0px 0px var(--shadow-blur) 0.25rem rgba(0, 0, 0, 0.1);
+  z-index: 55;
+}
+
+.menuWrapper div {
+  padding: 0.3rem 0.5rem;
+  font-weight: bold;
+  background-color: var(--light-gray);
+  cursor: pointer;
+}
+
+.menuWrapper div:first-child {
+  border-top-left-radius: var(--menu-border-radius);
+  border-top-right-radius: var(--menu-border-radius);
+}
+
+.menuWrapper div:last-child {
+  border-bottom-left-radius: var(--menu-border-radius);
+  border-bottom-right-radius: var(--menu-border-radius);
+}
+
+.menuWrapper div:not(:last-child) {
+  border-bottom: var(--menu-border);
+}
+
+.menuWrapper div:hover {
+  background-color: yellow;
+}

@@ -1,0 +1,15 @@
+.burgerBox {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  width: 1.5rem;
+  margin-bottom: 0.15rem;
+}
+
+.burgerBox div,
+.burgerBox::before,
+.burgerBox::after {
+  height: 0.2rem;
+  background-color: var(--dark-lime);
+  content: '';
+}

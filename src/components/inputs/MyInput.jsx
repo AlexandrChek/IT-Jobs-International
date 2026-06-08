@@ -1,18 +1,17 @@
-import { useState, useEffect } from 'react';
+import useControlledInputScript from '../../hooks/useControlledInputScript';
 
-const MyInput = ({ initialValue = '', getVal, ...rest }) => {
-  const [val, setVal] = useState(initialValue || '');
+const MyInput = ({ id = null, width = '100%', initialValue = '', getTargetOnChange, ...rest }) => {
+  const { value, handleChange } = useControlledInputScript(initialValue, getTargetOnChange);
 
-  useEffect(() => setVal(initialValue || ''), [initialValue]);
-
-  const handleChange = e => {
-    setVal(e.target.value);
-    if (getVal) {
-      getVal(e.target);
-    }
-  };
-
-  return <input {...rest} value={val} onChange={handleChange} />;
+  return (
+    <input
+      id={id}
+      value={value}
+      onChange={e => handleChange(e.target)}
+      style={{ width }}
+      {...rest}
+    />
+  );
 };
 
 export default MyInput;

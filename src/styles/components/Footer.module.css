@@ -1,15 +1,14 @@
-.footer {
+footer {
   display: flex;
   justify-content: center;
-  padding: 1rem;
-  background-color: #333;
-  color: #fff;
-  margin-top: auto;
+  background-color: black;
+  color: white;
+  padding: var(--head-foot-vert-padding) var(--side-padding);
 }
 
 .footerLink {
   margin: 0 1rem;
-  color: #fff;
+  color: white;
   text-decoration: none;
 }
 

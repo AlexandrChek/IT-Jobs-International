@@ -2,30 +2,31 @@ import { useRef, useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams, useNavigate } from 'react-router-dom';
 import { saveJobData, clearJobError } from '../features/async/jobSlice';
-import { closeModal } from '../features/sync/modalSlice';
 import { createPostReqSettings } from '../methods';
-import { jobTextareas } from '../constants';
+import { workplaces, jobTextareas } from '../constants';
 import useFormValidation from '../hooks/useFormValidation';
 import Loading from '../components/Loading';
-import PositionInput from '../components/PositionInput';
-import SalaryInput from '../components/SalaryInput';
-import CountryCityInputs from '../components/CountryCityInputs';
-import WorkplacesField from '../components/WorkplacesField';
-import RelocationPossibilityCheckbox from '../components/RelocationPossibilityCheckbox';
-import ExperienceFromField from '../components/ExperienceFromField';
-import ExperienceIsNotRequiredCheckbox from '../components/ExperienceIsNotRequiredCheckbox';
-import EnglishLevelSelect from '../components/EnglishLevelSelect';
+import ProfileAndJobTitle from '../components/ProfileAndJobTitle';
+import InputBox from '../components/InputBox';
+import MyInput from '../components/inputs/MyInput';
+import CountryCityInputs from '../components/specific_inputs/CountryCityInputs';
+import CheckboxGroup from '../components/specific_inputs/CheckboxGroup';
+import RelocationPossibilityCheckbox from '../components/specific_inputs/RelocationPossibilityCheckbox';
+import ExperienceFromField from '../components/specific_inputs/ExperienceFromField';
+import ExperienceIsNotRequiredCheckbox from '../components/specific_inputs/ExperienceIsNotRequiredCheckbox';
+import SkillsTextarea from '../components/specific_inputs/SkillsTextarea';
+import EnglishLevelSelect from '../components/specific_inputs/EnglishLevelSelect';
 import MyTextarea from '../components/inputs/MyTextarea';
 import PreviewButton from '../components/buttons/PreviewButton';
+import SubmitButton from '../components/buttons/SubmitButton';
 import ErrorModal from '../components/modals/ErrorModal';
-import styles from '../styles/pages/SaveJob.module.css';
 
 const SaveJob = () => {
   const { companyid } = useParams() || {};
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { jobData, pending, error } = useSelector(state => state.job);
-  const { isValid, checkFormValidity } = useFormValidation(jobData?.position ? true : false);
+  const { isValid, checkFormValidity } = useFormValidation(Boolean(jobData?.position));
   const form = useRef();
   const [currentForm, setCurrentForm] = useState(form.current);
 
@@ -53,35 +54,59 @@ const SaveJob = () => {
 
   return (
     <div className="routesWrapper">
-      <h3>Job Properties</h3>
       {pending && <Loading />}
-      <form ref={form} onSubmit={handleSubmit} onInput={handleInputs}>
-        <PositionInput initialPosition={jobData?.position} isRequired={true} />
-        <SalaryInput initialSalary={jobData?.salary} />
+      <ProfileAndJobTitle>Job Properties</ProfileAndJobTitle>
+      <form ref={form} onSubmit={handleSubmit} onInput={handleInputs} className="flexColumnBox">
+        <InputBox id="positionJob" startLabel="Position*">
+          <MyInput
+            type="text"
+            name="position"
+            id="positionJob"
+            initialValue={jobData?.position}
+            required
+          />
+        </InputBox>
+        <InputBox id="salaryJob" startLabel="Salary" endLabel=" $">
+          <MyInput
+            type="number"
+            id="salaryJob"
+            name="salary"
+            width="170px"
+            initialValue={jobData?.salary}
+          />
+        </InputBox>
         <CountryCityInputs initialCountry={jobData?.country} initialCity={jobData?.city} />
-        <WorkplacesField initialWorkplaces={jobData?.workplaces} />
+        <CheckboxGroup
+          groupName="workplaces"
+          legend="Workplace"
+          allValues={workplaces}
+          initialCheckedItems={jobData?.workplaces}
+          isDirectionInline={true}
+        />
         <RelocationPossibilityCheckbox docType="job" initialState={jobData?.isRelocationPossible} />
         <ExperienceFromField
           experienceFromYears={jobData?.experienceFromYears}
           experienceFromMonths={jobData?.experienceFromMonths}
         />
         <ExperienceIsNotRequiredCheckbox initialState={jobData?.experienceIsNotRequired} />
+        <SkillsTextarea
+          id="keySkillsInJob"
+          label="Key skills (for searching)"
+          initialValue={jobData?.skills}
+        />
         <EnglishLevelSelect initialLevel={jobData?.englishLevel} />
         {jobTextareas.map(area => (
-          <div key={area.name}>
-            <label htmlFor={area.name}>{area.label}</label>
+          <InputBox key={area.name} id={area.name} startLabel={area.label}>
             <MyTextarea
               id={area.name}
               name={area.name}
               initialValue={jobData && jobData[area.name]}
             />
-          </div>
+          </InputBox>
         ))}
-        <div>
+        <div className="inlineCenteredFlexBox">
           <PreviewButton formElem={currentForm} route="/job_preview" isDisabled={!isValid} />
-          <button type="submit" disabled={!isValid}>
-            Save Job
-          </button>
+          <SubmitButton disabled={!isValid}>Save Job</SubmitButton>
         </div>
       </form>
       <ErrorModal

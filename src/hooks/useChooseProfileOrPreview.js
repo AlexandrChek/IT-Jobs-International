@@ -16,7 +16,7 @@ const useChooseProfileOrPreview = (isPreview, profile, profileType) => {
     } else if (profile) {
       return isCompanyData ? getProfileWithActiveJobs(profile) : profile;
     } else return null;
-  }, [isPreview, profileType, profile?.userName]);
+  }, [isPreview, profileType, JSON.stringify(profile)]);
 
   return currentProfileData;
 };

@@ -1,11 +1,7 @@
 import styles from '../../styles/components/buttons/AddButton.module.css';
 
-const AddButton = ({ itemName, ...rest }) => {
-  return (
-    <div title={`Add ${itemName}`} className={styles.addButton} {...rest}>
-      +
-    </div>
-  );
+const AddButton = ({ addItem, itemName }) => {
+  return <button onClick={addItem} title={`Add ${itemName}`} className={styles.addButton} />;
 };
 
 export default AddButton;

@@ -1,0 +1,33 @@
+.position,
+.companyNameInProfile {
+  color: rgb(55, 17, 17);
+  text-decoration: underline solid;
+}
+
+.cvAndJobTitle {
+  margin-bottom: 0.8rem;
+}
+
+.nameValueBox {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  gap: 0.35rem;
+  flex-wrap: wrap;
+}
+
+.standardMb {
+  margin-bottom: var(--global-items-vertical-gap);
+}
+
+.bigMb {
+  margin-bottom: var(--big-vertical-gap);
+}
+
+.experienceTitleInCv {
+  margin-bottom: calc(0.5 * var(--global-items-vertical-gap));
+}
+
+.totalExperienceInCv {
+  margin-bottom: 0.35rem;
+}

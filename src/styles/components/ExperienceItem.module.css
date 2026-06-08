@@ -1,0 +1,13 @@
+.itemWrapper {
+  width: calc(100% - 1.4rem);
+  border: 1px dotted var(--half-black);
+  border-radius: 4px;
+  padding: 0.3rem;
+}
+
+.fromTo {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  align-items: last baseline;
+}

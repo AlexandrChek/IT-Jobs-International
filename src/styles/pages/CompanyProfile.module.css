@@ -1,0 +1,25 @@
+.profileForm {
+  margin-bottom: var(--big-vertical-gap);
+}
+
+.jobsTitle {
+  margin-bottom: calc(1.07 * var(--global-items-vertical-gap));
+}
+
+.jobListBox {
+  margin-bottom: calc(1.22 * var(--global-items-vertical-gap));
+}
+
+.blinkingBorder {
+  animation: blinking 1s infinite;
+}
+
+@keyframes blinking {
+  0%,
+  100% {
+    border-color: transparent;
+  }
+  50% {
+    border-color: var(--light-purple);
+  }
+}

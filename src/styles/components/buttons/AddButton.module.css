@@ -1,13 +1,41 @@
+:root {
+  --diameter: 2.8rem;
+  --btn-border-width: 0.2rem;
+  --initial-color: limegreen;
+}
+
 .addButton {
-  font-size: 2.5rem;
-  font-weight: 1000;
-  text-align: center;
-  color: limegreen;
-  border: 0.2rem solid limegreen;
+  border: var(--btn-border-width) solid var(--initial-color);
   border-radius: 50%;
-  cursor: pointer;
+  width: var(--diameter);
+  height: var(--diameter);
+  position: relative;
+}
+
+.addButton::before,
+.addButton::after {
+  content: '';
+  width: 1.95rem;
+  height: calc(var(--btn-border-width) * 2);
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  background-color: var(--initial-color);
+  border-radius: 0.1rem;
+}
+
+.addButton::before {
+  transform: translate(-50%, -50%);
+}
+
+.addButton::after {
+  transform: translate(-50%, -50%) rotate(90deg);
 }
 
 .addButton:hover {
-  color: lime;
+  border-color: var(--input-focus-color);
+}
+.addButton:hover::before,
+.addButton:hover::after {
+  background-color: var(--input-focus-color);
 }

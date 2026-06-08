@@ -10,11 +10,10 @@ import { clearEmailExist } from '../features/async/userRegDataSlice';
 import { logInErrorMessage } from '../constants';
 import RegistrationTitle from '../components/RegistrationTitle';
 import Loading from '../components/Loading';
-import FullNameInputs from '../components/FullNameInputs';
-import DateOfBirthInput from '../components/DateOfBirthInput';
-import CountryCityInputs from '../components/CountryCityInputs';
-import CommonFieldsInRegForms from '../components/CommonFieldsInRegForms';
-import SignUpButton from '../components/buttons/SignUpButton';
+import FullNameInputs from '../components/specific_inputs/FullNameInputs';
+import DateOfBirthInput from '../components/specific_inputs/DateOfBirthInput';
+import CountryCityInputs from '../components/specific_inputs/CountryCityInputs';
+import CommonElemsInRegForms from '../components/CommonElemsInRegForms';
 import Modal from '../components/modals/Modal';
 import ErrorModal from '../components/modals/ErrorModal';
 
@@ -57,9 +56,9 @@ const SignUpSeeker = () => {
 
   return (
     <div className="routesWrapper">
-      <RegistrationTitle />
       {pending && <Loading />}
-      <form ref={form} onSubmit={handleSubmit}>
+      <RegistrationTitle />
+      <form ref={form} onSubmit={handleSubmit} className="flexColumnBox">
         <FullNameInputs initialFirstName={regData?.firstName} initialLastName={regData?.lastName} />
         <DateOfBirthInput initialValue={regData?.dateOfBirth} />
         <CountryCityInputs
@@ -67,21 +66,26 @@ const SignUpSeeker = () => {
           initialCity={regData?.city}
           areRequired={true}
         />
-        <CommonFieldsInRegForms initialPhone={regData?.phone} initialEmail={regData?.email} />
-        <SignUpButton userId={seekerid} />
+        <CommonElemsInRegForms
+          initialPhone={regData?.phone}
+          initialEmail={regData?.email}
+          userId={seekerid}
+        />
       </form>
       <Modal
         modalNameProp="SignUpSeeker"
         message={message}
         actionAfterClickOnBackdrop={runClearEmailExist}
       >
-        <button onClick={closeInfoModal}>Close</button>
+        <button className="standardButton" onClick={closeInfoModal}>
+          Close
+        </button>
       </Modal>
       <ErrorModal
         error={error?.message || logInError}
         parentName="SignUpSeeker"
         actionAfterClosing={() => clearSignUpErrors(error, logInError)}
-        customlMsg={logInErrorMessage}
+        customMsg={logInErrorMessage}
       />
     </div>
   );

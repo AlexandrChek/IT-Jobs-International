@@ -1,0 +1,8 @@
+.itemLink p {
+  color: var(--main-text-color);
+  font-size: 0.8rem;
+}
+
+.itemLink:hover p {
+  opacity: 0.7;
+}

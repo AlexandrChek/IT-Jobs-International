@@ -1,0 +1,30 @@
+:root {
+  --cross-size: 1.3rem;
+}
+
+.crossBox {
+  position: relative;
+  width: var(--cross-size);
+  height: var(--cross-size);
+  cursor: pointer;
+}
+
+.crossBox::before,
+.crossBox::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: calc(50% - 0.15rem);
+  border: none;
+  width: var(--cross-size);
+  height: 0.15rem;
+  background-color: red;
+}
+
+.crossBox::before {
+  transform: rotate(45deg);
+}
+
+.crossBox::after {
+  transform: rotate(-45deg);
+}

@@ -1,9 +1,11 @@
 import { useRef, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { turnOnExperienceUpdate } from '../features/sync/totalExperienceSlice';
+import InputBox from './InputBox';
 import MyInput from './inputs/MyInput';
 import MyCheckbox from './inputs/MyCheckbox';
 import MyTextarea from './inputs/MyTextarea';
+import styles from '../styles/components/ExperienceItem.module.css';
 
 const ExperienceItem = ({ item, index, properties }) => {
   const dispatch = useDispatch();
@@ -36,65 +38,67 @@ const ExperienceItem = ({ item, index, properties }) => {
   };
 
   return (
-    <div>
-      <label>
-        From
-        <MyInput
-          type="month"
-          name={`${properties.experienceType}_from_${index}`}
-          initialValue={item.from}
-          getVal={updateFromTo}
-          required
-        />
-      </label>
-      {!isStillOngoing && (
-        <label>
-          To
+    <div className={`flexColumnBox ${styles.itemWrapper}`}>
+      <div className={styles.fromTo}>
+        <InputBox id="ei1" startLabel="From*">
           <MyInput
+            id="ei1"
             type="month"
-            name={`${properties.experienceType}_to_${index}`}
-            initialValue={item.to}
-            getVal={updateFromTo}
+            name={`${properties.experienceType}_from_${index}`}
+            initialValue={item.from}
+            getTargetOnChange={updateFromTo}
             required
-            disabled={isStillOngoing}
           />
-        </label>
-      )}
-      {!(properties.experienceType === 'work' && index) && (
-        <label>
-          <MyCheckbox
-            name={`${properties.experienceType}_isStillOngoing_${index}`}
-            initialState={item.isStillOngoing}
-            getVal={updateIsStillOngoing}
-          />
-          {properties.stillOngoingLabel} {/* 'Still working' or 'Still studying' */}
-        </label>
-      )}
-      <label>
-        {properties.organization.label} {/* organization or institution */}
+        </InputBox>
+        {!isStillOngoing && (
+          <InputBox id="ei2" startLabel="To*">
+            <MyInput
+              id="ei2"
+              type="month"
+              name={`${properties.experienceType}_to_${index}`}
+              initialValue={item.to}
+              getTargetOnChange={updateFromTo}
+              required
+              disabled={isStillOngoing}
+            />
+          </InputBox>
+        )}
+        {!(properties.experienceType === 'work' && index) && (
+          <label>
+            <MyCheckbox
+              name={`${properties.experienceType}_isStillOngoing_${index}`}
+              initialState={item.isStillOngoing}
+              getVal={updateIsStillOngoing}
+            />
+            {properties.stillOngoingLabel} {/* 'Still working' or 'Still studying' */}
+          </label>
+        )}
+      </div>
+      <InputBox id="ei3" startLabel={`${properties.organization.label}*`}>
         <MyInput
+          id="ei3"
           type="text"
           name={`${properties.experienceType}_${properties.organization.name}_${index}`}
           initialValue={item[properties.organization.name]}
           required
         />
-      </label>
-      <label>
-        {properties.direction.label} {/* position or speciality */}
+      </InputBox>
+      <InputBox id="ei4" startLabel={`${properties.direction.label}*`}>
         <MyInput
+          id="ei4"
           type="text"
           name={`${properties.experienceType}_${properties.direction.name}_${index}`}
           initialValue={item[properties.direction.name]}
           required
         />
-      </label>
-      <label>
-        {properties.functionsAndAchivements.label}
+      </InputBox>
+      <InputBox id="ei5" startLabel={properties.functionsAndAchivements.label}>
         <MyTextarea
+          id="ei5"
           name={`${properties.experienceType}_${properties.functionsAndAchivements.name}_${index}`}
           initialValue={item[properties.functionsAndAchivements.name]}
         />
-      </label>
+      </InputBox>
     </div>
   );
 };

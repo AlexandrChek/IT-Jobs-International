@@ -5,14 +5,19 @@ const MyCheckbox = ({ initialState = false, getVal, ...rest }) => {
 
   useEffect(() => setIsChecked(initialState || false), [initialState]);
 
-  const handleChange = e => {
-    setIsChecked(e.target.checked);
-    if (getVal) {
-      getVal(e.target.checked);
-    }
+  const handleChange = currentValue => {
+    setIsChecked(currentValue);
+    getVal?.(currentValue);
   };
 
-  return <input type="checkbox" {...rest} checked={isChecked} onChange={handleChange} />;
+  return (
+    <input
+      type="checkbox"
+      checked={isChecked}
+      onChange={e => handleChange(e.target.checked)}
+      {...rest}
+    />
+  );
 };
 
 export default MyCheckbox;

@@ -1,21 +1,19 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { fetchData } from '../../methods';
 
-export const fetchJobs = createAsyncThunk('jobList/fetchJobs', async settings => {
-  return fetchData(settings);
-});
+export const fetchJobs = createAsyncThunk('jobList/fetchJobs', fetchData);
+
+const initialState = { jobs: null };
 
 const jobListSlice = createSlice({
   name: 'jobList',
-  initialState: {
-    jobs: null,
-  },
+  initialState,
   reducers: {
-    clearJobs: () => ({ jobs: null }),
+    clearJobs: () => initialState,
   },
   extraReducers: builder => {
     builder
-      .addCase(fetchJobs.pending, () => ({ jobs: null }))
+      .addCase(fetchJobs.pending, () => initialState)
       .addCase(fetchJobs.fulfilled, (state, action) => {
         state.jobs = action.payload;
       })

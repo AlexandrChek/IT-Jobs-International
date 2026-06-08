@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { getPreviewData } from '../methods';
-import JobPublicTemplate from '../components/JobPublicTemplate';
+import JobPublicTemplate from '../components/public_templates/JobPublicTemplate';
 
 const JobPreview = () => {
   const { userId, userName } = useSelector(state => state.auth);

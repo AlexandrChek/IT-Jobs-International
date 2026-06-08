@@ -1,29 +1,23 @@
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+import styles from '../styles/components/ChatListItem.module.css';
 
-const ChatListItem = ({ index, chat, userType, userId }) => {
+const ChatListItem = ({ chat, userType, userId }) => {
   const userName = useSelector(state => state.auth.userName);
-
-  const chatParticipantRoute =
-    userType === 'seeker'
-      ? `/company_profile/${chat.chatParticipantId}/public`
-      : `/cv/${chat.chatParticipantId}/public`;
   const chatRoute =
     userType === 'seeker'
       ? `/chat/${chat.chatParticipantId}/${userId}/${chat.job.jobId}`
       : `/chat/${userId}/${chat.chatParticipantId}/${chat.job.jobId}`;
 
   return (
-    <div key={index}>
-      <Link to={chatParticipantRoute}>{chat.chatParticipantName}</Link>
-      <Link to={chatRoute}>
-        <h5>{chat.job.position}</h5>
-        <p>
-          {chat.lastMessage.name === userName ? 'You' : `${chat.chatParticipantName}`}:
-          {chat.lastMessage.text}
-        </p>
-      </Link>
-    </div>
+    <Link to={chatRoute} className={styles.itemLink}>
+      <h5>{chat.chatParticipantName}</h5>
+      <h5>{chat.job.position}</h5>
+      <p>
+        {chat.lastMessage.name === userName ? 'You: ' : `${chat.chatParticipantName}: `}
+        {chat.lastMessage.text}
+      </p>
+    </Link>
   );
 };
 

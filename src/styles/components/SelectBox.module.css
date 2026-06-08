@@ -1,0 +1,12 @@
+.selectWrapper {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+  gap: 0.35rem;
+  align-items: center;
+}
+
+.selectWrapper label {
+  text-wrap: nowrap;
+  margin-right: 0.2rem;
+}

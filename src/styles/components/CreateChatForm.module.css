@@ -1,0 +1,7 @@
+.offerTitle {
+  margin-bottom: var(--global-items-vertical-gap);
+}
+
+.submitBtn {
+  align-self: flex-start;
+}

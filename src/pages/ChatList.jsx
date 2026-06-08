@@ -23,14 +23,19 @@ const ChatList = () => {
 
   return (
     <div className="routesWrapper">
-      <h2>Correspondence</h2>
       {pending && <Loading />}
+      <h2 className={styles.correspondence}>Correspondence</h2>
       {!chats?.length ? (
-        <p>No correspondences yet.</p>
+        <>
+          <p>No correspondences yet.</p>
+          <span>&#129402;</span>
+        </>
       ) : (
-        chats.map((chat, index) => (
-          <ChatListItem index={index} chat={chat} userType={userType} userId={userId} />
-        ))
+        <div className="flexColumnBox">
+          {chats.map((chat, index) => (
+            <ChatListItem key={index} chat={chat} userType={userType} userId={userId} />
+          ))}
+        </div>
       )}
     </div>
   );

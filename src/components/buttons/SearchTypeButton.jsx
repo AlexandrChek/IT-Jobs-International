@@ -1,6 +1,10 @@
-const SearchTypeButton = ({ isAdvancedSearch, ...rest }) => {
+const SearchTypeButton = ({ isAdvancedSearch, setSearchType }) => {
   return (
-    <button type="button" {...rest}>
+    <button
+      type="button"
+      className="standardButton"
+      onClick={() => setSearchType(!isAdvancedSearch)}
+    >
       {isAdvancedSearch ? 'Ordinary search' : 'Advanced search'}
     </button>
   );

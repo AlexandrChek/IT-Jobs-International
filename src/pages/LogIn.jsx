@@ -1,16 +1,19 @@
 import { useRef, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate, Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { logIn, clearLogInError } from '../features/async/authSlice';
 import { openModal, closeModal } from '../features/sync/modalSlice';
+import { setSearchType } from '../features/sync/searchTypeSlice';
 import { createPostReqSettings } from '../methods';
-import { logInErrorMessage } from '../constants';
+import { logInErrorMessage, userTypes } from '../constants';
 import Loading from '../components/Loading';
-import UserTypeToggler from '../components/UserTypeToggler';
-import EmailInput from '../components/inputs/EmailInput';
-import PasswordInput from '../components/inputs/PasswordInput';
+import RadioGroup from '../components/specific_inputs/RadioGroup';
+import EmailInput from '../components/specific_inputs/EmailInput';
+import PasswordInput from '../components/specific_inputs/PasswordInput';
+import SubmitButton from '../components/buttons/SubmitButton';
 import Modal from '../components/modals/Modal';
 import ErrorModal from '../components/modals/ErrorModal';
+import { regLink } from '../constantLinks';
 import styles from '../styles/pages/LogIn.module.css';
 
 const LogIn = () => {
@@ -18,12 +21,6 @@ const LogIn = () => {
   const navigate = useNavigate();
   const { pending, error, authFailureMessage } = useSelector(state => state.auth);
   const form = useRef();
-  const authFailureMessageRef = useRef(authFailureMessage);
-  const regLink = <Link to="/sign_up">register</Link>;
-
-  useEffect(() => {
-    authFailureMessageRef.current = authFailureMessage;
-  }, [authFailureMessage]);
 
   const handleSubmit = async e => {
     e.preventDefault();
@@ -34,9 +31,11 @@ const LogIn = () => {
     const logInResult = await dispatch(logIn(settings));
 
     if (logIn.fulfilled.match(logInResult)) {
-      if (authFailureMessageRef.current) {
+      if (logInResult.payload.authFailureMessage) {
         dispatch(openModal('LogIn'));
       } else {
+        const searchType = logInResult.payload.userType === 'company' ? 'cv' : 'job';
+        dispatch(setSearchType(searchType));
         navigate('/');
       }
     }
@@ -44,28 +43,31 @@ const LogIn = () => {
 
   return (
     <div className="routesWrapper">
-      <h2>Log In</h2>
-      <form ref={form} onSubmit={handleSubmit}>
-        {pending && <Loading />}
-        <UserTypeToggler />
-        <EmailInput />
-        <div>
-          <label>
-            Password
-            <PasswordInput name="password" />
-          </label>
-        </div>
-        <button type="submit">Log In</button>
+      {pending && <Loading />}
+      <h2 className={styles.logInTitle}>Log In</h2>
+      <form ref={form} onSubmit={handleSubmit} className={`flexColumnBox ${styles.logInForm}`}>
+        <RadioGroup
+          arrOfValueObj={userTypes}
+          groupName="userType"
+          legend="User Type*"
+          isDirectionInline={true}
+          isRequired={true}
+        />
+        <EmailInput isRequired={true} />
+        <PasswordInput name="password" />
+        <SubmitButton>Log In</SubmitButton>
       </form>
       <p>If you don't have an account yet, please {regLink}.</p>
       <Modal modalNameProp="LogIn" message={authFailureMessage}>
-        <button onClick={() => dispatch(closeModal())}>Close</button>
+        <button className="standardButton" onClick={() => dispatch(closeModal())}>
+          Close
+        </button>
       </Modal>
       <ErrorModal
         error={error}
         parentName="LogIn"
         actionAfterClosing={() => dispatch(clearLogInError())}
-        customlMsg={logInErrorMessage}
+        customMsg={logInErrorMessage}
       />
     </div>
   );

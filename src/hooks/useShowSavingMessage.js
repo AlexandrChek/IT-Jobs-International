@@ -7,7 +7,9 @@ const useShowSavingMessage = () => {
 
   const showSavingMessage = modalName => {
     dispatch(openModal(modalName));
-    setTimeout(() => dispatch(closeModal()), 5000);
+    setTimeout(() => {
+      dispatch(closeModal());
+    }, 5000);
   };
 
   return { showSavingMessage, savingMessage };

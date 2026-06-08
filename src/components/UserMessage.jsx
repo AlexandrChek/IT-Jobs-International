@@ -1,13 +1,23 @@
-const UserMessage = ({ index, msg, userName }) => {
+import styles from '../styles/components/UserMessage.module.css';
+
+const UserMessage = ({ msg, userName }) => {
+  const msgArr = msg.text.split('\n');
+
   return (
-    <div key={index}>
+    <div className={styles.messageWrapper}>
       <p>
-        {msg.name === userName ? 'You' : msg.name}, {msg.date}
+        {msg.name === userName ? 'You' : msg.name}, {msg.date.toLocaleString()}
       </p>
-      <p>{msg.text}</p>
+      <div>
+        {msgArr.map((item, index) => (
+          <p key={index} className="largeText">
+            {item}
+          </p>
+        ))}
+      </div>
       {msg.cvFileLink && (
         <a href={msg.cvFileLink} target="_blank">
-          Open CV
+          Load CV
         </a>
       )}
     </div>

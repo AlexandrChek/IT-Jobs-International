@@ -1,33 +1,61 @@
-.header {
+header {
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
+  z-index: 50;
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  padding: 1rem;
+  gap: 0.4rem;
   background-color: rgb(250, 205, 120);
+  padding: var(--head-foot-vert-padding) var(--side-padding);
+}
+
+.headerInColumn {
+  flex-direction: column;
+}
+.headerInline {
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.headerInline .userMenu {
+  right: 0;
 }
 
 .logo {
   font-weight: bold;
   color: var(--main-text-color);
   display: flex;
+  gap: 0.4rem;
 }
 
 .logo img {
-  max-width: 3rem;
+  max-width: var(--max-h-font-size);
+  max-height: var(--max-h-font-size);
+  margin: auto 0;
 }
 
-.nav {
+.userNameWrapper {
   position: relative;
 }
 
-.userName {
-  cursor: pointer;
+.unreadIndicator {
+  position: absolute;
+  right: 0;
+  z-index: 2;
+  font-size: 0.5rem;
+  line-height: 1;
+  color: white;
+  background-color: red;
+  border-radius: 50%;
+  padding: 0.1rem;
 }
 
-.logInLink {
-  margin-right: 0.5rem;
+.userName {
+  color: var(--purple-blue);
+  cursor: pointer;
+}
+.userName:hover {
+  color: var(--light-purple);
 }

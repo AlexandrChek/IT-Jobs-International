@@ -1,0 +1,5 @@
+.period {
+  text-wrap: nowrap;
+  text-decoration: underline solid;
+  font-weight: 500;
+}

@@ -1,0 +1,43 @@
+:root {
+  --label-top: calc(var(--input-label-f-size) * 0.57);
+}
+
+.inputBox {
+  padding-top: var(--label-top);
+}
+
+.relativeBox {
+  position: relative;
+}
+
+.startLabel,
+.relativeBox::before {
+  position: absolute;
+  left: 0.5rem;
+  line-height: 1;
+  font-size: var(--input-label-f-size);
+  font-weight: 500;
+  text-wrap: nowrap;
+  padding: 0 0.3rem;
+}
+
+.startLabel {
+  top: calc(-1 * var(--label-top));
+  z-index: 2;
+}
+
+.relativeBox::before {
+  content: var(--start-label);
+  height: var(--input-focused-box-shadow-blur);
+  top: calc(-1 * var(--input-focused-box-shadow-blur));
+  z-index: 1;
+  overflow-y: hidden;
+  border-bottom: var(--input-border-width) solid var(--main-background);
+  background-color: var(--main-background);
+  color: var(--main-background);
+}
+
+.relativeBox:has(input:focus)::before,
+.relativeBox:has(textarea:focus)::before {
+  letter-spacing: var(--input-focused-label-spacing);
+}

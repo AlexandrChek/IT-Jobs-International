@@ -1,0 +1,8 @@
+.blockWrapper {
+  border-bottom: 1px solid var(--main-text-color);
+}
+
+.blockWrapper p {
+  width: 100%;
+  text-align: left;
+}

@@ -1,7 +1,7 @@
 import { useRef, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { closeModal } from '../../features/sync/modalSlice';
-import classes from '../../styles/components/modals/Modal.module.css';
+import styles from '../../styles/components/modals/Modal.module.css';
 
 const Modal = ({ modalNameProp, message, actionAfterClickOnBackdrop, children }) => {
   const dispatch = useDispatch();
@@ -25,8 +25,8 @@ const Modal = ({ modalNameProp, message, actionAfterClickOnBackdrop, children })
 
   return (
     <dialog ref={dialog} onClick={checkWhereClicked}>
-      <div className={classes.modalWrapper}>
-        <h4>{message}</h4>
+      <div className={styles.modalWrapper}>
+        <p className={styles.message}>{message}</p>
         {children}
       </div>
     </dialog>

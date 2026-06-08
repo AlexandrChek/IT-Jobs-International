@@ -1,0 +1,7 @@
+.contacts h2 {
+  margin-bottom: var(--big-vertical-gap);
+}
+
+.contacts > p {
+  margin-bottom: var(--global-items-vertical-gap);
+}

@@ -5,7 +5,22 @@ export const baseUrl = '/IT-Jobs-International/';
 
 export const savingMessage = 'Changes saved successfully';
 export const serverErrorMessage = 'Sorry! Failed to get server response. Please try again later.';
-export const logInErrorMessage = 'Sorry! There was an error logging into your account.';
+
+export const footerMenuData = [
+  { to: '/about_us', label: 'About us' },
+  { to: '/contacts', label: 'Contacts' },
+  { to: '/privacy', label: 'Privacy' },
+];
+
+export const contacts = {
+  phones: '+38(066)1111111, +38(097)1111111',
+  emails: [
+    { label: 'Support service:', email: 'support@itjoint.com' },
+    { label: 'Partnership:', email: 'partnership@itjoint.com' },
+    { label: 'Reception:', email: 'reception@itjoint.com' },
+    { label: 'Legal service:', email: 'legal@itjoint.com' },
+  ],
+};
 
 // Company profile:
 export const employeesNumbers = [
@@ -30,12 +45,12 @@ export const workplaces = ['office', 'remote', 'mixed'];
 export const relocationFrom = 'Relocation from another country is possible';
 export const relocationTo = 'Consider relocation to another country';
 
-export const experienceFromLabel = 'Work experience: from';
+export const experienceFromLabel = 'Work experience from:';
 export const totalExperienceLabel = 'Total work experience:';
 export const zeroTotalWorkExperience = { totalYears: 0 };
 export const requiredExperienceProps = [
-  { name: 'experienceFromYears', label: 'years' },
-  { name: 'experienceFromMonths', label: 'months' },
+  { name: 'experienceFromYears', label: 'Years' },
+  { name: 'experienceFromMonths', label: 'Months' },
 ];
 export const experienceIsNotRequired = 'Work experience is not a mandatory requirement';
 
@@ -58,26 +73,26 @@ export const emptyEducationItem = {
 
 export const workProperties = {
   experienceType: 'work',
-  stillOngoingLabel: '...Still working',
-  direction: { label: 'Position', name: 'position' },
+  stillOngoingLabel: '...still working',
   organization: { label: 'Organization', name: 'organization' },
+  direction: { label: 'Position', name: 'position' },
   functionsAndAchivements: {
-    label: 'Functions and accomplishments',
+    label: 'Functions & accomplishments',
     name: 'functions',
   },
 };
 export const educationProperties = {
   experienceType: 'education',
-  stillOngoingLabel: '...Still studying',
-  direction: { label: 'Speciality', name: 'speciality' },
+  stillOngoingLabel: '...still studying',
   organization: { label: 'Institution', name: 'institution' },
+  direction: { label: 'Speciality', name: 'speciality' },
   functionsAndAchivements: {
     label: 'Achivements',
     name: 'achivements',
   },
 };
 
-export const englishLabel = 'English proficiency level:';
+export const englishLabel = 'English proficiency level';
 export const englishLevels = [
   'Elementary',
   'Pre-Intermediate',
@@ -106,14 +121,20 @@ export const jobTextareas = [
   },
 ];
 
-// Sign up
-export const userTypes = [
-  { label: 'Company', value: 'company' },
-  { label: 'Job seeker', value: 'seeker' },
+export const uploadedFileRestrictions = [
+  'File size should not exceed 200 KB. Acceptable file types: PDF, DOC, DOCX, RTF.',
+  'File name should only use Latin alphabet, Arabic numbers (0-9) and symbols "-", "_".',
 ];
+
+// Sign up & log in
+export const userTypes = [
+  { label: 'Company', value: 'company', signUpRoute: '/sign_up/company' },
+  { label: 'Job seeker', value: 'seeker', signUpRoute: '/sign_up/job-seeker' },
+];
+export const logInErrorMessage = 'Sorry! There was an error logging into your account.';
 
 // Search
 export const searchTypes = [
-  { label: 'Find Jobs', type: 'job' },
-  { label: 'Find CVs', type: 'cv' },
+  { label: 'Find Jobs', value: 'job' },
+  { label: 'Find CVs', value: 'cv' },
 ];

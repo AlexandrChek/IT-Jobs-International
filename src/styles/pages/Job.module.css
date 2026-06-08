@@ -1,0 +1,8 @@
+.jobBox {
+  margin-bottom: var(--big-vertical-gap);
+}
+
+.labelDisabled {
+  color: red;
+  margin-bottom: 0.5rem;
+}

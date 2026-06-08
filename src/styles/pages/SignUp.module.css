@@ -1,0 +1,22 @@
+.mainTitle {
+  margin-bottom: 0.35rem;
+}
+
+.mainTitle + h5 {
+  margin-bottom: 1.7rem;
+}
+
+.options {
+  display: inline-flex;
+  gap: 1.8rem;
+  margin-bottom: 2rem;
+}
+
+.userType {
+  border: 1px dotted var(--purple-blue);
+  border-radius: 3px;
+  padding: 0.5rem 0.4rem;
+}
+.userType:hover {
+  box-shadow: 0 0 3px 2px var(--purple-blue);
+}

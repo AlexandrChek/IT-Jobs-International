@@ -6,8 +6,7 @@ import useFetchProfile from '../hooks/useFetchProfile';
 import useChooseProfileOrPreview from '../hooks/useChooseProfileOrPreview';
 import useShowErrorPage from '../hooks/useShowErrorPage';
 import Loading from '../components/Loading';
-import CompanyPublicTemplate from '../components/CompanyPublicTemplate';
-import styles from '../styles/pages/CompanyProfilePublic.module.css';
+import CompanyPublicTemplate from '../components/public_templates/CompanyPublicTemplate';
 
 const CompanyProfilePublic = () => {
   const { companyid, viewType } = useParams() || {};
@@ -18,14 +17,12 @@ const CompanyProfilePublic = () => {
   const showErrorPage = useShowErrorPage();
 
   useEffect(() => {
-    if (!isPreview && !profile) {
-      fetchProfile(companyid, 'company');
-    }
-  }, [isPreview, profile?.userName, companyid]);
+    !isPreview && fetchProfile(companyid, 'company');
+  }, [isPreview, companyid]);
 
   useEffect(() => {
     if (error?.actionCausedError === 'fetch') {
-      showErrorPage(error.message, clearProfileError);
+      showErrorPage(error.message, 'profileNotFounde', clearProfileError);
     }
   }, [error?.actionCausedError, error?.message]);
 

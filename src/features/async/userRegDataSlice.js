@@ -1,17 +1,9 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { fetchData, createBasicInitialState } from '../../methods';
 
-export const fetchRegData = createAsyncThunk('userRegData/fetchRegData', async settings => {
-  return fetchData(settings);
-});
-
-export const saveRegData = createAsyncThunk('userRegData/saveRegData', async settings => {
-  return fetchData(settings);
-});
-
-export const removeAccount = createAsyncThunk('userRegData/removeAccount', async settings => {
-  return fetchData(settings);
-});
+export const fetchRegData = createAsyncThunk('userRegData/fetchRegData', fetchData);
+export const saveRegData = createAsyncThunk('userRegData/saveRegData', fetchData);
+export const removeAccount = createAsyncThunk('userRegData/removeAccount', fetchData);
 
 const initialState = createBasicInitialState('regData');
 initialState.emailDoesAlreadyExist = null;

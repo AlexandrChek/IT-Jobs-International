@@ -5,25 +5,27 @@ import { clearProfileError } from '../features/async/userProfileSlice';
 import { countWorkExperience } from '../features/sync/totalExperienceSlice';
 import { closeModal } from '../features/sync/modalSlice';
 import { convertFormDataToObj } from '../methods';
+import { workplaces } from '../constants';
 import useFetchProfile from '../hooks/useFetchProfile';
 import useSaveProfile from '../hooks/useSaveProfile';
 import useFormValidation from '../hooks/useFormValidation';
 import Loading from '../components/Loading';
-import ProfileMenu from '../components/ProfileMenu';
-import PositionInput from '../components/PositionInput';
-import SalaryInput from '../components/SalaryInput';
-import WorkplacesField from '../components/WorkplacesField';
-import RelocationPossibilityCheckbox from '../components/RelocationPossibilityCheckbox';
-import SkillsTextarea from '../components/SkillsTextarea';
+import ProfileMenu from '../components/menus/ProfileMenu';
+import ProfileAndJobTitle from '../components/ProfileAndJobTitle';
+import InputBox from '../components/InputBox';
+import MyInput from '../components/inputs/MyInput';
+import CheckboxGroup from '../components/specific_inputs/CheckboxGroup';
+import SkillsTextarea from '../components/specific_inputs/SkillsTextarea';
+import RelocationPossibilityCheckbox from '../components/specific_inputs/RelocationPossibilityCheckbox';
 import WorkExperienceBlock from '../components/WorkExperienceBlock';
 import EducationBlock from '../components/EducationBlock';
-import EnglishLevelSelect from '../components/EnglishLevelSelect';
-import UrlInput from '../components/inputs/UrlInput';
+import EnglishLevelSelect from '../components/specific_inputs/EnglishLevelSelect';
+import UrlInput from '../components/specific_inputs/UrlInput';
 import MyTextarea from '../components/inputs/MyTextarea';
 import PreviewButton from '../components/buttons/PreviewButton';
+import SubmitButton from '../components/buttons/SubmitButton';
 import Modal from '../components/modals/Modal';
 import ErrorModal from '../components/modals/ErrorModal';
-import styles from '../styles/pages/SeekerProfile.module.css';
 
 const SeekerProfile = () => {
   const dispatch = useDispatch();
@@ -56,30 +58,52 @@ const SeekerProfile = () => {
 
   return (
     <div className="routesWrapper">
-      <ProfileMenu userId={seekerid} userType="seeker" />
-      <h3>Profile {profile?.isDisabled && '(disabled)'}</h3>
       {pending && <Loading />}
-      <form ref={form} onSubmit={handleSubmit} onInput={handleInputs}>
-        <PositionInput initialPosition={profile?.position} isRequired={true} />
-        <SalaryInput initialSalary={profile?.salary} />
-        <WorkplacesField initialWorkplaces={profile?.workplaces} />
+      <ProfileMenu userId={seekerid} userType="seeker" />
+      <ProfileAndJobTitle>Profile {profile?.isDisabled && '(disabled)'}</ProfileAndJobTitle>
+      <form ref={form} onSubmit={handleSubmit} onInput={handleInputs} className="flexColumnBox">
+        <InputBox id="positionCv" startLabel="Position*">
+          <MyInput
+            type="text"
+            name="position"
+            id="positionCv"
+            initialValue={profile?.position}
+            required
+          />
+        </InputBox>
+        <InputBox id="salaryCv" startLabel="Salary" endLabel=" $">
+          <MyInput
+            type="number"
+            id="salaryCv"
+            name="salary"
+            width="170px"
+            initialValue={profile?.salary}
+          />
+        </InputBox>
+        <CheckboxGroup
+          groupName="workplaces"
+          legend="Workplace"
+          allValues={workplaces}
+          initialCheckedItems={profile?.workplaces}
+          isDirectionInline={true}
+        />
         <RelocationPossibilityCheckbox docType="cv" initialState={profile?.isRelocationPossible} />
-        <SkillsTextarea initialValue={profile?.skills} />
+        <SkillsTextarea id="seekerSkills" label="Your skills" initialValue={profile?.skills} />
         <WorkExperienceBlock
           initialExperience={profile?.work}
           initialTotalExperience={profile?.totalWorkExperience}
         />
         <EducationBlock initialEducation={profile?.education} />
-        <EnglishLevelSelect initialLevel={profile?.englishLevel} />
-        <UrlInput
-          labelAndName={{ label: 'Portfolio URL', name: 'portfolio' }}
-          initialValue={profile?.portfolio}
-        />
-        <label>
-          Additional information
-          <MyTextarea name="additionalInfo" initialValue={profile?.additionalInfo} />
-        </label>
-        <div>
+        <EnglishLevelSelect initialLevel={profile?.englishLevel} isRequired={true} />
+        <UrlInput urlName="portfolio" label="Portfolio URL" initialValue={profile?.portfolio} />
+        <InputBox id="additionalInfoCv" startLabel="Additional information">
+          <MyTextarea
+            id="additionalInfoCv"
+            name="additionalInfo"
+            initialValue={profile?.additionalInfo}
+          />
+        </InputBox>
+        <div className="inlineCenteredFlexBox">
           <PreviewButton
             formElem={form.current}
             route={`/cv/${seekerid}/preview`}
@@ -88,13 +112,13 @@ const SeekerProfile = () => {
             location={profile?.location}
             dateOfBirth={profile?.dateOfBirth}
           />
-          <button type="submit" disabled={!isValid}>
-            Save
-          </button>
+          <SubmitButton disabled={!isValid}>Save</SubmitButton>
         </div>
       </form>
       <Modal modalNameProp="SeekerProfile" message={savingMessage}>
-        <button onClick={() => dispatch(closeModal())}>Close</button>
+        <button className="standardButton" onClick={() => dispatch(closeModal())}>
+          Close
+        </button>
       </Modal>
       <ErrorModal
         error={['fetch', 'save'].includes(error?.actionCausedError) && error.message}

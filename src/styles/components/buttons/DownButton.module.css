@@ -1,0 +1,24 @@
+.downButton {
+  --diametr: 3rem;
+  position: fixed;
+  bottom: 1.5rem;
+  right: 0.9rem;
+  border-radius: 50%;
+  width: var(--diametr);
+  height: var(--diametr);
+  line-height: var(--diametr);
+  text-align: center;
+  font-size: 2rem;
+  border: 1px solid transparent;
+  background-color: white;
+  color: green;
+  opacity: 0.75;
+}
+
+.downButton:hover {
+  opacity: 0.9;
+  color: var(--input-focus-color);
+  border-color: rgba(0, 128, 0, 0.55);
+  box-shadow: 0 0 0.55rem 0.2rem var(--input-focus-color);
+  transition: box-shadow 0.3s;
+}

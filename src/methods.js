@@ -25,6 +25,11 @@ export const fetchData = async ({ url, options = null }) => {
   return data;
 };
 
+// Fn to check if the current device is mobile or not:
+export const checkIsMobileDedice = () => {
+  return window.matchMedia('(hover: none) and (pointer: coarse)').matches;
+};
+
 // Fn to get settings for POST-requests:
 export const createPostReqSettings = (url, body) => {
   const settings = {
@@ -43,6 +48,9 @@ export const createPostReqSettings = (url, body) => {
 
   return settings;
 };
+
+// Fn to return the asterisk, when it is required:
+export const getAsterisk = isRequired => (isRequired ? '*' : '');
 
 // Fn to create basic initial state object for asynchronous slices:
 export const createBasicInitialState = key => {
