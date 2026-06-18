@@ -6,7 +6,7 @@ const UserMessage = ({ msg, userName }) => {
   return (
     <div className={styles.messageWrapper}>
       <p>
-        {msg.name === userName ? 'You' : msg.name}, {msg.date.toLocaleString()}
+        {msg.name === userName ? 'You' : msg.name}, {new Date(msg.date).toLocaleString()}
       </p>
       <div>
         {msgArr.map((item, index) => (

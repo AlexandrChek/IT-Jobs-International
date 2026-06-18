@@ -9,7 +9,6 @@ import Loading from '../components/Loading';
 import CvPublicTemplate from '../components/public_templates/CvPublicTemplate';
 import CreateChatForm from '../components/CreateChatForm';
 import CreateChatFormAlt from '../components/CreateChatFormAlt';
-import styles from '../styles/pages/PublicCv.module.css';
 
 const PublicCv = () => {
   const { seekerid, viewType } = useParams() || {};

@@ -5,7 +5,6 @@ export const createChat = createAsyncThunk('chat/createChat', fetchData);
 export const fetchChat = createAsyncThunk('chat/fetchChat', fetchData);
 export const checkIfChatExists = createAsyncThunk('chat/checkIfChatExists', fetchData);
 export const sendMessage = createAsyncThunk('chat/sendMessage', fetchData);
-export const markMessagesAsRead = createAsyncThunk('chat/markMessagesAsRead', fetchData);
 
 const initialState = createBasicInitialState('chat');
 initialState.doesChatAlreadyExists = false;

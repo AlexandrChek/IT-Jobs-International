@@ -3,6 +3,7 @@ import { fetchData } from '../../methods';
 
 export const logIn = createAsyncThunk('auth/logIn', fetchData);
 export const updateUnreadCount = createAsyncThunk('auth/updateUnreadCount', fetchData);
+export const markMessagesAsRead = createAsyncThunk('auth/markMessagesAsRead', fetchData);
 
 const initialState = {
   userName: null,
@@ -25,11 +26,6 @@ const authSlice = createSlice({
     clearLogInError: state => {
       state.error = null;
     },
-    reduceUnreadCountLocally: (state, action) => {
-      if (state.unreadCount) {
-        state.unreadCount -= action.payload;
-      }
-    },
   },
   extraReducers: builder => {
     builder
@@ -41,6 +37,7 @@ const authSlice = createSlice({
             userName: action.payload.userName,
             userId: action.payload.userId,
             userType: action.payload.userType,
+            unreadCount: action.payload.unreadCount,
             pending: false,
           };
         }
@@ -58,10 +55,12 @@ const authSlice = createSlice({
       })
       .addCase(updateUnreadCount.fulfilled, (state, action) => {
         state.unreadCount = action.payload.unreadCount;
+      })
+      .addCase(markMessagesAsRead.fulfilled, (state, action) => {
+        state.unreadCount = action.payload.unreadCount;
       });
   },
 });
 
-export const { logOut, changeUserName, clearLogInError, reduceUnreadCountLocally } =
-  authSlice.actions;
+export const { logOut, changeUserName, clearLogInError } = authSlice.actions;
 export default authSlice.reducer;

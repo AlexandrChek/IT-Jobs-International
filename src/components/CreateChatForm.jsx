@@ -32,7 +32,7 @@ const CreateChatForm = ({ seekerId, companyId, userName, userType, jobId = '', p
     formData.append('userType', userType);
     formData.append('jobId', jobIdRef.current);
     position && formData.append('position', position);
-    formData.append('date', new Date().toLocaleString());
+    formData.append('date', Date.now());
 
     const settings = createPostReqSettings('/create_chat', formData);
 

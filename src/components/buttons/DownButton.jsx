@@ -17,7 +17,7 @@ const DownButton = ({ isDataLoaded, targetRef, goDown }) => {
       }
     };
 
-    isDataLoaded && scrollDetection();
+    isDataLoaded && setTimeout(scrollDetection, 1000);
 
     window.addEventListener('resize', scrollDetection);
     window.addEventListener('scroll', scrollDetection);

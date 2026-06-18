@@ -4,12 +4,11 @@ import { useParams, Link } from 'react-router-dom';
 import {
   fetchChat,
   sendMessage,
-  markMessagesAsRead,
   setToZeroChatUnreadCount,
   addMessageLocally,
   clearError,
 } from '../features/async/chatSlice';
-import { reduceUnreadCountLocally } from '../features/async/authSlice';
+import { markMessagesAsRead } from '../features/async/authSlice';
 import { createPostReqSettings } from '../methods';
 import Loading from '../components/Loading';
 import UserProfilePublicLink from '../components/UserProfilePublicLink';
@@ -33,13 +32,12 @@ const Chat = () => {
   }, [userType, companyid, seekerid, jobid]);
 
   useEffect(() => {
-    if (chat.messages.length === chat.msgCount && chat.unreadCount) {
-      const url = `mark_messages_as_read/${userType}/${seekerid}/${companyid}/${jobid}`;
+    if (chat?.messages.length === chat?.msgCount && chat?.unreadCount) {
+      const url = `/mark_messages_as_read/${userType}/${seekerid}/${companyid}/${jobid}`;
       dispatch(markMessagesAsRead({ url }));
-      dispatch(reduceUnreadCountLocally(chat.unreadCount));
       dispatch(setToZeroChatUnreadCount());
     }
-  }, [chat.messages.length, chat.msgCount, chat.unreadCount]);
+  }, [chat?.messages.length, chat?.msgCount, chat?.unreadCount]);
 
   const scrollToMessageField = () => messageFieldRef.current.scrollIntoView();
 
@@ -95,7 +93,7 @@ const Chat = () => {
         Send
       </button>
       <DownButton
-        isDataLoaded={chat?.messages?.length > 1}
+        isDataLoaded={chat?.messages?.length === chat?.msgCount}
         targetRef={messageFieldRef}
         goDown={scrollToMessageField}
       />

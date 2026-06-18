@@ -1,0 +1,21 @@
+.unreadWrapper {
+  position: relative;
+}
+
+.unreadCount {
+  --counter-f-size: 0.5rem;
+  position: absolute;
+  right: calc(-1 * var(--counter-f-size));
+  top: calc(-0.3 * var(--counter-f-size));
+  z-index: 2;
+  font-size: var(--counter-f-size);
+  line-height: 1;
+  color: white;
+  background-color: red;
+  border-radius: 50%;
+  padding: 0.12rem 0.17rem;
+}
+
+.zeroValue {
+  display: none;
+}

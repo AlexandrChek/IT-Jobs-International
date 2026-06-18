@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+import UnreadIndicator from './UnreadIndicator';
 import styles from '../styles/components/ChatListItem.module.css';
 
 const ChatListItem = ({ chat, userType, userId }) => {
@@ -12,7 +13,9 @@ const ChatListItem = ({ chat, userType, userId }) => {
   return (
     <Link to={chatRoute} className={styles.itemLink}>
       <h5>{chat.chatParticipantName}</h5>
-      <h5>{chat.job.position}</h5>
+      <h5>
+        <UnreadIndicator unreadCount={chat.unreadCount}>{chat.job.position}</UnreadIndicator>
+      </h5>
       <p>
         {chat.lastMessage.name === userName ? 'You: ' : `${chat.chatParticipantName}: `}
         {chat.lastMessage.text}

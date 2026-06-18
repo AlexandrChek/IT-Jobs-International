@@ -36,22 +36,6 @@ header {
   margin: auto 0;
 }
 
-.userNameWrapper {
-  position: relative;
-}
-
-.unreadIndicator {
-  position: absolute;
-  right: 0;
-  z-index: 2;
-  font-size: 0.5rem;
-  line-height: 1;
-  color: white;
-  background-color: red;
-  border-radius: 50%;
-  padding: 0.1rem;
-}
-
 .userName {
   color: var(--purple-blue);
   cursor: pointer;
