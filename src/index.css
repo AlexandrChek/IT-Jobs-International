@@ -1,5 +1,6 @@
 :root {
-  --vert-height: calc(var(--vh, 1vh) * 100);
+  --vh: 1dvh;
+  --vert-height: calc(var(--vh) * 100);
   --main-line-height: 1.2;
   --side-padding: 0.7rem;
   --head-foot-vert-padding: 1rem;
@@ -41,6 +42,12 @@
   -webkit-text-size-adjust: none;
   -moz-text-size-adjust: none;
   text-size-adjust: none;
+}
+
+@supports not (height: 100dvh) {
+  :root {
+    --vh: var(--vh-unit-js, 1vh);
+  }
 }
 
 * {

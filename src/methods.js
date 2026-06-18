@@ -26,7 +26,7 @@ export const fetchData = async ({ url, options = null }) => {
 };
 
 // Fn to check if the current device is mobile or not:
-export const checkIsMobileDedice = () => {
+export const checkIsMobileDevice = () => {
   return window.matchMedia('(hover: none) and (pointer: coarse)').matches;
 };
 

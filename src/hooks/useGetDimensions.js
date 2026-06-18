@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { checkIsMobileDedice } from '../methods';
+import { checkIsMobileDevice } from '../methods';
 
 const useGetDimensions = () => {
   useEffect(() => {
@@ -14,13 +14,14 @@ const useGetDimensions = () => {
     };
 
     const saveVh = e => {
-      const isMobileDevice = checkIsMobileDedice();
+      const isMobileDevice = checkIsMobileDevice();
 
       if (isMobileDevice) {
-        const vh = window.innerHeight / 100;
-        document.documentElement.style.setProperty('--vh', `${vh}px`);
+        const vh = window.visualViewport?.height || window.innerWidth;
+        const vhUnitJs = vh / 100;
+        document.documentElement.style.setProperty('--vh-unit-js', `${vhUnitJs}px`);
       } else if (e.type === 'resize') {
-        document.documentElement.style.removeProperty('--vh');
+        document.documentElement.style.removeProperty('--vh-unit-js');
       }
     };
 

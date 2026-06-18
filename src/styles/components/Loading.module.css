@@ -17,9 +17,7 @@
   --orbit-radius: 31px;
   --max-item-radius: calc(var(--spinner-min-item-diametr) / 2 * var(--spinner-item-multiplier));
   position: relative;
-  top: calc(
-    var(--vh, 1vh) * 50 - var(--header-height) - (var(--orbit-radius) + var(--max-item-radius))
-  );
+  top: calc(var(--vh) * 50 - var(--header-height) - (var(--orbit-radius) + var(--max-item-radius)));
   left: calc(50% - var(--max-item-radius));
   transform-origin: 0 var(--orbit-radius);
   animation: rotating var(--spinner-time) linear infinite;
