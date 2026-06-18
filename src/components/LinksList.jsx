@@ -36,10 +36,10 @@ const LinksList = ({ cvsOrJobs, type, itemsPerPage }) => {
       ))}
       {pageCount > 1 && (
         <ReactPaginate
-          previousLabel="&#11164;"
-          nextLabel="&#11166;"
+          previousLabel="&#171;"
+          nextLabel="&#187;"
           pageCount={pageCount}
-          pageRangeDisplayed={5}
+          pageRangeDisplayed={3}
           forcePage={currentPage}
           onPageChange={handlePageChange}
           containerClassName={styles.pagination}
