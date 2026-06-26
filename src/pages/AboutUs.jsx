@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { fetchAboutUsData, clearError } from '../features/async/aboutUsSlice';
 import useShowErrorPage from '../hooks/useShowErrorPage';
 import Loading from '../components/Loading';
+import LargeInfoText from '../components/LargeInfoText';
 import styles from '../styles/pages/AboutUs.module.css';
 
 const AboutUs = () => {
@@ -24,17 +25,9 @@ const AboutUs = () => {
       <h2>About IT-Jobs International</h2>
       {aboutUsData && (
         <>
-          {aboutUsData.introduction.map((item, index) => (
-            <p key={index} className="largeText">
-              {item}
-            </p>
-          ))}
+          <LargeInfoText arrayOfStrings={aboutUsData.introduction} />
           <h4>Our mission</h4>
-          {aboutUsData.mission.map((item, index) => (
-            <p key={index} className="largeText">
-              {item}
-            </p>
-          ))}
+          <LargeInfoText arrayOfStrings={aboutUsData.mission} />
         </>
       )}
     </div>

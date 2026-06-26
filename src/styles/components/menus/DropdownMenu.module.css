@@ -19,7 +19,8 @@
 }
 
 .menuWrapper div {
-  padding: 0.3rem 0.5rem;
+  padding: 0.35rem 0.5rem;
+  font-size: 1.25rem;
   font-weight: bold;
   background-color: var(--light-gray);
   cursor: pointer;

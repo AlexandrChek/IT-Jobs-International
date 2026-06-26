@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { fetchRegData } from '../features/async/userRegDataSlice';
+import { fetchRegData, clearRegData } from '../features/async/userRegDataSlice';
 
 const useFetchRegData = (userId, userType) => {
   const dispatch = useDispatch();
@@ -9,6 +9,8 @@ const useFetchRegData = (userId, userType) => {
     if (userId) {
       const url = `/${userType}_reg_data/${userId}`;
       dispatch(fetchRegData({ url }));
+    } else {
+      dispatch(clearRegData());
     }
   }, [userId, userType]);
 };

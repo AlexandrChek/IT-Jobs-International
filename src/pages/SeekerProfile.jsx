@@ -1,6 +1,5 @@
 import { useRef, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { useParams } from 'react-router-dom';
 import { clearProfileError } from '../features/async/userProfileSlice';
 import { countWorkExperience } from '../features/sync/totalExperienceSlice';
 import { closeModal } from '../features/sync/modalSlice';
@@ -29,7 +28,7 @@ import ErrorModal from '../components/modals/ErrorModal';
 
 const SeekerProfile = () => {
   const dispatch = useDispatch();
-  const { seekerid } = useParams() || {};
+  const { userId } = useSelector(state => state.auth);
   const { profile, pending, error } = useSelector(state => state.userProfile);
   const { doesExperienceNeedAnUpdate } = useSelector(state => state.totalExperience);
   const form = useRef();
@@ -37,7 +36,7 @@ const SeekerProfile = () => {
   const { saveData, savingMessage } = useSaveProfile();
   const { isValid, checkFormValidity } = useFormValidation(profile?.position ? true : false);
 
-  useEffect(() => fetchProfile(seekerid, 'seeker'), [seekerid]);
+  useEffect(() => fetchProfile(userId, 'seeker'), [userId]);
 
   useEffect(() => {
     if (doesExperienceNeedAnUpdate) {
@@ -47,21 +46,21 @@ const SeekerProfile = () => {
     }
   }, [doesExperienceNeedAnUpdate, form.current]);
 
-  const handleInputs = () => {
+  const handleChanges = () => {
     form.current && checkFormValidity(form.current);
   };
 
   const handleSubmit = e => {
     e.preventDefault();
-    saveData({ formElem: form.current, userId: seekerid, userType: 'seeker' });
+    saveData({ formElem: form.current, userId, userType: 'seeker' });
   };
 
   return (
     <div className="routesWrapper">
       {pending && <Loading />}
-      <ProfileMenu userId={seekerid} userType="seeker" />
+      {userId && <ProfileMenu userId={userId} userType="seeker" />}
       <ProfileAndJobTitle>Profile {profile?.isDisabled && '(disabled)'}</ProfileAndJobTitle>
-      <form ref={form} onSubmit={handleSubmit} onInput={handleInputs} className="flexColumnBox">
+      <form ref={form} onSubmit={handleSubmit} onChange={handleChanges} className="flexColumnBox">
         <InputBox id="positionCv" startLabel="Position*">
           <MyInput
             type="text"
@@ -106,7 +105,7 @@ const SeekerProfile = () => {
         <div className="inlineCenteredFlexBox">
           <PreviewButton
             formElem={form.current}
-            route={`/cv/${seekerid}/preview`}
+            route={`/cv/${userId}/preview`}
             isDisabled={!isValid}
             userName={profile?.userName}
             location={profile?.location}

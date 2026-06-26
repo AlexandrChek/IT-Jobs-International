@@ -33,7 +33,7 @@ const MySelect = ({
       {...rest}
     >
       {emptyOption && (
-        <option value="" disabled={isRequired} className={styles.unusedOption}>
+        <option value="" className={styles.unusedOption}>
           {emptyOption}
         </option>
       )}

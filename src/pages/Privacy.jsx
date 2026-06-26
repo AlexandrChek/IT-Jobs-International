@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { fetchPrivacyPolicy, clearError } from '../features/async/privacySlice';
 import useShowErrorPage from '../hooks/useShowErrorPage';
 import Loading from '../components/Loading';
+import LargeInfoText from '../components/LargeInfoText';
 import styles from '../styles/pages/Privacy.module.css';
 
 const Privacy = () => {
@@ -22,15 +23,7 @@ const Privacy = () => {
     <div className={`routesWrapper ${styles.privacy}`}>
       {pending && <Loading />}
       <h2>Privacy Policy</h2>
-      {privacyData && (
-        <>
-          {privacyData.map((item, index) => (
-            <p key={index} className="largeText">
-              {item}
-            </p>
-          ))}
-        </>
-      )}
+      {privacyData && <LargeInfoText arrayOfStrings={privacyData} />}
     </div>
   );
 };

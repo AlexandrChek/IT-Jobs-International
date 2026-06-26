@@ -34,7 +34,7 @@ const SaveJob = () => {
     setCurrentForm(form.current);
   }, [form.current]);
 
-  const handleInputs = () => {
+  const handleChanges = () => {
     form.current && checkFormValidity(form.current);
   };
 
@@ -56,7 +56,7 @@ const SaveJob = () => {
     <div className="routesWrapper">
       {pending && <Loading />}
       <ProfileAndJobTitle>Job Properties</ProfileAndJobTitle>
-      <form ref={form} onSubmit={handleSubmit} onInput={handleInputs} className="flexColumnBox">
+      <form ref={form} onSubmit={handleSubmit} onChange={handleChanges} className="flexColumnBox">
         <InputBox id="positionJob" startLabel="Position*">
           <MyInput
             type="text"

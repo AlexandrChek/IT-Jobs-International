@@ -1,6 +1,6 @@
 import { useRef, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { clearProfileError } from '../features/async/userProfileSlice';
 import { closeModal } from '../features/sync/modalSlice';
 import { clearJob } from '../features/async/jobSlice';
@@ -23,29 +23,29 @@ import styles from '../styles/pages/CompanyProfile.module.css';
 const CompanyProfile = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { companyid } = useParams() || {};
+  const { userId } = useSelector(state => state.auth);
   const { profile, pending, error } = useSelector(state => state.userProfile);
   const profileNotCreated = !profile?.employeesNumber && !pending && !error;
   const form = useRef();
   const fetchProfile = useFetchProfile();
   const { saveData, savingMessage } = useSaveProfile();
 
-  useEffect(() => fetchProfile(companyid, 'company'), [companyid]);
+  useEffect(() => fetchProfile(userId, 'company'), [userId]);
 
   const handleSubmit = e => {
     e.preventDefault();
-    saveData({ formElem: form.current, userId: companyid, userType: 'company' });
+    saveData({ formElem: form.current, userId, userType: 'company' });
   };
 
   const goToAddJob = () => {
     dispatch(clearJob());
-    navigate(`/company_profile/${companyid}/save_job`);
+    userId && navigate(`/company_profile/${userId}/save_job`);
   };
 
   return (
     <div className="routesWrapper">
       {pending && <Loading />}
-      <ProfileMenu userId={companyid} userType="company" />
+      {userId && <ProfileMenu userId={userId} userType="company" />}
       <ProfileAndJobTitle>Profile</ProfileAndJobTitle>
       <form ref={form} onSubmit={handleSubmit} className={`flexColumnBox ${styles.profileForm}`}>
         <EmployeesNumberSelect initialValue={profile?.employeesNumber} isRequired={true} />
@@ -56,7 +56,7 @@ const CompanyProfile = () => {
         <div className="inlineCenteredFlexBox">
           <PreviewButton
             formElem={form.current}
-            route={`/company_profile/${companyid}/preview`}
+            route={`/company_profile/${userId}/preview`}
             companyName={profile?.companyName}
             location={profile?.location}
             jobs={profile?.jobs || []}

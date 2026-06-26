@@ -12,7 +12,7 @@
   --button-f-size: 1.1rem;
   --input-border-width: 1px;
   --input-focused-box-shadow-blur: calc(var(--input-border-width) * 3);
-  --input-vert-padding: 0.15rem;
+  --input-vert-padding: 0.2rem;
   --input-focused-label-spacing: 1.5px;
   --global-items-vertical-gap: 1rem;
   --big-vertical-gap: 1.7rem;
@@ -281,7 +281,6 @@ legend {
   white-space: pre-line;
   overflow-wrap: break-word;
   text-align: justify;
-  text-indent: var(--standard-text-indent);
 }
 
 @media (hover: hover) and (pointer: fine) {

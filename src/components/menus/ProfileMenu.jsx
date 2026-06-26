@@ -23,7 +23,7 @@ const ProfileMenu = ({ userId, userType }) => {
   const profileRouteStart = isCompany ? '/company_profile/' : '/job_seeker_profile/';
 
   const menuData = [
-    { fn: () => navigate('/'), text: 'Find ' + `${isCompany ? 'CVs' : 'jobs'}` },
+    { fn: () => navigate('/'), text: `Find ${isCompany ? 'CVs' : 'jobs'}` },
     {
       fn: () => navigate(`${profileRouteStart}${userId}/edit_reg_data`),
       text: 'Edit registration data',
