@@ -10,7 +10,6 @@
 
 .messageWrapper > :first-child {
   background-color: var(--light-gray);
-  text-indent: var(--standard-text-indent);
 }
 
 .messageWrapper > :first-child,
@@ -20,8 +19,4 @@
 
 .messageWrapper div p {
   margin-bottom: 0.45rem;
-}
-
-.messageWrapper a {
-  padding-left: calc(var(--standard-text-indent) + var(--msg-side-padding));
 }

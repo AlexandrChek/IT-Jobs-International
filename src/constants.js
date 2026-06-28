@@ -1,8 +1,6 @@
 // Common things:
 export const serverUrl = 'https://it-jobs-international-back.onrender.com';
 
-export const baseUrl = '/IT-Jobs-International/';
-
 export const savingMessage = 'Changes saved successfully';
 export const serverErrorMessage = 'Sorry! Failed to get server response. Please try again later.';
 

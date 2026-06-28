@@ -161,6 +161,7 @@ select {
 
 textarea {
   display: block;
+  max-width: 100%;
 }
 
 [type='date'],

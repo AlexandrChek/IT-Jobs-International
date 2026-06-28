@@ -31,7 +31,7 @@ const PreviewButton = ({ formElem, route, isDisabled = false, newClass = null, .
     }
 
     localStorage.setItem('previewData', JSON.stringify(formObj));
-    window.open(`/#${route}`, '_blank');
+    window.open(`${window.location.origin}${window.location.pathname}#${route}`, '_blank');
   };
 
   return (

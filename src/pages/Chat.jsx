@@ -1,6 +1,6 @@
 import { useEffect, useState, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useParams, Link } from 'react-router-dom';
+import { useParams, useNavigate, Link } from 'react-router-dom';
 import {
   fetchChat,
   sendMessage,
@@ -20,6 +20,7 @@ import styles from '../styles/pages/Chat.module.css';
 
 const Chat = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { companyid, seekerid, jobid } = useParams() || {};
   const { userName, userType } = useSelector(state => state.auth);
   const { chat, pending, error } = useSelector(state => state.currentChat);
@@ -27,8 +28,12 @@ const Chat = () => {
   const [messageText, setMessageText] = useState('');
 
   useEffect(() => {
-    const url = `/chat/${userType}/${companyid}/${seekerid}/${jobid}`;
-    dispatch(fetchChat({ url }));
+    if (userType) {
+      const url = `/chat/${userType}/${companyid}/${seekerid}/${jobid}`;
+      dispatch(fetchChat({ url }));
+    } else {
+      navigate('/');
+    }
   }, [userType, companyid, seekerid, jobid]);
 
   useEffect(() => {
